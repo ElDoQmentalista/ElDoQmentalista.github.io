@@ -2318,17 +2318,35 @@
     position: fixed;
     top: 0;
     left: 0;
+    right: 0;
+    bottom: 0;
     width: 100vw;
     height: 100vh;
-    height: 100dvh; /* dynamic viewport height para móvil */
+    height: 100svh; /* small viewport height — estable, no salta con la URL bar */
     z-index: 99999;
     background: #0a0505;
     overflow-y: auto;
     overflow-x: hidden;
     -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain; /* evita que el scroll se propague al body */
   }
   .oracle-modal.is-open {
     display: block;
+  }
+
+  /* ============================================================
+     BLOQUEO DE SCROLL ROBUSTO PARA CUANDO HAY UN MODAL ABIERTO
+     Aplica a <html> y <body> mediante la clase .modal-open
+     Funciona correctamente en Chrome Android, Safari iOS y desktop
+     ============================================================ */
+  html.modal-open,
+  body.modal-open {
+    overflow: hidden !important;
+    position: fixed !important;
+    width: 100% !important;
+    height: 100% !important;
+    top: 0 !important;
+    left: 0 !important;
   }
   .oracle-modal-inner {
     position: relative;
@@ -5232,21 +5250,31 @@
   function openWitchTool() {
     var modal = document.getElementById('oracleModal');
     if (!modal) return;
+    // Guardar posición de scroll actual antes de abrir
+    window.__scrollY_oracle = window.scrollY || window.pageYOffset || 0;
     modal.classList.add('is-open');
-    // Bloquear scroll del body cuando el modal está abierto
-    document.documentElement.style.overflow = 'hidden';
-    document.body.style.overflow = 'hidden';
+    // Bloqueo robusto: clase en html y body
+    document.documentElement.classList.add('modal-open');
+    document.body.classList.add('modal-open');
+    // Compensar el salto visual del position:fixed
+    document.body.style.top = '-' + window.__scrollY_oracle + 'px';
     oracleReset();
-    // Asegurar que el modal scrolle al inicio
+    // Resetear scroll interno del modal al inicio
     modal.scrollTop = 0;
+    var inner = modal.querySelector('.oracle-modal-inner');
+    if (inner) inner.scrollTop = 0;
   }
 
   function oracleClose() {
     var modal = document.getElementById('oracleModal');
     if (!modal) return;
     modal.classList.remove('is-open');
-    document.documentElement.style.overflow = '';
-    document.body.style.overflow = '';
+    document.documentElement.classList.remove('modal-open');
+    document.body.classList.remove('modal-open');
+    document.body.style.top = '';
+    // Restaurar scroll a donde estaba
+    var y = window.__scrollY_oracle || 0;
+    window.scrollTo(0, y);
   }
 
   // === RESET ===
@@ -8226,15 +8254,30 @@
   function openTotemTool() {
     totemInitCountries();
     var modal = document.getElementById('totemModal');
+    if (!modal) return;
+    // Guardar scroll antes de abrir
+    window.__scrollY_totem = window.scrollY || window.pageYOffset || 0;
     modal.classList.add('is-open');
-    document.body.style.overflow = 'hidden';
+    // Bloqueo robusto: clase en html y body
+    document.documentElement.classList.add('modal-open');
+    document.body.classList.add('modal-open');
+    document.body.style.top = '-' + window.__scrollY_totem + 'px';
     totemReset();
+    // Resetear scroll interno del modal
+    modal.scrollTop = 0;
+    var inner = modal.querySelector('.oracle-modal-inner');
+    if (inner) inner.scrollTop = 0;
   }
 
   function totemClose() {
     var modal = document.getElementById('totemModal');
+    if (!modal) return;
     modal.classList.remove('is-open');
-    document.body.style.overflow = '';
+    document.documentElement.classList.remove('modal-open');
+    document.body.classList.remove('modal-open');
+    document.body.style.top = '';
+    var y = window.__scrollY_totem || 0;
+    window.scrollTo(0, y);
   }
 
   function totemReset() {
@@ -9606,15 +9649,30 @@ var angelState = { day: 0, month: 0, year: 0, name: '', lastResult: null };
 
 function openAngelTool() {
   var modal = document.getElementById('angelModal');
+  if (!modal) return;
+  // Guardar scroll antes de abrir
+  window.__scrollY_angel = window.scrollY || window.pageYOffset || 0;
   modal.classList.add('is-open');
-  document.body.style.overflow = 'hidden';
+  // Bloqueo robusto: clase en html y body
+  document.documentElement.classList.add('modal-open');
+  document.body.classList.add('modal-open');
+  document.body.style.top = '-' + window.__scrollY_angel + 'px';
   angelReset();
+  // Resetear scroll interno del modal al inicio
+  modal.scrollTop = 0;
+  var inner = modal.querySelector('.oracle-modal-inner');
+  if (inner) inner.scrollTop = 0;
 }
 
 function angelClose() {
   var modal = document.getElementById('angelModal');
+  if (!modal) return;
   modal.classList.remove('is-open');
-  document.body.style.overflow = '';
+  document.documentElement.classList.remove('modal-open');
+  document.body.classList.remove('modal-open');
+  document.body.style.top = '';
+  var y = window.__scrollY_angel || 0;
+  window.scrollTo(0, y);
 }
 
 function angelReset() {

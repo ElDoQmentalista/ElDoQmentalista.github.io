@@ -2999,6 +2999,103 @@
     }
   }
 
+  /* ============================================================
+     ÁNGEL CABALÍSTICO — estilos específicos del resultado
+     ============================================================ */
+  .angel-display {
+    text-align: center;
+    margin-bottom: 18px;
+  }
+  .angel-numero {
+    display: inline-block;
+    font-family: 'Fraunces', serif;
+    font-size: 13px;
+    letter-spacing: 0.25em;
+    color: #c8102e;
+    margin-bottom: 8px;
+    opacity: 0.9;
+  }
+  .angel-hebreo {
+    font-size: 56px;
+    line-height: 1;
+    color: #e8e2d5;
+    margin: 12px 0 6px;
+    font-weight: 400;
+    direction: rtl;
+    letter-spacing: 0.05em;
+    text-shadow: 0 2px 16px rgba(200,16,46,0.25);
+  }
+  .angel-significado {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 14px;
+    color: rgba(232,226,213,0.7);
+    margin-bottom: 14px;
+    line-height: 1.5;
+  }
+  .angel-coro-badge {
+    display: inline-block;
+    padding: 5px 12px;
+    border: 1px solid rgba(200,16,46,0.4);
+    background: rgba(200,16,46,0.08);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: #c8102e;
+    border-radius: 2px;
+    margin-top: 4px;
+  }
+  .angel-salmo-block {
+    background: rgba(200,16,46,0.04);
+    border-left: 2px solid #c8102e;
+    padding: 14px 16px;
+    margin: 18px 0;
+    border-radius: 0 4px 4px 0;
+  }
+  .angel-salmo-lbl {
+    display: block;
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    color: #c8102e;
+    margin-bottom: 8px;
+  }
+  .angel-salmo-block p {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 14px;
+    line-height: 1.55;
+    color: #e8e2d5;
+    margin: 0;
+  }
+  .angel-oracion-block {
+    background: linear-gradient(180deg, rgba(200,16,46,0.06), rgba(200,16,46,0.02));
+    border: 1px solid rgba(200,16,46,0.2);
+    padding: 18px 18px;
+    margin: 18px 0 14px;
+    border-radius: 4px;
+    text-align: center;
+  }
+  .angel-oracion-lbl {
+    display: block;
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    color: #c8102e;
+    margin-bottom: 10px;
+  }
+  .angel-oracion-block p {
+    font-family: 'Fraunces', serif;
+    font-size: 15px;
+    line-height: 1.6;
+    color: #e8e2d5;
+    margin: 0;
+    font-style: italic;
+  }
+  @media (min-width: 600px) {
+    .angel-hebreo { font-size: 72px; }
+    .angel-significado { font-size: 15px; }
+    .angel-salmo-block p { font-size: 15px; }
+    .angel-oracion-block p { font-size: 16px; }
+  }
+
 
   /* ============================================================
      CARDS DE HERRAMIENTAS — versión nueva, sin conflictos
@@ -3041,7 +3138,8 @@
      CARDS DE HERRAMIENTAS CON IMAGEN DE FONDO CINEMATOGRÁFICA
      ============================================================ */
   .witch-tool-bruja,
-  .witch-tool-animal {
+  .witch-tool-animal,
+  .witch-tool-angel {
     min-height: 380px;
     padding: 0;
     background: #0a0a0a;
@@ -3050,7 +3148,8 @@
     justify-content: flex-end;
   }
   .witch-tool-bruja .witch-tool-bg,
-  .witch-tool-animal .witch-tool-bg {
+  .witch-tool-animal .witch-tool-bg,
+  .witch-tool-angel .witch-tool-bg {
     position: absolute;
     inset: 0;
     background-size: cover;
@@ -3066,8 +3165,21 @@
   .witch-tool-animal .witch-tool-bg {
     background-image: url('assets/doq-animal.jpg');
   }
+  .witch-tool-angel .witch-tool-bg {
+    background-image: url('assets/doq-angel.jpg');
+    /* Fallback gradiente DoQ si la imagen no carga */
+    background-color: #0a0a0a;
+  }
+  .witch-tool-angel .witch-tool-bg::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 50% 30%, rgba(200, 16, 46, 0.15) 0%, transparent 60%);
+    z-index: 0;
+  }
   .witch-tool-bruja .witch-tool-overlay,
-  .witch-tool-animal .witch-tool-overlay {
+  .witch-tool-animal .witch-tool-overlay,
+  .witch-tool-angel .witch-tool-overlay {
     position: absolute;
     inset: 0;
     z-index: 2;
@@ -3081,33 +3193,39 @@
     pointer-events: none;
   }
   .witch-tool-bruja .witch-tool-content,
-  .witch-tool-animal .witch-tool-content {
+  .witch-tool-animal .witch-tool-content,
+  .witch-tool-angel .witch-tool-content {
     position: relative;
     z-index: 3;
     padding: 24px 20px;
     width: 100%;
   }
   .witch-tool-bruja:hover .witch-tool-bg,
-  .witch-tool-animal:hover .witch-tool-bg {
+  .witch-tool-animal:hover .witch-tool-bg,
+  .witch-tool-angel:hover .witch-tool-bg {
     transform: scale(1.04);
     filter: saturate(1.2) contrast(1.1);
   }
   .witch-tool-bruja .witch-tool-title,
-  .witch-tool-animal .witch-tool-title {
+  .witch-tool-animal .witch-tool-title,
+  .witch-tool-angel .witch-tool-title {
     text-shadow: 0 2px 8px rgba(0,0,0,0.8);
   }
   .witch-tool-bruja .witch-tool-text,
-  .witch-tool-animal .witch-tool-text {
+  .witch-tool-animal .witch-tool-text,
+  .witch-tool-angel .witch-tool-text {
     text-shadow: 0 1px 4px rgba(0,0,0,0.9);
   }
   .witch-tool-bruja .witch-tool-icon,
-  .witch-tool-animal .witch-tool-icon {
+  .witch-tool-animal .witch-tool-icon,
+  .witch-tool-angel .witch-tool-icon {
     text-shadow: 0 2px 8px rgba(0,0,0,0.7);
   }
   /* Tablet/Desktop: dar más altura a las cards con imagen */
   @media (min-width: 768px) {
     .witch-tool-bruja,
-    .witch-tool-animal {
+    .witch-tool-animal,
+    .witch-tool-angel {
       min-height: 460px;
     }
   }
@@ -3554,6 +3672,20 @@
         <h3 class="witch-tool-title">DESCUBRE TU ANIMAL ESPIRITUAL</h3>
         <p class="witch-tool-text">
           El espíritu que camina contigo desde tu primera respiración. Un oráculo que conecta tu tierra, tu signo y tu elemento.
+        </p>
+        <button class="witch-tool-cta" type="button">Consultar al oráculo →</button>
+      </div>
+    </article>
+
+    <article class="witch-tool-card witch-tool-active witch-tool-angel reveal" onclick="openAngelTool()">
+      <div class="witch-tool-bg"></div>
+      <div class="witch-tool-overlay"></div>
+      <div class="witch-tool-content">
+        <div class="witch-tool-icon">✦</div>
+        <span class="witch-tool-badge">DISPONIBLE</span>
+        <h3 class="witch-tool-title">DESCUBRE TU ÁNGEL DE NACIMIENTO</h3>
+        <p class="witch-tool-text">
+          Según la Kabbalah hebrea, cada fecha tiene un guardián. Descubre cuál de los 72 ángeles del Shem HaMephorash rige tu vida.
         </p>
         <button class="witch-tool-cta" type="button">Consultar al oráculo →</button>
       </div>
@@ -4131,6 +4263,123 @@
       </div>
 
       <p class="oracle-result-foot">Comparte tu animal con <a href="https://www.youtube.com/@eldoqmentalista" target="_blank">El DoQmentalista</a></p>
+    </div>
+
+  </div>
+</div>
+
+<!-- ============ MODAL ÁNGEL CABALÍSTICO ============ -->
+<div id="angelModal" class="oracle-modal">
+  <div class="oracle-modal-inner">
+    <div class="oracle-corner-tl"></div>
+    <button class="oracle-close" type="button" onclick="angelClose()">&times;</button>
+
+    <div class="oracle-progress">
+      <span class="oracle-dot" data-step="1"></span>
+      <span class="oracle-dot" data-step="2"></span>
+    </div>
+
+    <!-- PASO 1: FECHA -->
+    <div class="oracle-pane" id="apane1">
+      <span class="oracle-step-kicker">PASO 01 · LA FECHA SAGRADA</span>
+      <h2 class="oracle-step-title">¿Cuándo llegaste <em>a este mundo?</em></h2>
+      <p class="oracle-step-sub">En la Kabbalah, cada periodo de cinco días tiene un ángel guardián. Tu fecha de nacimiento revela cuál es el tuyo.</p>
+
+      <div class="oracle-date-grid">
+        <div class="oracle-field-group">
+          <label class="oracle-field-label">DÍA</label>
+          <input type="number" id="angelDay" class="oracle-input" min="1" max="31" placeholder="08" autocomplete="off">
+        </div>
+        <div class="oracle-field-group">
+          <label class="oracle-field-label">MES</label>
+          <select id="angelMonth" class="oracle-select">
+            <option value="">Mes</option>
+            <option value="1">Enero</option><option value="2">Febrero</option>
+            <option value="3">Marzo</option><option value="4">Abril</option>
+            <option value="5">Mayo</option><option value="6">Junio</option>
+            <option value="7">Julio</option><option value="8">Agosto</option>
+            <option value="9">Septiembre</option><option value="10">Octubre</option>
+            <option value="11">Noviembre</option><option value="12">Diciembre</option>
+          </select>
+        </div>
+        <div class="oracle-field-group">
+          <label class="oracle-field-label">AÑO</label>
+          <input type="number" id="angelYear" class="oracle-input" min="1900" max="2025" placeholder="1990" autocomplete="off">
+        </div>
+      </div>
+
+      <button class="oracle-btn-primary" type="button" onclick="angelNext(1)">Continuar →</button>
+    </div>
+
+    <!-- PASO 2: NOMBRE -->
+    <div class="oracle-pane" id="apane2">
+      <span class="oracle-step-kicker">PASO 02 · TU NOMBRE</span>
+      <h2 class="oracle-step-title">¿Cómo te <em>nombran?</em></h2>
+      <p class="oracle-step-sub">Para que la revelación lleve tu nombre. Solo el primero, el que más usas.</p>
+
+      <div class="oracle-field-group">
+        <label class="oracle-field-label">NOMBRE</label>
+        <input type="text" id="angelName" class="oracle-input" placeholder="Ej. Inri, María, Alejandro..." autocomplete="off" maxlength="40">
+      </div>
+
+      <button class="oracle-btn-primary" type="button" onclick="angelNext(2)">Revelar mi ángel →</button>
+    </div>
+
+    <!-- LOADING -->
+    <div class="oracle-pane oracle-loading" id="apaneLoading">
+      <div class="oracle-loading-inner">
+        <div class="oracle-spinner"></div>
+        <p class="oracle-loading-text" id="angelLoadingText">Consultando el Shem HaMephorash...</p>
+      </div>
+    </div>
+
+    <!-- RESULT -->
+    <div class="oracle-pane oracle-result" id="apaneResult">
+      <span class="oracle-result-kicker">EL ÁNGEL HA SIDO REVELADO</span>
+
+      <div class="angel-display">
+        <div class="angel-numero" id="angelNum">ÁNGEL · 00</div>
+        <div class="angel-hebreo" id="angelHebreo">—</div>
+        <h2 class="oracle-result-name" id="angelNombre">—</h2>
+        <p class="angel-significado" id="angelSignificado">—</p>
+        <span class="angel-coro-badge" id="angelCoro">—</span>
+      </div>
+
+      <div class="oracle-result-divider">◆</div>
+
+      <div class="oracle-result-block">
+        <span class="oracle-result-lbl">SU DON PARA TI</span>
+        <p id="angelDon">—</p>
+      </div>
+
+      <div class="oracle-result-block">
+        <span class="oracle-result-lbl">TUS VIRTUDES</span>
+        <p id="angelVirtudes">—</p>
+      </div>
+
+      <div class="oracle-result-block">
+        <span class="oracle-result-lbl">SOMBRAS A VENCER</span>
+        <p id="angelSombras">—</p>
+      </div>
+
+      <div class="angel-salmo-block">
+        <span class="angel-salmo-lbl">◆ SALMO QUE LO INVOCA</span>
+        <p id="angelSalmo">—</p>
+      </div>
+
+      <div class="angel-oracion-block">
+        <span class="angel-oracion-lbl">◆ ORACIÓN AL ÁNGEL ◆</span>
+        <p id="angelOracion">—</p>
+      </div>
+
+      <p class="oracle-result-meta" id="angelMeta">—</p>
+
+      <div class="oracle-result-actions">
+        <button class="oracle-btn-back" type="button" onclick="angelReset()">↻ Consultar otra fecha</button>
+        <button class="oracle-btn-primary" type="button" onclick="angelShare()">Compartir →</button>
+      </div>
+
+      <p class="oracle-result-foot">Comparte tu ángel con <a href="https://www.youtube.com/@eldoqmentalista" target="_blank">El DoQmentalista</a></p>
     </div>
 
   </div>
@@ -8162,6 +8411,1388 @@
       if (tm && tm.classList.contains('is-open')) totemClose();
     }
   });
+
+
+  // ============================================================
+  // ÁNGEL CABALÍSTICO — BASE DE DATOS + LÓGICA (v2 - 27 mayo)
+  // Oraciones reorientadas al Padre Dios
+  // Dones expandidos en segunda persona con propósito de servicio
+  // ============================================================
+
+// ============================================================
+// LOS 72 ÁNGELES CABALÍSTICOS DEL SHEM HAMEPHORASH — v2
+// Voz editorial DoQ: oraciones dirigidas al Padre Dios.
+// Dones expandidos en segunda persona con propósito de servicio.
+// ============================================================
+
+var ANGELES_72 = [
+  // ========== CORO 1: SERAFINES (Fuego) ==========
+  {
+    n: 1,
+    nombre: "Vehuiah",
+    hebreo: "וְהוּיָה",
+    significado: "Dios elevado y exaltado por encima de todas las cosas",
+    coro: "Serafines",
+    regente: "Metatrón",
+    elemento: "Fuego",
+    fecha_inicio: "03-21",
+    fecha_fin: "03-25",
+    don: "Tienes el don de la Voluntad Primordial. El poder de encender la chispa que mueve montañas y comenzar de cero cuando todo parece imposible. Puedes usar tu don para ayudar a los demás a iniciar proyectos que no se atreven a empezar y a recuperar la fuerza interior cuando han perdido el rumbo.",
+    virtudes: "Coraje, iniciativa, fuerza de voluntad, capacidad de empezar de cero, liderazgo natural.",
+    sombras: "Impaciencia, arrogancia, querer imponer sin escuchar, agotamiento por exceso de fuego interno.",
+    salmo: "Salmo 3:3 — «Mas tú, Señor, eres escudo alrededor de mí; mi gloria, y el que levanta mi cabeza.»",
+    oracion: "Padre Dios, creador del universo y de todo lo visible e invisible, te pido que envíes al ángel Vehuiah, para que me ayude a encender la chispa de la voluntad y comenzar lo que mi alma me pide. Para que use ese fuego al servicio de los demás y no para imponerme sobre nadie, en el nombre de Dios, que así sea."
+  },
+  {
+    n: 2,
+    nombre: "Jeliel",
+    hebreo: "יְלִיאֵל",
+    significado: "Dios socorredor",
+    coro: "Serafines",
+    regente: "Metatrón",
+    elemento: "Fuego",
+    fecha_inicio: "03-26",
+    fecha_fin: "03-30",
+    don: "Tienes el don de la Fidelidad y la Reconciliación. El poder de apaciguar tormentas en los corazones y reconciliar a quienes el orgullo separó. Puedes usar tu don para ayudar a los demás a sanar sus relaciones rotas y a encontrar paz en sus hogares.",
+    virtudes: "Fidelidad conyugal, talento para apaciguar guerras internas, capacidad de mediar entre opuestos.",
+    sombras: "Celos, posesividad, dependencia emocional, miedo al abandono.",
+    salmo: "Salmo 22:19 — «Mas tú, Señor, no te alejes; fortaleza mía, apresúrate a socorrerme.»",
+    oracion: "Padre Dios, creador del universo y de todo lo visible e invisible, te pido que envíes al ángel Jeliel, para que me ayude a suavizar las tormentas de mi corazón y a ser fiel a quienes amo. Para que pueda reconciliar a quienes el orgullo separó y traer paz donde haya conflicto, en el nombre de Dios, que así sea."
+  },
+  {
+    n: 3,
+    nombre: "Sitael",
+    hebreo: "סִיטָאֵל",
+    significado: "Dios esperanza de todas las criaturas",
+    coro: "Serafines",
+    regente: "Metatrón",
+    elemento: "Fuego",
+    fecha_inicio: "03-31",
+    fecha_fin: "04-04",
+    don: "Tienes el don de la Protección y la Edificación. El poder de construir sobre roca firme y proteger a los que necesitan refugio. Puedes usar tu don para ayudar a los demás a edificar lo que ninguna tormenta pueda derrumbar y a sostenerlos cuando el suelo tiemble bajo sus pies.",
+    virtudes: "Nobleza de espíritu, generosidad, capacidad de proteger a otros, integridad inquebrantable.",
+    sombras: "Ingratitud, hipocresía, traición a la propia palabra, vivir de las apariencias.",
+    salmo: "Salmo 91:2 — «Diré yo al Señor: Esperanza mía y castillo mío; mi Dios, en quien confiaré.»",
+    oracion: "Padre Dios, creador del universo y de todo lo visible e invisible, te pido que envíes al ángel Sitael, para que me ayude a construir sobre cimientos firmes y a ser refugio para quienes lo necesiten. Para proteger con nobleza a los más débiles y honrar siempre mi palabra, en el nombre de Dios, que así sea."
+  },
+  {
+    n: 4,
+    nombre: "Elemiah",
+    hebreo: "עֶלֶמְיָה",
+    significado: "Dios oculto y secreto",
+    coro: "Serafines",
+    regente: "Metatrón",
+    elemento: "Fuego",
+    fecha_inicio: "04-05",
+    fecha_fin: "04-09",
+    don: "Tienes el don del Discernimiento del Camino. El poder de reconocer la vocación verdadera y hallar el sendero correcto entre muchas opciones. Puedes usar tu don para ayudar a los demás a salir de la confusión y a recuperarse cuando hayan fracasado en empresas que no eran las suyas.",
+    virtudes: "Reconocer la propia vocación, hallar el camino correcto, recuperarse de fracasos, sabiduría práctica.",
+    sombras: "Pereza, indecisión crónica, sabotearse a uno mismo, perderse en caminos que no son propios.",
+    salmo: "Salmo 6:5 — «Vuélvete, oh Señor, libra mi alma; sálvame por tu misericordia.»",
+    oracion: "Padre Dios, creador del universo y de todo lo visible e invisible, te pido que envíes al ángel Elemiah, para que me ayude a reconocer mi vocación verdadera y a encontrar el sendero que mi alma reconoce. Para guiar también a quienes están perdidos y necesitan dirección, en el nombre de Dios, que así sea."
+  },
+  {
+    n: 5,
+    nombre: "Mahasiah",
+    hebreo: "מַהֲשִׁיָה",
+    significado: "Dios salvador",
+    coro: "Serafines",
+    regente: "Metatrón",
+    elemento: "Fuego",
+    fecha_inicio: "04-10",
+    fecha_fin: "04-14",
+    don: "Tienes el don de la Rectificación. El poder de deshacer lo torcido y vivir en paz con los demás convirtiendo los errores en maestros. Puedes usar tu don para ayudar a los demás a sanar relaciones rotas y a transformar sus tropiezos en aprendizaje.",
+    virtudes: "Aprendizaje fácil, atracción natural, capacidad de sanar relaciones rotas, carácter conciliador.",
+    sombras: "Ignorancia voluntaria, hostilidad, vicios que dañan al cuerpo, soberbia intelectual.",
+    salmo: "Salmo 34:5 — «Busqué al Señor y él me oyó, y me libró de todos mis temores.»",
+    oracion: "Padre Dios, creador del universo y de todo lo visible e invisible, te pido que envíes al ángel Mahasiah, para que me ayude a rectificar lo torcido en mi vida y a convivir en paz con los demás. Para que mis errores se vuelvan maestros y pueda ayudar a otros a sanar lo que entre ellos se rompió, en el nombre de Dios, que así sea."
+  },
+  {
+    n: 6,
+    nombre: "Lelahel",
+    hebreo: "לֶלָהֵל",
+    significado: "Dios loable y exaltado",
+    coro: "Serafines",
+    regente: "Metatrón",
+    elemento: "Fuego",
+    fecha_inicio: "04-15",
+    fecha_fin: "04-20",
+    don: "Tienes el don de la Luz Sanadora. El poder de iluminar lo oscuro con belleza y de inspirar a otros con tu arte. Puedes usar tu don para ayudar a los demás a sanar a través de la belleza y a brillar sin opacar a nadie a su alrededor.",
+    virtudes: "Don artístico, belleza interior y exterior, capacidad de inspirar a otros, fama bien ganada.",
+    sombras: "Vanidad, ambición desmedida, deseo de poder por poder, envidia del reconocimiento ajeno.",
+    salmo: "Salmo 9:11 — «Cantad al Señor, que habita en Sion; publicad entre los pueblos sus obras.»",
+    oracion: "Padre Dios, creador del universo y de todo lo visible e invisible, te pido que envíes al ángel Lelahel, para que me ayude a iluminar lo que en mí está oscuro y a sanar a través de la belleza. Para que mi luz no ciegue a otros sino los acompañe en su propio camino, en el nombre de Dios, que así sea."
+  },
+  {
+    n: 7,
+    nombre: "Achaiah",
+    hebreo: "אַכַאיָה",
+    significado: "Dios bueno y paciente",
+    coro: "Serafines",
+    regente: "Metatrón",
+    elemento: "Fuego",
+    fecha_inicio: "04-21",
+    fecha_fin: "04-25",
+    don: "Tienes el don de la Paciencia y la Revelación. El poder de esperar lo que tarda en llegar y descubrir los secretos que la naturaleza guarda. Puedes usar tu don para ayudar a los demás a perseverar en sus procesos lentos y a reconocer las señales que el mundo les manda.",
+    virtudes: "Amor por aprender, paciencia con los lentos procesos, descubrimientos y revelaciones, perseverancia.",
+    sombras: "Negligencia, abandono de proyectos, ignorar los signos, falta de constancia.",
+    salmo: "Salmo 103:8 — «Misericordioso y clemente es el Señor; lento para la ira y grande en misericordia.»",
+    oracion: "Padre Dios, creador del universo y de todo lo visible e invisible, te pido que envíes al ángel Achaiah, para que me ayude a tener paciencia con lo que tarda y a descubrir los secretos que la vida revela despacio. Para acompañar también a quienes desesperan ante procesos lentos, en el nombre de Dios, que así sea."
+  },
+  {
+    n: 8,
+    nombre: "Cahetel",
+    hebreo: "כַהֲטֵל",
+    significado: "Dios adorable",
+    coro: "Serafines",
+    regente: "Metatrón",
+    elemento: "Fuego",
+    fecha_inicio: "04-26",
+    fecha_fin: "04-30",
+    don: "Tienes el don de la Gratitud y la Bendición. El poder de reconocer lo recibido y volver tu vida un altar de lo cotidiano. Puedes usar tu don para ayudar a los demás a valorar lo que tienen y a bendecir su trabajo con frutos abundantes.",
+    virtudes: "Gratitud profunda, capacidad de bendecir lo que se tiene, conexión con la tierra y los frutos.",
+    sombras: "Materialismo, queja constante, no reconocer lo recibido, avaricia.",
+    salmo: "Salmo 95:6 — «Venid, adoremos y postrémonos; arrodillémonos delante del Señor nuestro Hacedor.»",
+    oracion: "Padre Dios, creador del universo y de todo lo visible e invisible, te pido que envíes al ángel Cahetel, para que me ayude a dar gracias antes de pedir y a reconocer todo lo que ya he recibido. Para enseñar a otros a bendecir lo que tienen y a vivir en abundancia honrada, en el nombre de Dios, que así sea."
+  },
+
+  // ========== CORO 2: QUERUBINES (Amor) ==========
+  {
+    n: 9,
+    nombre: "Haziel",
+    hebreo: "הַזִיאֵל",
+    significado: "Dios de misericordia",
+    coro: "Querubines",
+    regente: "Raziel",
+    elemento: "Tierra",
+    fecha_inicio: "05-01",
+    fecha_fin: "05-05",
+    don: "Tienes el don del Perdón y la Reconciliación. El poder de ablandar corazones endurecidos y soltar rencores antiguos sin olvidar la lección. Puedes usar tu don para ayudar a los demás a perdonarse a sí mismos y a restaurar amistades que parecían perdidas.",
+    virtudes: "Compasión, capacidad de perdonar, amistad sincera, lealtad.",
+    sombras: "Rencor que no suelta, hipocresía, falsa amistad, traición velada.",
+    salmo: "Salmo 25:6 — «Acuérdate, oh Señor, de tus piedades y de tus misericordias, que son perpetuas.»",
+    oracion: "Padre Dios, creador del universo y de todo lo visible e invisible, te pido que envíes al ángel Haziel, para que me ayude a perdonar a quienes me hirieron y a perdonarme a mí mismo. Para liberar mi corazón del rencor y poder acompañar a otros en su propio camino de reconciliación, en el nombre de Dios, que así sea."
+  },
+  {
+    n: 10,
+    nombre: "Aladiah",
+    hebreo: "אַלַדִיָה",
+    significado: "Dios propicio",
+    coro: "Querubines",
+    regente: "Raziel",
+    elemento: "Tierra",
+    fecha_inicio: "05-06",
+    fecha_fin: "05-10",
+    don: "Tienes el don de la Gracia y las Segundas Oportunidades. El poder de sanar heridas antiguas que el tiempo no pudo curar y comenzar de nuevo con sabiduría. Puedes usar tu don para ayudar a los demás a soltar la culpa que cargan y a aprovechar las nuevas oportunidades que la vida les da.",
+    virtudes: "Buena salud, capacidad de regeneración, encanto natural, segundas oportunidades.",
+    sombras: "Culpa que no se suelta, autosabotaje, vivir en el pasado, enfermedades psicosomáticas.",
+    salmo: "Salmo 33:22 — «Sea tu misericordia, oh Señor, sobre nosotros, según esperamos en ti.»",
+    oracion: "Padre Dios, creador del universo y de todo lo visible e invisible, te pido que envíes al ángel Aladiah, para que me ayude a sanar las heridas que cargo desde hace tiempo y a recibir las segundas oportunidades con sabiduría. Para acompañar a otros que también necesitan soltar su pasado, en el nombre de Dios, que así sea."
+  },
+  {
+    n: 11,
+    nombre: "Lauviah",
+    hebreo: "לַאוִיָה",
+    significado: "Dios alabado y exaltado",
+    coro: "Querubines",
+    regente: "Raziel",
+    elemento: "Tierra",
+    fecha_inicio: "05-11",
+    fecha_fin: "05-15",
+    don: "Tienes el don de la Victoria Humilde. El poder de destacar por mérito propio sin pisotear a nadie y recibir el reconocimiento con humildad. Puedes usar tu don para ayudar a los demás a brillar en lo suyo y a celebrar el éxito ajeno sin envidia.",
+    virtudes: "Talento reconocido, sabiduría, capacidad de destacar sin pisotear, intuición clara.",
+    sombras: "Soberbia, hambre de protagonismo, celos del éxito ajeno, vanagloria.",
+    salmo: "Salmo 18:46 — «Vive el Señor, y bendita sea mi Roca; sea exaltado el Dios de mi salvación.»",
+    oracion: "Padre Dios, creador del universo y de todo lo visible e invisible, te pido que envíes al ángel Lauviah, para que me ayude a alcanzar el triunfo sin perder la humildad y a recibir el reconocimiento sin soberbia. Para celebrar también las victorias de quienes me rodean, en el nombre de Dios, que así sea."
+  },
+  {
+    n: 12,
+    nombre: "Hahaiah",
+    hebreo: "הַהַעיָה",
+    significado: "Dios refugio",
+    coro: "Querubines",
+    regente: "Raziel",
+    elemento: "Tierra",
+    fecha_inicio: "05-16",
+    fecha_fin: "05-20",
+    don: "Tienes el don de los Sueños Reveladores. El poder de recibir mensajes en el silencio nocturno y descifrar misterios que el día no muestra. Puedes usar tu don para ayudar a los demás a entender lo que sus sueños les comunican y a encontrar sentido en lo oculto.",
+    virtudes: "Capacidad de interpretar sueños, descubrir misterios ocultos, sensibilidad espiritual fina.",
+    sombras: "Mentira reiterada, hipocresía espiritual, escapismo, vivir solo en lo imaginario.",
+    salmo: "Salmo 10:1 — «¿Por qué estás lejos, oh Señor, y te escondes en el tiempo de la tribulación?»",
+    oracion: "Padre Dios, creador del universo y de todo lo visible e invisible, te pido que envíes al ángel Hahaiah, para que me ayude a comprender los sueños que mi alma me manda y a escuchar lo que el día no me deja oír. Para guiar también a otros que buscan sentido en sus visiones nocturnas, en el nombre de Dios, que así sea."
+  },
+  {
+    n: 13,
+    nombre: "Iezalel",
+    hebreo: "יְזָלְאֵל",
+    significado: "Dios glorificado sobre todas las cosas",
+    coro: "Querubines",
+    regente: "Raziel",
+    elemento: "Tierra",
+    fecha_inicio: "05-21",
+    fecha_fin: "05-25",
+    don: "Tienes el don de la Fidelidad y la Memoria. El poder de sostener amores duraderos y recordar lo importante con precisión. Puedes usar tu don para ayudar a los demás a construir uniones sinceras y a honrar los pactos que han hecho.",
+    virtudes: "Memoria privilegiada, capacidad para los idiomas, fidelidad amorosa, amistades duraderas.",
+    sombras: "Ignorancia voluntaria, error reiterado, mentira en el amor, traición a la palabra dada.",
+    salmo: "Salmo 98:4 — «Cantad alegres al Señor, toda la tierra; levantad la voz, y aplaudid, y cantad salmos.»",
+    oracion: "Padre Dios, creador del universo y de todo lo visible e invisible, te pido que envíes al ángel Iezalel, para que me ayude a ser fiel a quienes merecen mi amor y a recordar con claridad lo que de verdad importa. Para fortalecer también las uniones sinceras de quienes me rodean, en el nombre de Dios, que así sea."
+  },
+  {
+    n: 14,
+    nombre: "Mebahel",
+    hebreo: "מְבַהֵל",
+    significado: "Dios conservador",
+    coro: "Querubines",
+    regente: "Raziel",
+    elemento: "Tierra",
+    fecha_inicio: "05-26",
+    fecha_fin: "05-31",
+    don: "Tienes el don de la Justicia y la Defensa. El poder de proteger al inocente y dar voz a quienes no la tienen. Puedes usar tu don para ayudar a los demás a encontrar libertad cuando son oprimidos y a defenderse de quien los calumnia.",
+    virtudes: "Sentido de la justicia, amor por la verdad, defensa de los inocentes, libertad interior.",
+    sombras: "Calumnia, falso testimonio, opresión sobre los débiles, mentir para conveniencia.",
+    salmo: "Salmo 9:9 — «El Señor será refugio del pobre, refugio para el tiempo de angustia.»",
+    oracion: "Padre Dios, creador del universo y de todo lo visible e invisible, te pido que envíes al ángel Mebahel, para que me ayude a defender al inocente y a dar voz a quienes el mundo silencia. Para que mi palabra sirva donde otros callan, en el nombre de Dios, que así sea."
+  },
+  {
+    n: 15,
+    nombre: "Hariel",
+    hebreo: "הַרִיאֵל",
+    significado: "Dios creador",
+    coro: "Querubines",
+    regente: "Raziel",
+    elemento: "Tierra",
+    fecha_inicio: "06-01",
+    fecha_fin: "06-05",
+    don: "Tienes el don de la Inteligencia Sagrada. El poder de unir la mente y el alma en una sola sabiduría y de descubrir lo que sirve a la humanidad. Puedes usar tu don para ayudar a los demás a estudiar con propósito y a usar el conocimiento sin desprecio por lo sagrado.",
+    virtudes: "Inteligencia clara, capacidad científica, fe razonada, descubrimiento de inventos útiles.",
+    sombras: "Ateísmo militante, ciencia sin conciencia, frialdad emocional, desprecio por lo sagrado.",
+    salmo: "Salmo 94:22 — «El Señor me ha sido por refugio, y mi Dios por roca de mi confianza.»",
+    oracion: "Padre Dios, creador del universo y de todo lo visible e invisible, te pido que envíes al ángel Hariel, para que me ayude a unir la mente y el alma en una sola sabiduría. Para que lo que descubra y aprenda sirva a los demás y no se use para destruir, en el nombre de Dios, que así sea."
+  },
+  {
+    n: 16,
+    nombre: "Hekamiah",
+    hebreo: "הֲקַמְיָה",
+    significado: "Dios que erige el universo",
+    coro: "Querubines",
+    regente: "Raziel",
+    elemento: "Tierra",
+    fecha_inicio: "06-06",
+    fecha_fin: "06-10",
+    don: "Tienes el don de la Lealtad y la Palabra de Honor. El poder de ser leal sin ser ciego y de hacer que tu palabra valga más que cualquier firma. Puedes usar tu don para ayudar a los demás a construir confianza duradera y a protegerse de los traidores.",
+    virtudes: "Lealtad inquebrantable, nobleza de carácter, amistad con los poderosos sin servilismo, palabra de honor.",
+    sombras: "Rebeldía sin causa, traición a quien confía, odio acumulado, espíritu de venganza.",
+    salmo: "Salmo 88:1 — «Oh Señor, Dios de mi salvación, día y noche clamo delante de ti.»",
+    oracion: "Padre Dios, creador del universo y de todo lo visible e invisible, te pido que envíes al ángel Hekamiah, para que me ayude a ser leal con nobleza y a sostener mi palabra ante todo. Para proteger también a quienes confían en mí de los que traicionan, en el nombre de Dios, que así sea."
+  },
+
+  // ========== CORO 3: TRONOS (Voluntad) ==========
+  {
+    n: 17,
+    nombre: "Lauviah",
+    hebreo: "לַוַויָה",
+    significado: "Dios admirable",
+    coro: "Tronos",
+    regente: "Tsaphkiel",
+    elemento: "Agua",
+    fecha_inicio: "06-11",
+    fecha_fin: "06-15",
+    don: "Tienes el don de la Revelación y el Descanso Profundo. El poder de recibir sabiduría cuando el ego calla y de transformar el sueño en revelación. Puedes usar tu don para ayudar a los demás a encontrar respuestas en el silencio y a sanar el insomnio del alma.",
+    virtudes: "Don de revelación, gran inteligencia, sabiduría profunda, sensibilidad mística.",
+    sombras: "Tristeza melancólica, insomnio crónico, pesadillas, depresión espiritual.",
+    salmo: "Salmo 8:1 — «Oh Señor, Soberano nuestro, cuán glorioso es tu nombre en toda la tierra!»",
+    oracion: "Padre Dios, creador del universo y de todo lo visible e invisible, te pido que envíes al ángel Lauviah, para que me ayude a descansar con sueños verdaderos y a recibir revelaciones cuando mi mente calle. Para acompañar a quienes sufren insomnio y necesitan paz nocturna, en el nombre de Dios, que así sea."
+  },
+  {
+    n: 18,
+    nombre: "Caliel",
+    hebreo: "כַלִיאֵל",
+    significado: "Dios pronto a oír",
+    coro: "Tronos",
+    regente: "Tsaphkiel",
+    elemento: "Agua",
+    fecha_inicio: "06-16",
+    fecha_fin: "06-21",
+    don: "Tienes el don de la Verdad Revelada. El poder de hacer que la verdad salga a la luz aunque tarde y de mantener la integridad bajo presión. Puedes usar tu don para ayudar a los demás a defenderse de calumnias y a confiar en que la justicia divina llega a su tiempo.",
+    virtudes: "Integridad probada, honradez radical, fe en la justicia divina, paciencia para esperarla.",
+    sombras: "Calumnia, proceso injusto, condena de inocentes, hipocresía judicial.",
+    salmo: "Salmo 7:8 — «Júzgame, oh Señor, conforme a mi justicia, y conforme a mi integridad que hay en mí.»",
+    oracion: "Padre Dios, creador del universo y de todo lo visible e invisible, te pido que envíes al ángel Caliel, para que me ayude a sostener la verdad cuando me cueste y a confiar en que la justicia llega aunque tarde. Para defender a los inocentes que son acusados injustamente, en el nombre de Dios, que así sea."
+  },
+  {
+    n: 19,
+    nombre: "Leuviah",
+    hebreo: "לֵוּוִיָה",
+    significado: "Dios que escucha a los pecadores",
+    coro: "Tronos",
+    regente: "Tsaphkiel",
+    elemento: "Agua",
+    fecha_inicio: "06-22",
+    fecha_fin: "06-26",
+    don: "Tienes el don de la Memoria del Alma. El poder de recordar quién eres en realidad cuando lo olvidas y de resistir el dolor con gracia. Puedes usar tu don para ayudar a los demás a reconectar con su origen y a agradecer a quienes los han ayudado.",
+    virtudes: "Memoria prodigiosa, inteligencia jovial, capacidad de resistir el dolor, gracia natural.",
+    sombras: "Olvido del propio origen, ingratitud con quien ayudó, queja constante, pereza moral.",
+    salmo: "Salmo 40:1 — «Pacientemente esperé al Señor, y se inclinó a mí y oyó mi clamor.»",
+    oracion: "Padre Dios, creador del universo y de todo lo visible e invisible, te pido que envíes al ángel Leuviah, para que me ayude a recordar quién soy cuando lo olvide y a resistir el dolor sin perder la gracia. Para acompañar a quienes han olvidado su propia luz, en el nombre de Dios, que así sea."
+  },
+  {
+    n: 20,
+    nombre: "Pahaliah",
+    hebreo: "פַהֲלִיָה",
+    significado: "Dios redentor",
+    coro: "Tronos",
+    regente: "Tsaphkiel",
+    elemento: "Agua",
+    fecha_inicio: "06-27",
+    fecha_fin: "07-01",
+    don: "Tienes el don de la Conversión y el Regreso. El poder de transformar tu vida cuando te has perdido y de devolverte al camino sagrado. Puedes usar tu don para ayudar a los demás a redimirse de sus errores y a recuperar la fe que habían perdido.",
+    virtudes: "Vocación espiritual, capacidad de transformar la propia vida, devoción sincera, castidad cuando se elige.",
+    sombras: "Vicios sin freno, libertinaje sin alegría, traición a las propias convicciones, apostasía.",
+    salmo: "Salmo 116:5 — «Clemente es el Señor, y justo; sí, misericordioso es nuestro Dios.»",
+    oracion: "Padre Dios, creador del universo y de todo lo visible e invisible, te pido que envíes al ángel Pahaliah, para que me ayude a regresar al camino cuando me extravíe y a transformar mi vida con devoción sincera. Para acompañar también a otros que han perdido la fe y buscan volver, en el nombre de Dios, que así sea."
+  },
+  {
+    n: 21,
+    nombre: "Nelchael",
+    hebreo: "נֶלְכָאֵל",
+    significado: "Dios único",
+    coro: "Tronos",
+    regente: "Tsaphkiel",
+    elemento: "Agua",
+    fecha_inicio: "07-02",
+    fecha_fin: "07-06",
+    don: "Tienes el don del Conocimiento Liberador. El poder de aprender con facilidad y enseñar lo que sabes sin presunción. Puedes usar tu don para ayudar a los demás a liberarse de la ignorancia y de los prejuicios que los limitan.",
+    virtudes: "Amor por aprender, talento matemático y astronómico, capacidad de enseñar, claridad mental.",
+    sombras: "Ignorancia presumida, error reiterado, prejuicio, pereza intelectual.",
+    salmo: "Salmo 31:14 — «Mas yo en ti confío, oh Señor; digo: Tú eres mi Dios.»",
+    oracion: "Padre Dios, creador del universo y de todo lo visible e invisible, te pido que envíes al ángel Nelchael, para que me ayude a iluminar mi entendimiento y a que el saber me haga libre y no orgulloso. Para enseñar también a otros lo que he aprendido con humildad, en el nombre de Dios, que así sea."
+  },
+  {
+    n: 22,
+    nombre: "Yeiayel",
+    hebreo: "יְיָיאֵל",
+    significado: "La diestra de Dios",
+    coro: "Tronos",
+    regente: "Tsaphkiel",
+    elemento: "Agua",
+    fecha_inicio: "07-07",
+    fecha_fin: "07-11",
+    don: "Tienes el don de la Fama Merecida. El poder de alcanzar reconocimiento por el trabajo bien hecho y de navegar con éxito en aguas difíciles. Puedes usar tu don para ayudar a los demás a construir reputaciones honradas y a llegar a buen puerto en sus empresas.",
+    virtudes: "Buena reputación, fortuna conseguida con esfuerzo, capacidad de viajar y comerciar, valentía marina.",
+    sombras: "Naufragio (real o simbólico), pérdida del crédito ganado, traición de socios, ambición ciega.",
+    salmo: "Salmo 121:5 — «El Señor es tu guardador; el Señor es tu sombra a tu mano derecha.»",
+    oracion: "Padre Dios, creador del universo y de todo lo visible e invisible, te pido que envíes al ángel Yeiayel, para que me ayude a navegar por aguas seguras y a construir una buena reputación con mi trabajo. Para guiar también a quienes emprenden viajes inciertos, en el nombre de Dios, que así sea."
+  },
+  {
+    n: 23,
+    nombre: "Melahel",
+    hebreo: "מֵלָהֵל",
+    significado: "Dios que libera de los males",
+    coro: "Tronos",
+    regente: "Tsaphkiel",
+    elemento: "Agua",
+    fecha_inicio: "07-12",
+    fecha_fin: "07-16",
+    don: "Tienes el don de la Curación Natural. El poder de sanar el cuerpo y el alma usando la sabiduría de las plantas y la medicina antigua. Puedes usar tu don para ayudar a los demás a recuperar su salud y a vencer enfermedades difíciles con valentía.",
+    virtudes: "Don curativo, conocimiento de la medicina natural, valor en la adversidad, capacidad de proteger.",
+    sombras: "Cobardía ante el peligro, enfermedades difíciles, uso de venenos, envidia oculta.",
+    salmo: "Salmo 121:8 — «El Señor guardará tu salida y tu entrada desde ahora y para siempre.»",
+    oracion: "Padre Dios, creador del universo y de todo lo visible e invisible, te pido que envíes al ángel Melahel, para que me ayude a sanar mi cuerpo, mi alma y mi memoria de lo que esté enfermo. Para acompañar también a quienes sufren enfermedades difíciles y necesitan curación, en el nombre de Dios, que así sea."
+  },
+  {
+    n: 24,
+    nombre: "Haheuiah",
+    hebreo: "הַחֲהֻעיָה",
+    significado: "Dios bueno por sí mismo",
+    coro: "Tronos",
+    regente: "Tsaphkiel",
+    elemento: "Agua",
+    fecha_inicio: "07-17",
+    fecha_fin: "07-22",
+    don: "Tienes el don del Refugio Compasivo. El poder de proteger a los exiliados y de ser puerta abierta para quien huye sin culpa. Puedes usar tu don para ayudar a los demás a encontrar amparo cuando todo está perdido y a no traicionar a los suyos en momentos difíciles.",
+    virtudes: "Sinceridad espiritual, amor por la verdad, capacidad de proteger refugiados, conocimiento del exilio interior.",
+    sombras: "Mentira piadosa, cobardía, abandono de los propios, traición política o moral.",
+    salmo: "Salmo 33:18 — «He aquí el ojo del Señor sobre los que le temen, sobre los que esperan en su misericordia.»",
+    oracion: "Padre Dios, creador del universo y de todo lo visible e invisible, te pido que envíes al ángel Haheuiah, para que me ayude a ser refugio para quien huye sin culpa y a no abandonar a los míos en momentos difíciles. Para proteger a quienes necesitan amparo en su exilio, en el nombre de Dios, que así sea."
+  },
+
+  // ========== CORO 4: DOMINACIONES (Sabiduría) ==========
+  {
+    n: 25,
+    nombre: "Nith-Haiah",
+    hebreo: "נִתְהָיָה",
+    significado: "Dios que da sabiduría",
+    coro: "Dominaciones",
+    regente: "Tsadkiel",
+    elemento: "Aire",
+    fecha_inicio: "07-23",
+    fecha_fin: "07-27",
+    don: "Tienes el don de la Sabiduría Oculta. El poder de acceder a los misterios espirituales sin perderte en ellos y de iniciar a otros en lo sagrado. Puedes usar tu don para ayudar a los demás a buscar la verdad profunda y a distinguir la luz auténtica de la falsa.",
+    virtudes: "Sabiduría esotérica, amor por la verdad oculta, capacidad de iniciación espiritual, magia blanca.",
+    sombras: "Curiosidad malsana, magia negra, ocultismo sin disciplina, soberbia espiritual.",
+    salmo: "Salmo 9:1 — «Te alabaré, oh Señor, con todo mi corazón; contaré todas tus maravillas.»",
+    oracion: "Padre Dios, creador del universo y de todo lo visible e invisible, te pido que envíes al ángel Nith-Haiah, para que me ayude a abrir las puertas de los misterios con sabiduría y sin soberbia. Para guiar también a otros que buscan la verdad oculta con corazón limpio, en el nombre de Dios, que así sea."
+  },
+  {
+    n: 26,
+    nombre: "Haaiah",
+    hebreo: "הַאַעיָה",
+    significado: "Dios oculto",
+    coro: "Dominaciones",
+    regente: "Tsadkiel",
+    elemento: "Aire",
+    fecha_inicio: "07-28",
+    fecha_fin: "08-01",
+    don: "Tienes el don de la Diplomacia y el Equilibrio. El poder de encontrar palabras justas en momentos delicados y de mantener la paz entre fuerzas opuestas. Puedes usar tu don para ayudar a los demás a alcanzar acuerdos sin traicionarse y a resolver conflictos con prudencia.",
+    virtudes: "Don diplomático, capacidad para los acuerdos, amor por la verdad y la justicia política, prudencia.",
+    sombras: "Traición, conspiración, ambición política sin escrúpulos, doble cara.",
+    salmo: "Salmo 119:145 — «Clamé con todo mi corazón; respóndeme, Señor, y guardaré tus estatutos.»",
+    oracion: "Padre Dios, creador del universo y de todo lo visible e invisible, te pido que envíes al ángel Haaiah, para que me ayude a hallar palabras justas en momentos delicados y a llevar la paz donde haya conflicto. Para mediar también entre quienes se enfrentan sin escucharse, en el nombre de Dios, que así sea."
+  },
+  {
+    n: 27,
+    nombre: "Yerathel",
+    hebreo: "יְרַתְאֵל",
+    significado: "Dios que castiga a los malvados",
+    coro: "Dominaciones",
+    regente: "Tsadkiel",
+    elemento: "Aire",
+    fecha_inicio: "08-02",
+    fecha_fin: "08-06",
+    don: "Tienes el don de la Luz que Distingue. El poder de propagar ideas elevadas y de distinguir el bien del mal sin caer en el fanatismo. Puedes usar tu don para ayudar a los demás a defenderse de la calumnia y a civilizar lo salvaje que llevan dentro.",
+    virtudes: "Capacidad de propagar ideas elevadas, claridad para distinguir el bien del mal, civilización del salvaje interior.",
+    sombras: "Calumnia activa, fanatismo, intolerancia religiosa, perseguir al que piensa distinto.",
+    salmo: "Salmo 140:1 — «Líbrame, oh Señor, del hombre malo; guárdame de hombres violentos.»",
+    oracion: "Padre Dios, creador del universo y de todo lo visible e invisible, te pido que envíes al ángel Yerathel, para que me ayude a distinguir el bien del mal sin condenar a quien piensa distinto. Para que mi voz propague verdad y no veneno, en el nombre de Dios, que así sea."
+  },
+  {
+    n: 28,
+    nombre: "Seheiah",
+    hebreo: "שְׂהֲעיָה",
+    significado: "Dios que cura a los enfermos",
+    coro: "Dominaciones",
+    regente: "Tsadkiel",
+    elemento: "Aire",
+    fecha_inicio: "08-07",
+    fecha_fin: "08-12",
+    don: "Tienes el don de la Longevidad y la Prudencia. El poder de prever peligros antes de que lleguen y de vivir una vida larga y útil. Puedes usar tu don para ayudar a los demás a evitar accidentes y a desarrollar salud robusta a través de la prudencia.",
+    virtudes: "Salud robusta, prudencia, capacidad de prever peligros, vida larga y útil.",
+    sombras: "Accidentes por imprudencia, enfermedades fulminantes, miedo paralizante, hipocondría.",
+    salmo: "Salmo 71:8 — «Sea llena mi boca de tu alabanza, de tu gloria todo el día.»",
+    oracion: "Padre Dios, creador del universo y de todo lo visible e invisible, te pido que envíes al ángel Seheiah, para que me ayude a proteger mis pasos de los accidentes y a vivir el tiempo justo con prudencia. Para cuidar también a quienes amo de los peligros inesperados, en el nombre de Dios, que así sea."
+  },
+  {
+    n: 29,
+    nombre: "Reiyel",
+    hebreo: "רֵייאֵל",
+    significado: "Dios pronto al socorro",
+    coro: "Dominaciones",
+    regente: "Tsadkiel",
+    elemento: "Aire",
+    fecha_inicio: "08-13",
+    fecha_fin: "08-17",
+    don: "Tienes el don de la Liberación Espiritual. El poder de combatir las sombras interiores que se disfrazan de verdad y de fortalecer la devoción auténtica. Puedes usar tu don para ayudar a los demás a liberarse de enemigos invisibles y a discernir las creencias verdaderas de las falsas.",
+    virtudes: "Sentimientos religiosos auténticos, virtud probada, capacidad de combatir el mal espiritual, devoción.",
+    sombras: "Fanatismo religioso, hipocresía piadosa, sectarismo, persecución de herejes imaginarios.",
+    salmo: "Salmo 54:4 — «He aquí, Dios es el que me ayuda; el Señor está con los que sostienen mi vida.»",
+    oracion: "Padre Dios, creador del universo y de todo lo visible e invisible, te pido que envíes al ángel Reiyel, para que me ayude a liberarme de los enemigos invisibles que llevo dentro. Para acompañar también a otros que combaten sombras que se disfrazan de verdad, en el nombre de Dios, que así sea."
+  },
+  {
+    n: 30,
+    nombre: "Omael",
+    hebreo: "אוֹמָאֵל",
+    significado: "Dios paciente",
+    coro: "Dominaciones",
+    regente: "Tsadkiel",
+    elemento: "Aire",
+    fecha_inicio: "08-18",
+    fecha_fin: "08-22",
+    don: "Tienes el don de la Fecundidad y la Multiplicación. El poder de hacer crecer lo bueno y de generar vida en lo que tocas. Puedes usar tu don para ayudar a los demás a desarrollar sus talentos hasta dar frutos y a cuidar lo vivo con compasión.",
+    virtudes: "Fertilidad creativa y biológica, paciencia con los procesos lentos, amor por los animales y plantas, capacidad médica.",
+    sombras: "Esterilidad simbólica, aborto del propio talento, crueldad con lo vivo, desesperación.",
+    salmo: "Salmo 71:5 — «Porque tú, oh Señor, eres mi esperanza; mi confianza desde mi juventud.»",
+    oracion: "Padre Dios, creador del universo y de todo lo visible e invisible, te pido que envíes al ángel Omael, para que me ayude a multiplicar lo bueno que hago y a generar vida en quienes me rodean. Para cuidar con compasión a los animales, las plantas y todo lo vivo, en el nombre de Dios, que así sea."
+  },
+  {
+    n: 31,
+    nombre: "Lecabel",
+    hebreo: "לֶכַבְאֵל",
+    significado: "Dios que inspira",
+    coro: "Dominaciones",
+    regente: "Tsadkiel",
+    elemento: "Aire",
+    fecha_inicio: "08-23",
+    fecha_fin: "08-28",
+    don: "Tienes el don de la Inteligencia Práctica. El poder de resolver problemas materiales con claridad y de hacer rendir lo que tienes con honradez. Puedes usar tu don para ayudar a los demás a ordenar sus cuentas, a prosperar con esfuerzo y a evitar el fraude.",
+    virtudes: "Talento para la agricultura y la economía, inteligencia astronómica, capacidad de resolver problemas materiales, claridad de cálculo.",
+    sombras: "Avaricia, traficar con lo sagrado, ambición desordenada, fraude.",
+    salmo: "Salmo 71:16 — «Vendré a hablar de los hechos poderosos del Señor; haré memoria de tu sola justicia.»",
+    oracion: "Padre Dios, creador del universo y de todo lo visible e invisible, te pido que envíes al ángel Lecabel, para que me ayude a ser inteligente con lo concreto y a tener cuentas claras y corazón también. Para enseñar a otros a prosperar con esfuerzo honrado, en el nombre de Dios, que así sea."
+  },
+  {
+    n: 32,
+    nombre: "Vasariah",
+    hebreo: "וַשַׁרְיָה",
+    significado: "Dios justo",
+    coro: "Dominaciones",
+    regente: "Tsadkiel",
+    elemento: "Aire",
+    fecha_inicio: "08-29",
+    fecha_fin: "09-02",
+    don: "Tienes el don de la Justicia Misericordiosa. El poder de juzgar con piedad y de hablar con honor incluso en circunstancias duras. Puedes usar tu don para ayudar a los demás a recibir compasión cuando se equivocan y a defender la verdad en juicios injustos.",
+    virtudes: "Don oratorio, sentido del honor, capacidad de juzgar con piedad, memoria privilegiada.",
+    sombras: "Falsedad en juicios, injusticia con disfraz legal, dureza de corazón, calumnia.",
+    salmo: "Salmo 33:4 — «Porque recta es la palabra del Señor, y toda su obra es hecha con fidelidad.»",
+    oracion: "Padre Dios, creador del universo y de todo lo visible e invisible, te pido que envíes al ángel Vasariah, para que me ayude a juzgar con clemencia y a no perder la compasión por nadie. Para defender también a quienes son víctimas de juicios injustos, en el nombre de Dios, que así sea."
+  },
+
+  // ========== CORO 5: POTENCIAS (Equilibrio) ==========
+  {
+    n: 33,
+    nombre: "Yehuiah",
+    hebreo: "יְהֻוִיָה",
+    significado: "Dios que conoce todas las cosas",
+    coro: "Potencias",
+    regente: "Camael",
+    elemento: "Fuego",
+    fecha_inicio: "09-03",
+    fecha_fin: "09-07",
+    don: "Tienes el don de la Disciplina Consciente. El poder de saber cuándo obedecer y cuándo desobedecer, sirviendo sin envilecerte. Puedes usar tu don para ayudar a los demás a encontrar su posición justa y a mantener el orden donde haya desorden.",
+    virtudes: "Conocer la propia posición, lealtad a los superiores merecedores, capacidad de servir sin envilecerse, disciplina.",
+    sombras: "Insubordinación destructiva, traición a la causa común, soberbia jerárquica, desorden.",
+    salmo: "Salmo 33:10 — «El Señor hace nulo el consejo de las naciones, y frustra las maquinaciones de los pueblos.»",
+    oracion: "Padre Dios, creador del universo y de todo lo visible e invisible, te pido que envíes al ángel Yehuiah, para que me ayude a obedecer cuando es justo y a desobedecer cuando es necesario, siempre con dignidad. Para orientar a quienes han perdido su lugar, en el nombre de Dios, que así sea."
+  },
+  {
+    n: 34,
+    nombre: "Lehahiah",
+    hebreo: "לֶהַחְיָה",
+    significado: "Dios clemente",
+    coro: "Potencias",
+    regente: "Camael",
+    elemento: "Fuego",
+    fecha_inicio: "09-08",
+    fecha_fin: "09-12",
+    don: "Tienes el don del Servicio Noble. El poder de mantenerte leal hasta el final y de aguantar tareas difíciles con dignidad. Puedes usar tu don para ayudar a los demás a servir con honor y a no caer en la deslealtad por interés propio.",
+    virtudes: "Servicio noble, lealtad probada, disciplina interior, capacidad de aguantar tareas duras.",
+    sombras: "Traición al que confía, deslealtad por interés, conspiración silenciosa, falsa modestia.",
+    salmo: "Salmo 131:3 — «Espera, oh Israel, en el Señor, desde ahora y para siempre.»",
+    oracion: "Padre Dios, creador del universo y de todo lo visible e invisible, te pido que envíes al ángel Lehahiah, para que me ayude a ser leal hasta el final y a que mi servicio sea honra y no humillación. Para acompañar a otros que sirven con dignidad en silencio, en el nombre de Dios, que así sea."
+  },
+  {
+    n: 35,
+    nombre: "Chevakiah",
+    hebreo: "כְוַקְיָה",
+    significado: "Dios que da alegría",
+    coro: "Potencias",
+    regente: "Camael",
+    elemento: "Fuego",
+    fecha_inicio: "09-13",
+    fecha_fin: "09-17",
+    don: "Tienes el don de la Reconciliación Familiar. El poder de reparar lazos rotos de sangre y de mantener la paz entre hermanos. Puedes usar tu don para ayudar a los demás a reconciliar enemistades familiares y a resolver herencias con justicia.",
+    virtudes: "Capacidad de reconciliar enemistades familiares, justicia en herencias, paz entre hermanos, generosidad.",
+    sombras: "Litigios familiares, herencias disputadas, pleitos eternos, codicia entre los propios.",
+    salmo: "Salmo 116:1 — «Amo al Señor, pues ha oído mi voz y mis súplicas.»",
+    oracion: "Padre Dios, creador del universo y de todo lo visible e invisible, te pido que envíes al ángel Chevakiah, para que me ayude a reparar los lazos rotos de mi familia antes de que sea demasiado tarde. Para mediar entre hermanos enfrentados y restaurar la paz en mi casa, en el nombre de Dios, que así sea."
+  },
+  {
+    n: 36,
+    nombre: "Menadel",
+    hebreo: "מְנַדְאֵל",
+    significado: "Dios honorable",
+    coro: "Potencias",
+    regente: "Camael",
+    elemento: "Fuego",
+    fecha_inicio: "09-18",
+    fecha_fin: "09-23",
+    don: "Tienes el don del Trabajo Digno. El poder de conservar lo que has conseguido y de poner amor en cada oficio que toques. Puedes usar tu don para ayudar a los demás a encontrar empleo digno y a valorar el trabajo manual como sagrado.",
+    virtudes: "Amor por el oficio, capacidad de conservar lo conseguido, fidelidad al puesto, talento práctico.",
+    sombras: "Despido injusto, pérdida del puesto por error propio, desprecio por el trabajo manual, holgazanería.",
+    salmo: "Salmo 26:8 — «Señor, he amado la habitación de tu casa, y el lugar de la morada de tu gloria.»",
+    oracion: "Padre Dios, creador del universo y de todo lo visible e invisible, te pido que envíes al ángel Menadel, para que me ayude a sostener mi trabajo con dignidad y a que mis manos produzcan algo que valga. Para acompañar también a quienes buscan empleo o lo han perdido, en el nombre de Dios, que así sea."
+  },
+  {
+    n: 37,
+    nombre: "Aniel",
+    hebreo: "אַנִיאֵל",
+    significado: "Dios de las virtudes",
+    coro: "Potencias",
+    regente: "Camael",
+    elemento: "Fuego",
+    fecha_inicio: "09-24",
+    fecha_fin: "09-28",
+    don: "Tienes el don de Romper Cadenas. El poder de salir de los hábitos que atan y de soltar lo que estanca tu vida. Puedes usar tu don para ayudar a los demás a vencer adicciones, a cambiar de rumbo y a no repetir los mismos errores.",
+    virtudes: "Capacidad de romper hábitos negativos, fuerza para cambiar de vida, sabiduría para soltar lo que estanca.",
+    sombras: "Adicciones, hábitos destructivos, aferrarse al pasado, repetir los mismos errores.",
+    salmo: "Salmo 80:7 — «Oh Dios de los ejércitos, restáuranos; haz resplandecer tu rostro, y seremos salvos.»",
+    oracion: "Padre Dios, creador del universo y de todo lo visible e invisible, te pido que envíes al ángel Aniel, para que me ayude a romper los círculos que me atan y a soltar lo que me hace daño. Para acompañar también a quienes luchan contra adicciones y hábitos que los destruyen, en el nombre de Dios, que así sea."
+  },
+  {
+    n: 38,
+    nombre: "Haamiah",
+    hebreo: "חַעַמְיָה",
+    significado: "Dios esperanza de todas las criaturas",
+    coro: "Potencias",
+    regente: "Camael",
+    elemento: "Fuego",
+    fecha_inicio: "09-29",
+    fecha_fin: "10-03",
+    don: "Tienes el don del Ritual Sagrado. El poder de entrar en lo sagrado con respeto profundo y de practicar la devoción auténtica. Puedes usar tu don para ayudar a los demás a vivir su fe sin caer en la idolatría y a proteger los espacios sagrados.",
+    virtudes: "Capacidad ritual, conocimiento de lo sagrado, devoción auténtica, protección de los templos.",
+    sombras: "Idolatría, religiosidad superficial, fanatismo ceremonial, error doctrinal.",
+    salmo: "Salmo 91:9 — «Porque has puesto al Señor, que es mi refugio, al Altísimo, por tu habitación.»",
+    oracion: "Padre Dios, creador del universo y de todo lo visible e invisible, te pido que envíes al ángel Haamiah, para que me ayude a entrar en lo sagrado con respeto y a que mi devoción sea profunda y no escenografía. Para guiar a quienes buscan a Dios sin saber dónde, en el nombre de Dios, que así sea."
+  },
+  {
+    n: 39,
+    nombre: "Rehael",
+    hebreo: "רֶהֳעֵאל",
+    significado: "Dios que acoge a los pecadores",
+    coro: "Potencias",
+    regente: "Camael",
+    elemento: "Fuego",
+    fecha_inicio: "10-04",
+    fecha_fin: "10-08",
+    don: "Tienes el don del Amor Filial. El poder de sanar lo pendiente con tus padres y de cuidar el niño interior. Puedes usar tu don para ayudar a los demás a reconciliarse con su familia y a fortalecer la salud mental cuando flaquea.",
+    virtudes: "Buena relación con los padres, capacidad de ser padre/madre, salud mental, vida larga.",
+    sombras: "Infanticidio simbólico (matar al niño interior), rebeldía destructiva, abandono de los padres ancianos.",
+    salmo: "Salmo 30:10 — «Oye, oh Señor, y ten misericordia de mí; oh Señor, sé tú mi ayudador.»",
+    oracion: "Padre Dios, creador del universo y de todo lo visible e invisible, te pido que envíes al ángel Rehael, para que me ayude a sanar lo que con mis padres quedó pendiente y a que el amor encuentre el camino de vuelta. Para acompañar también a quienes cuidan ancianos o niños, en el nombre de Dios, que así sea."
+  },
+  {
+    n: 40,
+    nombre: "Ieiazel",
+    hebreo: "יְיָזאֵל",
+    significado: "Dios que alegra",
+    coro: "Potencias",
+    regente: "Camael",
+    elemento: "Fuego",
+    fecha_inicio: "10-09",
+    fecha_fin: "10-13",
+    don: "Tienes el don del Consuelo en el Arte. El poder de transformar el dolor en obra creativa y de liberarte de las prisiones que tú mismo construyes. Puedes usar tu don para ayudar a los demás a consolarse a través de la belleza y a salir de la melancolía sin causa.",
+    virtudes: "Don artístico y literario, capacidad de consolar, liberación interior, gracia en el sufrimiento.",
+    sombras: "Cautiverio interior, melancolía sin causa, desesperación, encierro voluntario.",
+    salmo: "Salmo 88:14 — «¿Por qué, oh Señor, desechas mi alma? ¿Por qué escondes de mí tu rostro?»",
+    oracion: "Padre Dios, creador del universo y de todo lo visible e invisible, te pido que envíes al ángel Ieiazel, para que me ayude a salir de las prisiones que yo mismo construí y a que el arte sea mi llave. Para consolar a quienes sufren melancolía sin causa, en el nombre de Dios, que así sea."
+  },
+
+  // ========== CORO 6: VIRTUDES (Milagros) ==========
+  {
+    n: 41,
+    nombre: "Hahahel",
+    hebreo: "הַחַהֵל",
+    significado: "Dios en tres personas",
+    coro: "Virtudes",
+    regente: "Rafael",
+    elemento: "Agua",
+    fecha_inicio: "10-14",
+    fecha_fin: "10-18",
+    don: "Tienes el don de la Misión Trascendente. El poder de reconocer el llamado para el que naciste y de inspirar a otros con tu fe. Puedes usar tu don para ayudar a los demás a descubrir su vocación profunda y a no morir sin haber cumplido lo suyo.",
+    virtudes: "Vocación trascendente, capacidad de inspirar a otros, fe contagiosa, palabra que mueve.",
+    sombras: "Falsa misión, profecía vana, traición a la propia vocación, charlatanería espiritual.",
+    salmo: "Salmo 120:1 — «A Jehová clamé estando en angustia, y él me respondió.»",
+    oracion: "Padre Dios, creador del universo y de todo lo visible e invisible, te pido que envíes al ángel Hahahel, para que me ayude a descubrir la misión para la que nací y a no morir sin haberla cumplido. Para inspirar a otros a buscar su propia vocación sagrada, en el nombre de Dios, que así sea."
+  },
+  {
+    n: 42,
+    nombre: "Mikael",
+    hebreo: "מִיכָאֵל",
+    significado: "Quién como Dios",
+    coro: "Virtudes",
+    regente: "Rafael",
+    elemento: "Agua",
+    fecha_inicio: "10-19",
+    fecha_fin: "10-23",
+    don: "Tienes el don del Discernimiento del Poder. El poder de actuar con ética cuando tienes autoridad y de protegerte del poder ajeno. Puedes usar tu don para ayudar a los demás a manejar su influencia con orden y a defenderse de quienes los manipulan.",
+    virtudes: "Sentido del orden, capacidad política con ética, intuición estratégica, defensa de los gobernados.",
+    sombras: "Traición política, conspiración, tiranía suave, manipulación de masas.",
+    salmo: "Salmo 121:7 — «El Señor te guardará de todo mal; él guardará tu alma.»",
+    oracion: "Padre Dios, creador del universo y de todo lo visible e invisible, te pido que envíes al ángel Mikael, para que me ayude a tener discernimiento en el poder, el que ejerzo y el que sufro de otros. Para proteger a quienes son manipulados por gobernantes injustos, en el nombre de Dios, que así sea."
+  },
+  {
+    n: 43,
+    nombre: "Veuliah",
+    hebreo: "וְעוּלִיָה",
+    significado: "Dios rey dominador",
+    coro: "Virtudes",
+    regente: "Rafael",
+    elemento: "Agua",
+    fecha_inicio: "10-24",
+    fecha_fin: "10-28",
+    don: "Tienes el don de la Prosperidad Compartida. El poder de generar abundancia sin aplastar a nadie y de alcanzar la paz tras el conflicto. Puedes usar tu don para ayudar a los demás a prosperar honradamente y a repartir lo que les sobra.",
+    virtudes: "Capacidad de prosperar, valor militar bien usado, paz lograda con firmeza, abundancia compartida.",
+    sombras: "Tiranía, guerra por ambición, esclavitud de los débiles, ruina por avaricia.",
+    salmo: "Salmo 88:13 — «Mas yo a ti he clamado, oh Señor, y de mañana mi oración se presentará delante de ti.»",
+    oracion: "Padre Dios, creador del universo y de todo lo visible e invisible, te pido que envíes al ángel Veuliah, para que me ayude a alcanzar prosperidad que no aplaste a nadie y a compartir lo que sobra. Para acompañar a quienes buscan paz tras largos conflictos, en el nombre de Dios, que así sea."
+  },
+  {
+    n: 44,
+    nombre: "Yelahiah",
+    hebreo: "יְלָהיָה",
+    significado: "Dios eterno",
+    coro: "Virtudes",
+    regente: "Rafael",
+    elemento: "Agua",
+    fecha_inicio: "10-29",
+    fecha_fin: "11-02",
+    don: "Tienes el don del Triunfo Honorable. El poder de vencer en batallas justas y de buscar la paz por encima del aplauso. Puedes usar tu don para ayudar a los demás a defender causas nobles y a no librar guerras inútiles.",
+    virtudes: "Valor en la causa noble, capacidad militar o policíaca con ética, defensa del orden, victoria con honor.",
+    sombras: "Guerra inútil, violencia gratuita, conflicto sin causa, derrota humillante.",
+    salmo: "Salmo 119:108 — «Te ruego, oh Señor, que te sean agradables los sacrificios voluntarios de mi boca.»",
+    oracion: "Padre Dios, creador del universo y de todo lo visible e invisible, te pido que envíes al ángel Yelahiah, para que mis batallas sean justas y mis victorias limpias. Para defender a quienes luchan por causas nobles y evitar la violencia gratuita, en el nombre de Dios, que así sea."
+  },
+  {
+    n: 45,
+    nombre: "Sealiah",
+    hebreo: "סֵאלִיָה",
+    significado: "Motor de todas las cosas",
+    coro: "Virtudes",
+    regente: "Rafael",
+    elemento: "Agua",
+    fecha_inicio: "11-03",
+    fecha_fin: "11-07",
+    don: "Tienes el don del Impulso Vital. El poder de devolver el movimiento donde había detención y de reanimar el espíritu cuando se aletarga. Puedes usar tu don para ayudar a los demás a salir de la depresión y a recuperar el contacto con la naturaleza.",
+    virtudes: "Capacidad de reanimar lo aletargado, energía vital, amor por la naturaleza, talento agrícola.",
+    sombras: "Pereza profunda, depresión inmóvil, aplanamiento del espíritu, falta de iniciativa.",
+    salmo: "Salmo 94:18 — «Cuando yo decía: Mi pie resbala, tu misericordia, oh Señor, me sustentaba.»",
+    oracion: "Padre Dios, creador del universo y de todo lo visible e invisible, te pido que envíes al ángel Sealiah, para que me ayude a recuperar el impulso vital y a que mi alma se vuelva a mover. Para acompañar a quienes han caído en la inmovilidad y la tristeza, en el nombre de Dios, que así sea."
+  },
+  {
+    n: 46,
+    nombre: "Ariel",
+    hebreo: "עַרִיאֵל",
+    significado: "Dios revelador",
+    coro: "Virtudes",
+    regente: "Rafael",
+    elemento: "Agua",
+    fecha_inicio: "11-08",
+    fecha_fin: "11-12",
+    don: "Tienes el don de la Revelación Interior. El poder de descubrir tesoros ocultos en lo profundo y de recibir sueños premonitorios. Puedes usar tu don para ayudar a los demás a ver lo que está escondido y a comprender lo que la vida les revela.",
+    virtudes: "Don de revelación, fortaleza interior, capacidad de descubrir lo escondido, sueños premonitorios.",
+    sombras: "Avaricia oculta, secretos malsanos, fanatismo discreto, esconderse de la verdad.",
+    salmo: "Salmo 145:9 — «Bueno es el Señor para con todos, y sus misericordias sobre todas sus obras.»",
+    oracion: "Padre Dios, creador del universo y de todo lo visible e invisible, te pido que envíes al ángel Ariel, para que me ayude a ver lo que necesito comprender y a recibir las revelaciones con corazón limpio. Para acompañar a quienes buscan respuestas en lo profundo, en el nombre de Dios, que así sea."
+  },
+  {
+    n: 47,
+    nombre: "Asaliah",
+    hebreo: "עַשַלִיָה",
+    significado: "Dios justo que indica la verdad",
+    coro: "Virtudes",
+    regente: "Rafael",
+    elemento: "Agua",
+    fecha_inicio: "11-13",
+    fecha_fin: "11-17",
+    don: "Tienes el don de la Contemplación. El poder de gozar en la verdad y de ver lo bello incluso en lo que duele. Puedes usar tu don para ayudar a los demás a abrir los ojos del alma y a no caer en la mentira sostenida.",
+    virtudes: "Capacidad contemplativa, gusto por lo bello, justicia clara, gozo en la verdad.",
+    sombras: "Mentira sostenida, falsedad sistemática, hipocresía intelectual, distorsión de los hechos.",
+    salmo: "Salmo 105:1 — «Alabad al Señor, invocad su nombre; dad a conocer sus obras entre los pueblos.»",
+    oracion: "Padre Dios, creador del universo y de todo lo visible e invisible, te pido que envíes al ángel Asaliah, para que me ayude a ver lo bello y a abrazar la verdad aunque duela. Para acompañar a quienes han sido engañados y necesitan despertar, en el nombre de Dios, que así sea."
+  },
+  {
+    n: 48,
+    nombre: "Mihael",
+    hebreo: "מִיהָאֵל",
+    significado: "Dios padre socorredor",
+    coro: "Virtudes",
+    regente: "Rafael",
+    elemento: "Agua",
+    fecha_inicio: "11-18",
+    fecha_fin: "11-22",
+    don: "Tienes el don de la Fidelidad Conyugal. El poder de sostener amores duraderos y de crear hogares en paz. Puedes usar tu don para ayudar a los demás a bendecir sus uniones, a tener fertilidad y a echar raíces profundas en el amor.",
+    virtudes: "Amor conyugal duradero, fertilidad, paz en el hogar, capacidad de procrear con amor.",
+    sombras: "Esterilidad simbólica, infidelidad, lujuria sin amor, ruptura del lazo sagrado.",
+    salmo: "Salmo 98:2 — «El Señor ha hecho notoria su salvación; a vista de las naciones ha descubierto su justicia.»",
+    oracion: "Padre Dios, creador del universo y de todo lo visible e invisible, te pido que envíes al ángel Mihael, para que mis amores tengan permanencia y mi hogar esté lleno de paz. Para bendecir a las parejas que buscan construir uniones duraderas, en el nombre de Dios, que así sea."
+  },
+
+  // ========== CORO 7: PRINCIPADOS (Belleza) ==========
+  {
+    n: 49,
+    nombre: "Vehuel",
+    hebreo: "וְהוּאֵל",
+    significado: "Dios grande y elevado",
+    coro: "Principados",
+    regente: "Haniel",
+    elemento: "Tierra",
+    fecha_inicio: "11-23",
+    fecha_fin: "11-27",
+    don: "Tienes el don de la Elevación del Alma. El poder de reconocer la grandeza interior y de elevar la mirada cuando el polvo te tape el cielo. Puedes usar tu don para ayudar a los demás a salir de la tristeza inmotivada y a descubrir su propia magnanimidad.",
+    virtudes: "Sensibilidad fina, magnanimidad, capacidad literaria, amor a Dios sentido.",
+    sombras: "Tristeza inmotivada, hipocondría espiritual, vanidad oculta, melancolía estéril.",
+    salmo: "Salmo 145:3 — «Grande es el Señor y digno de suprema alabanza; y su grandeza es inescrutable.»",
+    oracion: "Padre Dios, creador del universo y de todo lo visible e invisible, te pido que envíes al ángel Vehuel, para que me ayude a elevar mi mirada cuando el polvo me tape el cielo y a reconocer la grandeza dentro de mí. Para acompañar a quienes están atrapados en tristezas sin causa, en el nombre de Dios, que así sea."
+  },
+  {
+    n: 50,
+    nombre: "Daniel",
+    hebreo: "דָנִיאֵל",
+    significado: "Dios juez de los hombres",
+    coro: "Principados",
+    regente: "Haniel",
+    elemento: "Tierra",
+    fecha_inicio: "11-28",
+    fecha_fin: "12-02",
+    don: "Tienes el don de la Elocuencia. El poder de pronunciar palabras justas en momentos críticos y de consolar a quienes sufren. Puedes usar tu don para ayudar a los demás a decidirse cuando dudan y a no caer en la palabrería vacía.",
+    virtudes: "Don oratorio, capacidad de consolar, palabra justa en momento justo, claridad mental.",
+    sombras: "Palabrería vacía, mentira elocuente, manipulación retórica, indecisión.",
+    salmo: "Salmo 103:8 — «Misericordioso y clemente es el Señor; lento para la ira y grande en misericordia.»",
+    oracion: "Padre Dios, creador del universo y de todo lo visible e invisible, te pido que envíes al ángel Daniel, para que me ayude a hablar palabras que sanen y aclaren en lugar de herir y confundir. Para consolar a quienes pasan por momentos críticos, en el nombre de Dios, que así sea."
+  },
+  {
+    n: 51,
+    nombre: "Hahasiah",
+    hebreo: "חַחֲשִׁיָה",
+    significado: "Dios oculto",
+    coro: "Principados",
+    regente: "Haniel",
+    elemento: "Tierra",
+    fecha_inicio: "12-03",
+    fecha_fin: "12-07",
+    don: "Tienes el don de la Medicina Universal. El poder de conocer la sabiduría que cura cuerpos y almas, sin profanar lo sagrado. Puedes usar tu don para ayudar a los demás a recuperar la salud y a transmitir el saber de los antiguos con devoción.",
+    virtudes: "Conocimiento alquímico, capacidad curativa, sabiduría de los antiguos, devoción al saber.",
+    sombras: "Magia negra, alquimia mal usada, curanderismo fraudulento, comercio con lo sagrado.",
+    salmo: "Salmo 104:31 — «Sea la gloria del Señor para siempre; alégrese el Señor en sus obras.»",
+    oracion: "Padre Dios, creador del universo y de todo lo visible e invisible, te pido que envíes al ángel Hahasiah, para que me ayude a ser instrumento de sanación para mi cuerpo, mi mente y los de quienes me rodean. Para que nunca use lo sagrado para fines impuros, en el nombre de Dios, que así sea."
+  },
+  {
+    n: 52,
+    nombre: "Imamiah",
+    hebreo: "עִמַמְיָה",
+    significado: "Dios elevado sobre todas las cosas",
+    coro: "Principados",
+    regente: "Haniel",
+    elemento: "Tierra",
+    fecha_inicio: "12-08",
+    fecha_fin: "12-12",
+    don: "Tienes el don de la Humildad Verdadera. El poder de reconocer tus propios errores con valentía y de pedir perdón cuando es justo. Puedes usar tu don para ayudar a los demás a soltar la soberbia y a transformar sus sombras en luz.",
+    virtudes: "Fortaleza para reconocer errores, capacidad de pedir perdón, humildad activa, valor en la adversidad.",
+    sombras: "Soberbia que no se reconoce, blasfemia, rebeldía sin propósito, arrogancia espiritual.",
+    salmo: "Salmo 7:17 — «Alabaré al Señor conforme a su justicia, y cantaré al nombre del Señor altísimo.»",
+    oracion: "Padre Dios, creador del universo y de todo lo visible e invisible, te pido que envíes al ángel Imamiah, para que me ayude a reconocer mis sombras con valentía y a pedir perdón cuando me equivoque. Para que solo lo que veo en mí pueda cambiar y servir a otros, en el nombre de Dios, que así sea."
+  },
+  {
+    n: 53,
+    nombre: "Nanael",
+    hebreo: "נַנָאֵל",
+    significado: "Dios que abate a los soberbios",
+    coro: "Principados",
+    regente: "Haniel",
+    elemento: "Tierra",
+    fecha_inicio: "12-13",
+    fecha_fin: "12-16",
+    don: "Tienes el don del Pensamiento Profundo. El poder de meditar serenamente y de comprender lo abstracto sin perderte en laberintos. Puedes usar tu don para ayudar a los demás a desarrollar pensamiento crítico y a no despreciar el estudio.",
+    virtudes: "Don filosófico, capacidad meditativa, amor por las matemáticas y lo abstracto, sabiduría serena.",
+    sombras: "Ignorancia presumida, desprecio del estudio, frivolidad intelectual, soberbia académica.",
+    salmo: "Salmo 119:75 — «Conozco, oh Señor, que tus juicios son justos, y que conforme a tu fidelidad me afligiste.»",
+    oracion: "Padre Dios, creador del universo y de todo lo visible e invisible, te pido que envíes al ángel Nanael, para que me ayude a pensar con profundidad y a que lo abstracto sea lámpara y no laberinto. Para enseñar a otros el valor del estudio serio, en el nombre de Dios, que así sea."
+  },
+  {
+    n: 54,
+    nombre: "Nithael",
+    hebreo: "נִתָאֵל",
+    significado: "Rey de los cielos",
+    coro: "Principados",
+    regente: "Haniel",
+    elemento: "Tierra",
+    fecha_inicio: "12-17",
+    fecha_fin: "12-21",
+    don: "Tienes el don de la Gracia Eterna del Alma. El poder de mantener joven el espíritu aunque el cuerpo cambie y de ganar fama con honor. Puedes usar tu don para ayudar a los demás a envejecer con dignidad y a brillar con belleza interior duradera.",
+    virtudes: "Belleza interior, gracia natural, eternidad del nombre, fama bien ganada.",
+    sombras: "Decadencia moral, mala fama merecida, vanidad estéril, envejecimiento amargo.",
+    salmo: "Salmo 103:19 — «El Señor estableció en los cielos su trono, y su reino domina sobre todos.»",
+    oracion: "Padre Dios, creador del universo y de todo lo visible e invisible, te pido que envíes al ángel Nithael, para que mi alma se mantenga joven aunque mi cuerpo cambie. Para acompañar a quienes envejecen con amargura y necesitan recuperar la gracia, en el nombre de Dios, que así sea."
+  },
+  {
+    n: 55,
+    nombre: "Mebahiah",
+    hebreo: "מְבַהיָה",
+    significado: "Dios eterno",
+    coro: "Principados",
+    regente: "Haniel",
+    elemento: "Tierra",
+    fecha_inicio: "12-22",
+    fecha_fin: "12-26",
+    don: "Tienes el don de la Transmisión de la Fe. El poder de educar con tu ejemplo y de transmitir principios verdaderos a quienes vienen detrás de ti. Puedes usar tu don para ayudar a los demás a formar a sus hijos con valores y a vivir en coherencia con lo que enseñan.",
+    virtudes: "Capacidad de educar moralmente, fertilidad simbólica, amor por los hijos propios y ajenos, devoción.",
+    sombras: "Esterilidad espiritual, mal ejemplo, traición a los principios enseñados, hipocresía moral.",
+    salmo: "Salmo 102:12 — «Mas tú, oh Señor, permanecerás para siempre, y tu memoria de generación en generación.»",
+    oracion: "Padre Dios, creador del universo y de todo lo visible e invisible, te pido que envíes al ángel Mebahiah, para que lo que enseñe con mi vida sea verdadero, porque los hijos aprenden lo que ven y no lo que oyen. Para inspirar a otros padres y maestros a formar con coherencia, en el nombre de Dios, que así sea."
+  },
+  {
+    n: 56,
+    nombre: "Poyel",
+    hebreo: "פּוֹיאֵל",
+    significado: "Dios que sostiene el universo",
+    coro: "Principados",
+    regente: "Haniel",
+    elemento: "Tierra",
+    fecha_inicio: "12-27",
+    fecha_fin: "12-31",
+    don: "Tienes el don de la Modesta Ambición. El poder de pedir solo lo justo y de prosperar sin codicia. Puedes usar tu don para ayudar a los demás a reconocer sus verdaderas necesidades y a compartir lo que les sobra con gratitud.",
+    virtudes: "Modesta ambición, capacidad de pedir lo justo, fortuna con humildad, talento literario.",
+    sombras: "Ambición desmedida, codicia, pedir más de lo que se necesita, ingratitud.",
+    salmo: "Salmo 145:14 — «Sostiene el Señor a todos los que caen, y levanta a todos los oprimidos.»",
+    oracion: "Padre Dios, creador del universo y de todo lo visible e invisible, te pido que envíes al ángel Poyel, para que me ayude a recibir lo justo, lo que necesito y lo que pueda compartir, ni más ni menos. Para enseñar a otros a vivir sin codicia, en el nombre de Dios, que así sea."
+  },
+
+  // ========== CORO 8: ARCÁNGELES (Mensajeros) ==========
+  {
+    n: 57,
+    nombre: "Nemamiah",
+    hebreo: "נְמַמְיָה",
+    significado: "Dios loable",
+    coro: "Arcángeles",
+    regente: "Miguel",
+    elemento: "Fuego",
+    fecha_inicio: "01-01",
+    fecha_fin: "01-05",
+    don: "Tienes el don de la Estrategia Justa. El poder de pensar con inteligencia para vencer a tus sombras y de defender a los oprimidos con valor. Puedes usar tu don para ayudar a los demás a liberarse de cautiverios y a planear sus batallas con sabiduría.",
+    virtudes: "Capacidad estratégica, valor en el combate justo, defensa de los oprimidos, lealtad militar.",
+    sombras: "Traición política, conspiración, abandono del puesto, cobardía.",
+    salmo: "Salmo 115:11 — «Los que teméis al Señor, esperad en el Señor; él es vuestra ayuda y vuestro escudo.»",
+    oracion: "Padre Dios, creador del universo y de todo lo visible e invisible, te pido que envíes al ángel Nemamiah, para que me ayude a tener estrategia y coraje para vencer a mis sombras. Para defender también a los oprimidos que no pueden defenderse, en el nombre de Dios, que así sea."
+  },
+  {
+    n: 58,
+    nombre: "Yeialel",
+    hebreo: "יֵיָלאֵל",
+    significado: "Dios que escucha a las generaciones",
+    coro: "Arcángeles",
+    regente: "Miguel",
+    elemento: "Fuego",
+    fecha_inicio: "01-06",
+    fecha_fin: "01-10",
+    don: "Tienes el don de la Fuerza Mental. El poder de resistir presiones y de mantener la lógica clara incluso ante verdades duras. Puedes usar tu don para ayudar a los demás a curar la tristeza profunda y a no caer en calumnias ni falsos testimonios.",
+    virtudes: "Coraje moral, capacidad de resistir presiones, lógica clara, valor para enfrentar verdades duras.",
+    sombras: "Melancolía crónica, calumnia, falso testimonio, hipocondría persistente.",
+    salmo: "Salmo 6:3 — «Y mi alma muy turbada; y tú, Señor, ¿hasta cuándo?»",
+    oracion: "Padre Dios, creador del universo y de todo lo visible e invisible, te pido que envíes al ángel Yeialel, para que sostenga mi mente cuando la tristeza la nuble, porque la luz siempre vuelve. Para acompañar a quienes sufren melancolía profunda, en el nombre de Dios, que así sea."
+  },
+  {
+    n: 59,
+    nombre: "Harahel",
+    hebreo: "הָרַחְאֵל",
+    significado: "Dios que conoce todas las cosas",
+    coro: "Arcángeles",
+    regente: "Miguel",
+    elemento: "Fuego",
+    fecha_inicio: "01-11",
+    fecha_fin: "01-15",
+    don: "Tienes el don de la Fecundidad Intelectual. El poder de aprender, enseñar y multiplicar ideas que sirvan a otros. Puedes usar tu don para ayudar a los demás a desarrollar su talento creativo y a usar el conocimiento con generosidad.",
+    virtudes: "Capacidad de aprender y enseñar, amor por los libros, riqueza obtenida con inteligencia, fertilidad de ideas.",
+    sombras: "Avaricia intelectual, esterilidad creativa, despilfarro, codicia.",
+    salmo: "Salmo 113:3 — «Desde el nacimiento del sol hasta donde se pone, sea alabado el nombre del Señor.»",
+    oracion: "Padre Dios, creador del universo y de todo lo visible e invisible, te pido que envíes al ángel Harahel, para que multiplique en mí las ideas que sirven y para que mis libros sean semillas para otros. Para acompañar a quienes enseñan o estudian con devoción, en el nombre de Dios, que así sea."
+  },
+  {
+    n: 60,
+    nombre: "Mitzrael",
+    hebreo: "מִצְרָאֵל",
+    significado: "Dios consuelo de los oprimidos",
+    coro: "Arcángeles",
+    regente: "Miguel",
+    elemento: "Fuego",
+    fecha_inicio: "01-16",
+    fecha_fin: "01-20",
+    don: "Tienes el don de la Reparación. El poder de arreglar lo que rompiste sin querer y de mantener la cordura cuando la mente flaquea. Puedes usar tu don para ayudar a los demás a sanar daños del pasado y a honrar a quienes les enseñaron.",
+    virtudes: "Capacidad de reparar daños, virtud probada, talento médico-mental, honor de los padres.",
+    sombras: "Persecución mental, locura, traición a los maestros, rebelión destructiva.",
+    salmo: "Salmo 145:17 — «Justo es el Señor en todos sus caminos, y misericordioso en todas sus obras.»",
+    oracion: "Padre Dios, creador del universo y de todo lo visible e invisible, te pido que envíes al ángel Mitzrael, para que me ayude a reparar lo que rompí sin querer y a mantener la cordura cuando la mente me traicione. Para acompañar a quienes sufren persecuciones mentales, en el nombre de Dios, que así sea."
+  },
+  {
+    n: 61,
+    nombre: "Umabel",
+    hebreo: "אוּמַבְאֵל",
+    significado: "Dios sobre todas las cosas",
+    coro: "Arcángeles",
+    regente: "Miguel",
+    elemento: "Fuego",
+    fecha_inicio: "01-21",
+    fecha_fin: "01-25",
+    don: "Tienes el don de la Amistad Verdadera. El poder de generar afinidades profundas entre almas hermanas y de ser amigo sincero. Puedes usar tu don para ayudar a los demás a encontrar lazos auténticos y a no traicionar a quienes confían en ellos.",
+    virtudes: "Capacidad de amistad profunda, talento astronómico, sensibilidad humana, conexión auténtica.",
+    sombras: "Disolución de las amistades, traición íntima, libertinaje afectivo, falsedad.",
+    salmo: "Salmo 113:2 — «Sea el nombre del Señor bendito desde ahora y para siempre.»",
+    oracion: "Padre Dios, creador del universo y de todo lo visible e invisible, te pido que envíes al ángel Umabel, para que me mande amigos verdaderos y para hacerme amigo verdadero. Para acompañar a quienes se sienten solos y necesitan conexiones auténticas, en el nombre de Dios, que así sea."
+  },
+  {
+    n: 62,
+    nombre: "Iah-Hel",
+    hebreo: "יָה-הֵל",
+    significado: "Dios ser supremo",
+    coro: "Arcángeles",
+    regente: "Miguel",
+    elemento: "Fuego",
+    fecha_inicio: "01-26",
+    fecha_fin: "01-30",
+    don: "Tienes el don de la Sabiduría en la Soledad. El poder de hacer del silencio compañía fecunda y de cultivar una vida interior rica. Puedes usar tu don para ayudar a los demás a no temer al retiro y a transformar el aislamiento en sabiduría.",
+    virtudes: "Don filosófico, amor por el retiro fecundo, sabiduría serena, vida interior rica.",
+    sombras: "Ignorancia presumida, desprecio del estudio, soledad amarga, aislamiento patológico.",
+    salmo: "Salmo 119:159 — «Mira, oh Señor, que amo tus mandamientos; vivifícame conforme a tu misericordia.»",
+    oracion: "Padre Dios, creador del universo y de todo lo visible e invisible, te pido que envíes al ángel Iah-Hel, para que en la soledad sea compañía de mí mismo y el silencio me enseñe. Para acompañar a quienes están solos y temen su propio silencio, en el nombre de Dios, que así sea."
+  },
+  {
+    n: 63,
+    nombre: "Anauel",
+    hebreo: "עֲנַוְאֵל",
+    significado: "Dios infinitamente bueno",
+    coro: "Arcángeles",
+    regente: "Miguel",
+    elemento: "Fuego",
+    fecha_inicio: "01-31",
+    fecha_fin: "02-04",
+    don: "Tienes el don de la Visión Unificadora. El poder de ver el hilo invisible que une todo lo creado y de comerciar con ética. Puedes usar tu don para ayudar a los demás a superar la dispersión y a entender que nada está realmente separado.",
+    virtudes: "Visión unificadora, capacidad para el comercio ético, salud, sabiduría práctica con sentido espiritual.",
+    sombras: "División destructiva, accidentes graves, codicia comercial, dispersión.",
+    salmo: "Salmo 100:2 — «Servid al Señor con alegría; venid ante su presencia con regocijo.»",
+    oracion: "Padre Dios, creador del universo y de todo lo visible e invisible, te pido que envíes al ángel Anauel, para que me muestre el hilo invisible que une todo. Para enseñar a otros que nada está separado y que la unidad sostiene todo lo que existe, en el nombre de Dios, que así sea."
+  },
+  {
+    n: 64,
+    nombre: "Mehiel",
+    hebreo: "מְהִיאֵל",
+    significado: "Dios que vivifica todas las cosas",
+    coro: "Arcángeles",
+    regente: "Miguel",
+    elemento: "Fuego",
+    fecha_inicio: "02-05",
+    fecha_fin: "02-09",
+    don: "Tienes el don de la Inspiración Literaria. El poder de crear con la palabra escrita o hablada y de proteger lo que produces de la calumnia. Puedes usar tu don para ayudar a los demás a comunicar verdad y a defender la palabra pública del veneno.",
+    virtudes: "Don literario y oratorio, capacidad creativa, memoria fértil, protección en lo intelectual.",
+    sombras: "Mentira escrita, calumnia impresa, prensa amarillista, falsedad en la palabra pública.",
+    salmo: "Salmo 33:18 — «He aquí el ojo del Señor sobre los que le temen, sobre los que esperan en su misericordia.»",
+    oracion: "Padre Dios, creador del universo y de todo lo visible e invisible, te pido que envíes al ángel Mehiel, para que inspire lo que escribo y lo que digo, y que mis palabras vivifiquen en lugar de envenenar. Para acompañar a escritores y comunicadores que buscan servir con la verdad, en el nombre de Dios, que así sea."
+  },
+
+  // ========== CORO 9: ÁNGELES (Materialización) ==========
+  {
+    n: 65,
+    nombre: "Damabiah",
+    hebreo: "דַמַבְיָה",
+    significado: "Dios fuente de sabiduría",
+    coro: "Ángeles",
+    regente: "Gabriel",
+    elemento: "Agua",
+    fecha_inicio: "02-10",
+    fecha_fin: "02-14",
+    don: "Tienes el don de la Protección en los Viajes. El poder de navegar travesías inciertas y de proteger las empresas útiles. Puedes usar tu don para ayudar a los demás a llegar a buen puerto y a no naufragar cuando el alma no encuentra rumbo.",
+    virtudes: "Sabiduría espiritual, capacidad de proteger expediciones, generosidad, talento marino.",
+    sombras: "Naufragio real o simbólico, ruina por imprudencia, traición de socios, accidentes.",
+    salmo: "Salmo 90:13 — «Vuélvete, oh Señor; ¿hasta cuándo? Y aplácate para con tus siervos.»",
+    oracion: "Padre Dios, creador del universo y de todo lo visible e invisible, te pido que envíes al ángel Damabiah, para que proteja mis travesías, las del cuerpo y las del alma cuando navego sin rumbo claro. Para acompañar a quienes emprenden viajes inciertos, en el nombre de Dios, que así sea."
+  },
+  {
+    n: 66,
+    nombre: "Manakel",
+    hebreo: "מַנַקְאֵל",
+    significado: "Dios que sostiene todo",
+    coro: "Ángeles",
+    regente: "Gabriel",
+    elemento: "Agua",
+    fecha_inicio: "02-15",
+    fecha_fin: "02-19",
+    don: "Tienes el don del Discernimiento Moral. El poder de calmar la cólera antes de que te consuma y de recibir sueños lúcidos que orientan. Puedes usar tu don para ayudar a los demás a controlar su irascibilidad y a tomar decisiones desde la calma.",
+    virtudes: "Discernimiento moral, capacidad de calmar la cólera, amistad con animales, sueños lúcidos.",
+    sombras: "Cólera incontrolada, brutalidad, irascibilidad, falta de discernimiento.",
+    salmo: "Salmo 38:21 — «No me desampares, oh Señor; Dios mío, no te alejes de mí.»",
+    oracion: "Padre Dios, creador del universo y de todo lo visible e invisible, te pido que envíes al ángel Manakel, para que sosiegue mi cólera antes de que me consuma y para que mis sueños me orienten. Para acompañar a quienes luchan contra su propio temperamento, en el nombre de Dios, que así sea."
+  },
+  {
+    n: 67,
+    nombre: "Eyael",
+    hebreo: "אֵיָעאֵל",
+    significado: "Dios delicia de los hijos de los hombres",
+    coro: "Ángeles",
+    regente: "Gabriel",
+    elemento: "Agua",
+    fecha_inicio: "02-20",
+    fecha_fin: "02-24",
+    don: "Tienes el don de la Sublimación. El poder de transformar el sufrimiento en obra bella y de hallar consuelo en lo trascendente. Puedes usar tu don para ayudar a los demás a convertir sus dolores en arte y a encontrar sentido en lo que parece roto.",
+    virtudes: "Capacidad de hallar consuelo en lo bello, talento para ciencias ocultas con disciplina, sublimación creativa.",
+    sombras: "Ateísmo militante, error reiterado, ciencia sin ética, melancolía estética.",
+    salmo: "Salmo 36:7 — «¡Cuán preciosa, oh Dios, es tu misericordia! Por eso los hijos de los hombres se amparan bajo la sombra de tus alas.»",
+    oracion: "Padre Dios, creador del universo y de todo lo visible e invisible, te pido que envíes al ángel Eyael, para que transforme lo doloroso en obra. Para que mi sufrimiento sirva como materia prima de algo bello y pueda ayudar a otros a sublimar el suyo, en el nombre de Dios, que así sea."
+  },
+  {
+    n: 68,
+    nombre: "Habuhiah",
+    hebreo: "חַבוּהיָה",
+    significado: "Dios dador con liberalidad",
+    coro: "Ángeles",
+    regente: "Gabriel",
+    elemento: "Agua",
+    fecha_inicio: "02-25",
+    fecha_fin: "02-29",
+    don: "Tienes el don de la Curación y la Fertilidad. El poder de hacer florecer lo seco y de sanar enfermedades antiguas. Puedes usar tu don para ayudar a los demás a recuperar la salud, a multiplicar lo que cultivan y a generar abundancia con generosidad.",
+    virtudes: "Don curativo poderoso, capacidad de hacer fructificar la tierra, fertilidad, generosidad.",
+    sombras: "Esterilidad, enfermedades crónicas, peste, ruina agrícola, mezquindad.",
+    salmo: "Salmo 106:1 — «Aleluya. Alabad al Señor, porque él es bueno; porque para siempre es su misericordia.»",
+    oracion: "Padre Dios, creador del universo y de todo lo visible e invisible, te pido que envíes al ángel Habuhiah, para que cure lo enfermo en mí y haga fértil lo seco. Para acompañar a quienes sufren enfermedades crónicas y a quienes trabajan la tierra, en el nombre de Dios, que así sea."
+  },
+  {
+    n: 69,
+    nombre: "Rochel",
+    hebreo: "רוֹחֵל",
+    significado: "Dios que ve todo",
+    coro: "Ángeles",
+    regente: "Gabriel",
+    elemento: "Agua",
+    fecha_inicio: "03-01",
+    fecha_fin: "03-05",
+    don: "Tienes el don de la Restitución. El poder de recuperar lo que era tuyo y se perdió, sean cosas, personas o partes de ti mismo. Puedes usar tu don para ayudar a los demás a hallar lo extraviado y a obtener justicia cuando algo les fue arrebatado.",
+    virtudes: "Memoria privilegiada, capacidad de recuperar objetos perdidos, justicia restitutiva, fama merecida.",
+    sombras: "Robo, pérdida injusta, calumnia, error judicial.",
+    salmo: "Salmo 16:5 — «El Señor es la porción de mi herencia y de mi copa; tú sustentas mi suerte.»",
+    oracion: "Padre Dios, creador del universo y de todo lo visible e invisible, te pido que envíes al ángel Rochel, para que me devuelva lo que era mío y se perdió, sean cosas, personas o partes de mí mismo. Para acompañar a quienes han sido despojados injustamente, en el nombre de Dios, que así sea."
+  },
+  {
+    n: 70,
+    nombre: "Yabamiah",
+    hebreo: "יַבַמְיָה",
+    significado: "Verbo que produce todas las cosas",
+    coro: "Ángeles",
+    regente: "Gabriel",
+    elemento: "Agua",
+    fecha_inicio: "03-06",
+    fecha_fin: "03-10",
+    don: "Tienes el don del Verbo Creador. El poder de generar mundos con tus palabras y de regenerarte profundamente. Puedes usar tu don para ayudar a los demás a construir con la palabra en lugar de destruir y a alcanzar transformaciones profundas.",
+    virtudes: "Don creador, capacidad alquímica, regeneración profunda, dominio del verbo.",
+    sombras: "Magia negra, destrucción por la palabra, ateísmo militante, irreligiosidad cínica.",
+    salmo: "Salmo 1:1 — «Bienaventurado el varón que no anduvo en consejo de malos, ni estuvo en camino de pecadores.»",
+    oracion: "Padre Dios, creador del universo y de todo lo visible e invisible, te pido que envíes al ángel Yabamiah, para que me haga creador con mis palabras y que lo que diga construya en lugar de derribar. Para enseñar a otros el poder del verbo bien usado, en el nombre de Dios, que así sea."
+  },
+  {
+    n: 71,
+    nombre: "Haiayel",
+    hebreo: "הַיָיאֵל",
+    significado: "Dios señor del universo",
+    coro: "Ángeles",
+    regente: "Gabriel",
+    elemento: "Agua",
+    fecha_inicio: "03-11",
+    fecha_fin: "03-15",
+    don: "Tienes el don de la Victoria Interior. El poder de vencer al adversario que llevas dentro y de alcanzar la paz tras la batalla justa. Puedes usar tu don para ayudar a los demás a fortalecer su voluntad y a resistir cuando el espíritu flaquea.",
+    virtudes: "Coraje en la batalla justa, capacidad de resistir, victoria moral, fuerza interior.",
+    sombras: "Guerra inútil, conflictos sin propósito, brutalidad, derrota humillante.",
+    salmo: "Salmo 109:30 — «Yo alabaré al Señor en gran manera con mi boca, y en medio de muchos le alabaré.»",
+    oracion: "Padre Dios, creador del universo y de todo lo visible e invisible, te pido que envíes al ángel Haiayel, para que me dé la victoria sobre lo que en mí pelea contra mí, porque esa es la única guerra que vale. Para acompañar a quienes libran sus propias batallas internas, en el nombre de Dios, que así sea."
+  },
+  {
+    n: 72,
+    nombre: "Mumiah",
+    hebreo: "מוּמיָה",
+    significado: "Dios fin de todas las cosas",
+    coro: "Ángeles",
+    regente: "Gabriel",
+    elemento: "Agua",
+    fecha_inicio: "03-16",
+    fecha_fin: "03-20",
+    don: "Tienes el don de los Cierres con Dignidad. El poder de terminar ciclos cuando deben terminar para que pueda nacer lo nuevo. Puedes usar tu don para ayudar a los demás a no dejar las cosas a medias y a cerrar etapas con sabiduría y longevidad.",
+    virtudes: "Capacidad de terminar ciclos, sabiduría médica, longevidad, dominio de la física y química, cierre con dignidad.",
+    sombras: "Desesperación, dejar todo a medias, miedo a terminar, suicidio simbólico de proyectos.",
+    salmo: "Salmo 116:7 — «Vuelve, oh alma mía, a tu reposo, porque el Señor te ha hecho bien.»",
+    oracion: "Padre Dios, creador del universo y de todo lo visible e invisible, te pido que envíes al ángel Mumiah, para que me ayude a cerrar lo que debe terminar, porque solo así puede nacer lo nuevo. Para acompañar a quienes temen los finales y necesitan cerrar etapas con dignidad, en el nombre de Dios, que así sea."
+  }
+];
+
+// ============================================================
+// ÁNGEL CABALÍSTICO — LÓGICA
+// Sistema de los 72 ángeles del Shem HaMephorash
+// ============================================================
+
+var angelState = { day: 0, month: 0, year: 0, name: '', lastResult: null };
+
+function openAngelTool() {
+  var modal = document.getElementById('angelModal');
+  modal.classList.add('is-open');
+  document.body.style.overflow = 'hidden';
+  angelReset();
+}
+
+function angelClose() {
+  var modal = document.getElementById('angelModal');
+  modal.classList.remove('is-open');
+  document.body.style.overflow = '';
+}
+
+function angelReset() {
+  angelState = { day: 0, month: 0, year: 0, name: '', lastResult: null };
+  document.getElementById('angelDay').value = '';
+  document.getElementById('angelMonth').value = '';
+  document.getElementById('angelYear').value = '';
+  document.getElementById('angelName').value = '';
+  angelGoto(1);
+}
+
+function angelGoto(step) {
+  var panes = document.querySelectorAll('#angelModal .oracle-pane');
+  panes.forEach(function(p) { p.classList.remove('oracle-pane-active'); });
+
+  var target;
+  if (step === 'loading') target = document.getElementById('apaneLoading');
+  else if (step === 'result') target = document.getElementById('apaneResult');
+  else target = document.getElementById('apane' + step);
+
+  if (target) target.classList.add('oracle-pane-active');
+
+  var dots = document.querySelectorAll('#angelModal .oracle-dot');
+  dots.forEach(function(d) {
+    d.classList.remove('oracle-dot-active');
+    var dotStep = parseInt(d.getAttribute('data-step'), 10);
+    if (typeof step === 'number' && dotStep === step) {
+      d.classList.add('oracle-dot-active');
+    }
+  });
+
+  var inner = document.querySelector('#angelModal .oracle-modal-inner');
+  if (inner) inner.scrollTop = 0;
+}
+
+function angelNext(step) {
+  if (step === 1) {
+    var day = parseInt(document.getElementById('angelDay').value, 10);
+    var month = parseInt(document.getElementById('angelMonth').value, 10);
+    var year = parseInt(document.getElementById('angelYear').value, 10);
+
+    if (!day || day < 1 || day > 31 || !month || !year || year < 1900 || year > 2025) {
+      showToast('Completa una fecha válida');
+      return;
+    }
+    // Validación de día válido en el mes
+    var diasMes = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+    var esBisiesto = (year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0);
+    if (month === 2 && esBisiesto) diasMes[1] = 29;
+    if (day > diasMes[month - 1]) {
+      showToast('Esa fecha no existe. Revisa el día.');
+      return;
+    }
+    angelState.day = day;
+    angelState.month = month;
+    angelState.year = year;
+    angelGoto(2);
+  } else if (step === 2) {
+    var name = document.getElementById('angelName').value.trim();
+    if (!name || name.length < 2) {
+      showToast('Escribe tu nombre');
+      return;
+    }
+    // Capitalizar primera letra
+    angelState.name = name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
+    angelGoto('loading');
+
+    var mensajes = [
+      'Consultando el Shem HaMephorash...',
+      'Buscando tu nombre entre los 72 ángeles...',
+      'El guardián se acerca...',
+      'La revelación está cerca...'
+    ];
+    var idx = 0;
+    var loadingEl = document.getElementById('angelLoadingText');
+    if (loadingEl) loadingEl.textContent = mensajes[0];
+    var interval = setInterval(function() {
+      idx = (idx + 1) % mensajes.length;
+      if (loadingEl) loadingEl.textContent = mensajes[idx];
+    }, 850);
+
+    setTimeout(function() {
+      clearInterval(interval);
+      angelReveal();
+    }, 3400);
+  }
+}
+
+// === ALGORITMO: encontrar ángel según fecha ===
+function angelCalcular(day, month) {
+  var mmdd = String(month).padStart(2, '0') + '-' + String(day).padStart(2, '0');
+  for (var i = 0; i < ANGELES_72.length; i++) {
+    var a = ANGELES_72[i];
+    if (mmdd >= a.fecha_inicio && mmdd <= a.fecha_fin) return a;
+  }
+  return null;
+}
+
+function angelFormatearFechas(angel) {
+  var meses = ['', 'enero','febrero','marzo','abril','mayo','junio',
+               'julio','agosto','septiembre','octubre','noviembre','diciembre'];
+  var ini = angel.fecha_inicio.split('-');
+  var fin = angel.fecha_fin.split('-');
+  var diaIni = parseInt(ini[1], 10);
+  var mesIni = parseInt(ini[0], 10);
+  var diaFin = parseInt(fin[1], 10);
+  var mesFin = parseInt(fin[0], 10);
+
+  if (mesIni === mesFin) {
+    return diaIni + ' al ' + diaFin + ' de ' + meses[mesIni];
+  }
+  return diaIni + ' de ' + meses[mesIni] + ' al ' + diaFin + ' de ' + meses[mesFin];
+}
+
+function angelReveal() {
+  var s = angelState;
+  var angel = angelCalcular(s.day, s.month);
+  if (!angel) {
+    showToast('Error al calcular el ángel');
+    angelGoto(1);
+    return;
+  }
+
+  // Personalizar oración con el nombre del usuario
+  // Patrón nuevo: "...te pido que..." → "...yo, [Nombre], te pido que..."
+  var oracionPersonalizada = angel.oracion.replace(
+    'te pido que envíes al ángel',
+    'yo, ' + s.name + ', te pido que envíes al ángel'
+  );
+
+  // Llenar el resultado
+  document.getElementById('angelNum').textContent = 'ÁNGEL · ' + String(angel.n).padStart(2, '0') + ' DE 72';
+  document.getElementById('angelHebreo').textContent = angel.hebreo;
+  document.getElementById('angelNombre').textContent = angel.nombre.toUpperCase();
+  document.getElementById('angelSignificado').textContent = '«' + angel.significado + '»';
+  document.getElementById('angelCoro').textContent = 'CORO DE ' + angel.coro.toUpperCase();
+  document.getElementById('angelDon').textContent = angel.don;
+  document.getElementById('angelVirtudes').textContent = angel.virtudes;
+  document.getElementById('angelSombras').textContent = angel.sombras;
+  document.getElementById('angelSalmo').textContent = angel.salmo;
+  document.getElementById('angelOracion').textContent = oracionPersonalizada;
+
+  var fechas = angelFormatearFechas(angel);
+  var meta = s.name.toUpperCase() + ' · ' + fechas.toUpperCase() + ' · ELEMENTO ' + angel.elemento.toUpperCase();
+  document.getElementById('angelMeta').textContent = meta;
+
+  angelState.lastResult = {
+    n: angel.n,
+    nombre: angel.nombre,
+    significado: angel.significado
+  };
+
+  angelGoto('result');
+}
+
+function angelShare() {
+  if (!angelState.lastResult) return;
+  var r = angelState.lastResult;
+  var text = 'Mi ángel cabalístico de nacimiento es ' + r.nombre + ' (#' + r.n + ' de 72): ' + r.significado + '.\n\nDescubre el tuyo en el oráculo de El DoQmentalista:';
+  var url = window.location.href;
+  if (navigator.share) {
+    navigator.share({ title: 'Mi ángel cabalístico', text: text, url: url }).catch(function(){});
+  } else if (navigator.clipboard) {
+    navigator.clipboard.writeText(text + '\n' + url).then(function() {
+      showToast('Copiado al portapapeles', 'success');
+    });
+  } else {
+    showToast('Copia este texto: ' + text);
+  }
+}
+
+// ESC cierra modal Ángel también
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    var am = document.getElementById('angelModal');
+    if (am && am.classList.contains('is-open')) angelClose();
+  }
+});
 
 </script>
 

@@ -2289,15 +2289,199 @@
     text-transform: uppercase;
   }
 
-  /* Animaciones scroll */
+  /* ============================================================
+     MOTION GRAPHICS SYSTEM — DoQ Premium
+     Variantes cinematográficas de scroll-reveal
+     Mobile-friendly: tilts desactivados en touch via JS
+     ============================================================ */
+
+  /* Reveal base — fade + slide up (default) */
   .reveal {
     opacity: 0;
     transform: translateY(30px);
-    transition: opacity 0.9s ease, transform 0.9s ease;
+    transition: opacity 1.1s cubic-bezier(0.16, 1, 0.3, 1), transform 1.1s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: opacity, transform;
   }
   .reveal.visible {
     opacity: 1;
     transform: translateY(0);
+  }
+
+  /* Variante: desde la izquierda */
+  .reveal-left {
+    opacity: 0;
+    transform: translateX(-40px);
+    transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: opacity, transform;
+  }
+  .reveal-left.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  /* Variante: desde la derecha */
+  .reveal-right {
+    opacity: 0;
+    transform: translateX(40px);
+    transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: opacity, transform;
+  }
+  .reveal-right.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  /* Variante: zoom in sutil */
+  .reveal-scale {
+    opacity: 0;
+    transform: scale(0.94);
+    transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: opacity, transform;
+  }
+  .reveal-scale.visible {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  /* Variante: blur to focus — efecto cinematográfico */
+  .reveal-blur {
+    opacity: 0;
+    transform: translateY(20px);
+    filter: blur(10px);
+    transition: opacity 1.4s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 1.4s cubic-bezier(0.16, 1, 0.3, 1),
+                filter 1.4s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: opacity, transform, filter;
+  }
+  .reveal-blur.visible {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+
+  /* Variante: stagger 3D (para cards en grids) */
+  .reveal-3d {
+    opacity: 0;
+    transform: translateY(50px) rotateX(-15deg) scale(0.95);
+    transform-origin: center bottom;
+    transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: opacity, transform;
+  }
+  .reveal-3d.visible {
+    opacity: 1;
+    transform: translateY(0) rotateX(0deg) scale(1);
+  }
+
+  /* Stagger delays — para usar dentro de un grid revelado */
+  .reveal-stagger > *,
+  [data-stagger] > * {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .reveal-stagger.visible > *,
+  [data-stagger].visible > * {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .reveal-stagger.visible > *:nth-child(1),
+  [data-stagger].visible > *:nth-child(1) { transition-delay: 0.05s; }
+  .reveal-stagger.visible > *:nth-child(2),
+  [data-stagger].visible > *:nth-child(2) { transition-delay: 0.18s; }
+  .reveal-stagger.visible > *:nth-child(3),
+  [data-stagger].visible > *:nth-child(3) { transition-delay: 0.31s; }
+  .reveal-stagger.visible > *:nth-child(4),
+  [data-stagger].visible > *:nth-child(4) { transition-delay: 0.44s; }
+  .reveal-stagger.visible > *:nth-child(5),
+  [data-stagger].visible > *:nth-child(5) { transition-delay: 0.57s; }
+  .reveal-stagger.visible > *:nth-child(6),
+  [data-stagger].visible > *:nth-child(6) { transition-delay: 0.70s; }
+  .reveal-stagger.visible > *:nth-child(7),
+  [data-stagger].visible > *:nth-child(7) { transition-delay: 0.83s; }
+  .reveal-stagger.visible > *:nth-child(8),
+  [data-stagger].visible > *:nth-child(8) { transition-delay: 0.96s; }
+
+  /* TILT 3D para cards interactivas (activado solo desktop via JS) */
+  .tilt-card {
+    transform-style: preserve-3d;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .tilt-card.tilt-active {
+    /* Se aplica el transform inline desde JS */
+  }
+
+  /* GRAIN ANIMADO — textura cinematográfica de película antigua */
+  .doq-grain-overlay {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.07;
+    background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/></filter><rect width='200' height='200' filter='url(%23n)'/></svg>");
+    animation: doqGrainShift 1.2s steps(4) infinite;
+    mix-blend-mode: overlay;
+    z-index: 2;
+  }
+  @keyframes doqGrainShift {
+    0%   { transform: translate(0, 0); }
+    25%  { transform: translate(-2%, 1%); }
+    50%  { transform: translate(1%, -2%); }
+    75%  { transform: translate(-1%, 2%); }
+    100% { transform: translate(2%, -1%); }
+  }
+
+  /* SIGIL CABALÍSTICO — decoración rotando lentamente */
+  .doq-sigil-bg {
+    position: absolute;
+    width: 320px;
+    height: 320px;
+    opacity: 0.025;
+    pointer-events: none;
+    animation: doqSigilSpin 90s linear infinite;
+    z-index: 0;
+  }
+  @keyframes doqSigilSpin {
+    to { transform: rotate(360deg); }
+  }
+  .doq-sigil-bg.sigil-center {
+    top: 50%;
+    left: 50%;
+    margin-top: -160px;
+    margin-left: -160px;
+    animation: doqSigilSpinCenter 90s linear infinite;
+  }
+  @keyframes doqSigilSpinCenter {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+  }
+
+  /* PARALLAX SUTIL en hero (movimiento al scroll) */
+  .doq-parallax-slow {
+    will-change: transform;
+    transition: transform 0.1s linear;
+  }
+
+  /* RESPETA reduce-motion del sistema operativo */
+  @media (prefers-reduced-motion: reduce) {
+    .reveal, .reveal-left, .reveal-right, .reveal-scale, .reveal-blur, .reveal-3d,
+    .reveal-stagger > *, [data-stagger] > * {
+      opacity: 1 !important;
+      transform: none !important;
+      filter: none !important;
+      transition: none !important;
+    }
+    .doq-grain-overlay, .doq-sigil-bg {
+      animation: none !important;
+    }
+  }
+
+  /* En móvil desactivar tilt y reducir parallax para performance */
+  @media (max-width: 768px) {
+    .reveal-3d {
+      transform: translateY(40px) scale(0.96);
+    }
+    .reveal-3d.visible {
+      transform: translateY(0) scale(1);
+    }
   }
   ::selection { background: var(--rojo); color: var(--blanco); }
   ::-webkit-scrollbar { width: 10px; }
@@ -3457,7 +3641,8 @@
     <img src="assets/doq-hero.jpg" alt="El DoQmentalista, investigador de misterios y documentalista de historia oculta, Vaticano, Kabbalah y México prehispánico" class="hero-cinema-img" fetchpriority="high">
   </picture>
   <div class="hero-cinema-overlay"></div>
-  <div class="hero-cinema-content">
+  <div class="doq-grain-overlay"></div>
+  <div class="hero-cinema-content" data-parallax="0.25">
     <span class="hero-cinema-tag">— DOCUMENTALES DEL MISTERIO —</span>
     <h1 class="hero-cinema-h1">El DoQmentalista — Documentales del Misterio, Vaticano, Kabbalah y México Oculto</h1>
     <p class="hero-cinema-sub">Trabajo desde las sombras, para servir a la luz.</p>
@@ -3471,7 +3656,7 @@
 <section id="expedientes" class="expedientes-section">
 
   <!-- FILA 1: Últimos expedientes -->
-  <div class="api-row">
+  <div class="api-row reveal-blur">
     <div class="row-header">
       <div class="row-title-wrap">
         <h2 class="row-title">ÚLTIMOS DOCUMENTALES</h2>
@@ -3498,7 +3683,7 @@
   </div>
 
   <!-- FILA 2: Más vistos -->
-  <div class="api-row">
+  <div class="api-row reveal-blur">
     <div class="row-header">
       <div class="row-title-wrap">
         <h2 class="row-title">LOS MÁS VISTOS</h2>
@@ -3525,7 +3710,7 @@
   </div>
 
   <!-- FILA 3: Saga Vaticano -->
-  <div class="api-row">
+  <div class="api-row reveal-blur">
     <div class="row-header">
       <div class="row-title-wrap">
         <h2 class="row-title">SAGA · VATICANO</h2>
@@ -3552,7 +3737,7 @@
   </div>
 
   <!-- FILA 4: Saga México Oculto -->
-  <div class="api-row">
+  <div class="api-row reveal-blur">
     <div class="row-header">
       <div class="row-title-wrap">
         <h2 class="row-title">SAGA · MÉXICO OCULTO</h2>
@@ -3579,7 +3764,7 @@
   </div>
 
   <!-- FILA 5: Saga Kabbalah / Esoterismo -->
-  <div class="api-row">
+  <div class="api-row reveal-blur">
     <div class="row-header">
       <div class="row-title-wrap">
         <h2 class="row-title">SAGA · ESOTERISMO</h2>
@@ -3606,7 +3791,7 @@
   </div>
 
   <!-- FILA 6: Conspiraciones -->
-  <div class="api-row">
+  <div class="api-row reveal-blur">
     <div class="row-header">
       <div class="row-title-wrap">
         <h2 class="row-title">CONSPIRACIONES</h2>
@@ -3637,7 +3822,7 @@
 <!-- ============ SOBRE EL DOQ ============ -->
 <section id="sobre" class="sobre">
   <div class="sobre-container">
-    <div class="sobre-text-wrap reveal">
+    <div class="sobre-text-wrap reveal-left">
       <div class="sobre-kicker">SOBRE EL DOQ</div>
       <h2 class="sobre-title">Yo soy<br><em>El DoQmentalista.</em></h2>
       <div class="sobre-text">
@@ -3649,7 +3834,7 @@
         </p>
       </div>
     </div>
-    <div class="sobre-visual reveal">
+    <div class="sobre-visual reveal-right">
       <img src="assets/doq-logo.png" alt="El DoQmentalista" class="sobre-logo-img" loading="lazy">
       <div class="sobre-stamp">EXPEDIENTE 0001</div>
     </div>
@@ -3657,8 +3842,17 @@
 </section>
 
 <!-- ============ HERRAMIENTAS ============ -->
-<section id="herramientas" class="herramientas">
-  <div class="section-header-center reveal">
+<section id="herramientas" class="herramientas" style="position:relative; overflow:hidden;">
+  <svg class="doq-sigil-bg sigil-center" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <circle cx="50" cy="50" r="45" fill="none" stroke="#c8102e" stroke-width="0.4"/>
+    <circle cx="50" cy="50" r="35" fill="none" stroke="#c8102e" stroke-width="0.4"/>
+    <circle cx="50" cy="50" r="25" fill="none" stroke="#c8102e" stroke-width="0.4"/>
+    <polygon points="50,10 60,40 90,40 65,58 75,90 50,72 25,90 35,58 10,40 40,40" fill="none" stroke="#c8102e" stroke-width="0.4"/>
+    <line x1="50" y1="5" x2="50" y2="95" stroke="#c8102e" stroke-width="0.3"/>
+    <line x1="5" y1="50" x2="95" y2="50" stroke="#c8102e" stroke-width="0.3"/>
+  </svg>
+
+  <div class="section-header-center reveal-blur">
     <div class="section-kicker">LABORATORIO · ORÁCULOS</div>
     <h2 class="section-title">HERRAMIENTAS <em>MÁGICAS</em></h2>
     <p class="section-desc">
@@ -3666,8 +3860,8 @@
     </p>
   </div>
 
-  <div class="tools-grid">
-    <article class="witch-tool-card witch-tool-active witch-tool-bruja reveal" onclick="openWitchTool()">
+  <div class="tools-grid reveal-stagger">
+    <article class="witch-tool-card witch-tool-active witch-tool-bruja tilt-card" onclick="openWitchTool()">
       <div class="witch-tool-bg"></div>
       <div class="witch-tool-overlay"></div>
       <div class="witch-tool-content">
@@ -3681,7 +3875,7 @@
       </div>
     </article>
 
-    <article class="witch-tool-card witch-tool-active witch-tool-animal reveal" onclick="openTotemTool()">
+    <article class="witch-tool-card witch-tool-active witch-tool-animal tilt-card" onclick="openTotemTool()">
       <div class="witch-tool-bg"></div>
       <div class="witch-tool-overlay"></div>
       <div class="witch-tool-content">
@@ -3695,7 +3889,7 @@
       </div>
     </article>
 
-    <article class="witch-tool-card witch-tool-active witch-tool-angel reveal" onclick="openAngelTool()">
+    <article class="witch-tool-card witch-tool-active witch-tool-angel tilt-card" onclick="openAngelTool()">
       <div class="witch-tool-bg"></div>
       <div class="witch-tool-overlay"></div>
       <div class="witch-tool-content">
@@ -3713,7 +3907,7 @@
 
 <!-- ============ CANALES ============ -->
 <section id="canales" class="canales">
-  <div class="section-header-center reveal">
+  <div class="section-header-center reveal-blur">
     <div class="section-kicker">CANALES</div>
     <h2 class="section-title canales-title">EL UNIVERSO <em>DOQ</em></h2>
     <p class="section-desc">
@@ -3721,8 +3915,8 @@
     </p>
   </div>
 
-  <div class="canales-grid canales-compact">
-    <a href="https://www.youtube.com/@ElDoQmentalista" target="_blank" class="canal-card canal-doq reveal">
+  <div class="canales-grid canales-compact reveal-stagger">
+    <a href="https://www.youtube.com/@ElDoQmentalista" target="_blank" class="canal-card canal-doq tilt-card">
       <div class="canal-symbol">
         <img src="assets/channel-doqmentalista.jpg" alt="El DoQmentalista">
       </div>
@@ -3731,7 +3925,7 @@
       <span class="canal-link">Visitar →</span>
     </a>
 
-    <a href="https://www.youtube.com/@ElOr%C3%A1culo72" target="_blank" class="canal-card canal-oraculo reveal">
+    <a href="https://www.youtube.com/@ElOr%C3%A1culo72" target="_blank" class="canal-card canal-oraculo tilt-card">
       <div class="canal-symbol">
         <img src="assets/channel-el-oraculo.jpg" alt="El Oráculo">
       </div>
@@ -3740,7 +3934,7 @@
       <span class="canal-link">Visitar →</span>
     </a>
 
-    <a href="https://www.youtube.com/@AterradorMente" target="_blank" class="canal-card canal-aterradormente reveal">
+    <a href="https://www.youtube.com/@AterradorMente" target="_blank" class="canal-card canal-aterradormente tilt-card">
       <div class="canal-symbol">
         <img src="assets/channel-aterradormente.jpg" alt="AterradorMente">
       </div>
@@ -3749,7 +3943,7 @@
       <span class="canal-link">Visitar →</span>
     </a>
 
-    <a href="https://www.youtube.com/@SoyDeDios" target="_blank" class="canal-card canal-soydedios reveal">
+    <a href="https://www.youtube.com/@SoyDeDios" target="_blank" class="canal-card canal-soydedios tilt-card">
       <div class="canal-symbol">
         <img src="assets/channel-soy-de-dios.jpg" alt="Soy De Dios">
       </div>
@@ -3762,7 +3956,7 @@
 
 <!-- ============ PLAYLISTS ============ -->
 <section id="playlists" class="playlists-section">
-  <div class="section-header-center reveal">
+  <div class="section-header-center reveal-blur">
     <div class="section-kicker">SAGAS · LISTAS DE REPRODUCCIÓN</div>
     <h2 class="section-title">SUMÉRGETE EN <em>LAS SAGAS</em></h2>
     <p class="section-desc">
@@ -3770,8 +3964,8 @@
     </p>
   </div>
 
-  <div class="playlists-grid">
-    <a href="https://www.youtube.com/playlist?list=PLbip308elLHsPolplocZxrFeXqjcIERiK" target="_blank" class="playlist-card reveal" data-playlist-id="PLbip308elLHsPolplocZxrFeXqjcIERiK">
+  <div class="playlists-grid reveal-stagger">
+    <a href="https://www.youtube.com/playlist?list=PLbip308elLHsPolplocZxrFeXqjcIERiK" target="_blank" class="playlist-card tilt-card" data-playlist-id="PLbip308elLHsPolplocZxrFeXqjcIERiK">
       <div class="playlist-poster">
         <img alt="Documentales Completos" loading="lazy">
         <div class="playlist-overlay"></div>
@@ -3786,7 +3980,7 @@
       </div>
     </a>
 
-    <a href="https://www.youtube.com/playlist?list=PLbip308elLHtLKor8W_D37WyQ29bE4YtB" target="_blank" class="playlist-card reveal" data-playlist-id="PLbip308elLHtLKor8W_D37WyQ29bE4YtB">
+    <a href="https://www.youtube.com/playlist?list=PLbip308elLHtLKor8W_D37WyQ29bE4YtB" target="_blank" class="playlist-card tilt-card" data-playlist-id="PLbip308elLHtLKor8W_D37WyQ29bE4YtB">
       <div class="playlist-poster">
         <img alt="Misterios y Enigmas" loading="lazy">
         <div class="playlist-overlay"></div>
@@ -3801,7 +3995,7 @@
       </div>
     </a>
 
-    <a href="https://www.youtube.com/playlist?list=PLbip308elLHvtXQEq_AUDywM4688zF2iE" target="_blank" class="playlist-card reveal" data-playlist-id="PLbip308elLHvtXQEq_AUDywM4688zF2iE">
+    <a href="https://www.youtube.com/playlist?list=PLbip308elLHvtXQEq_AUDywM4688zF2iE" target="_blank" class="playlist-card tilt-card" data-playlist-id="PLbip308elLHvtXQEq_AUDywM4688zF2iE">
       <div class="playlist-poster">
         <img alt="Secretos del Vaticano" loading="lazy">
         <div class="playlist-overlay"></div>
@@ -3816,7 +4010,7 @@
       </div>
     </a>
 
-    <a href="https://www.youtube.com/playlist?list=PLbip308elLHv2Z5JpvShw2O6Ws9MmCaMl" target="_blank" class="playlist-card reveal" data-playlist-id="PLbip308elLHv2Z5JpvShw2O6Ws9MmCaMl">
+    <a href="https://www.youtube.com/playlist?list=PLbip308elLHv2Z5JpvShw2O6Ws9MmCaMl" target="_blank" class="playlist-card tilt-card" data-playlist-id="PLbip308elLHv2Z5JpvShw2O6Ws9MmCaMl">
       <div class="playlist-poster">
         <img alt="DoQmentalista Podcast" loading="lazy">
         <div class="playlist-overlay"></div>
@@ -3831,7 +4025,7 @@
       </div>
     </a>
 
-    <a href="https://www.youtube.com/playlist?list=PLbip308elLHsRCZwmGujQ6iqakoSpBJvJ" target="_blank" class="playlist-card reveal" data-playlist-id="PLbip308elLHsRCZwmGujQ6iqakoSpBJvJ">
+    <a href="https://www.youtube.com/playlist?list=PLbip308elLHsRCZwmGujQ6iqakoSpBJvJ" target="_blank" class="playlist-card tilt-card" data-playlist-id="PLbip308elLHsRCZwmGujQ6iqakoSpBJvJ">
       <div class="playlist-poster">
         <img alt="Leyendas de Terror" loading="lazy">
         <div class="playlist-overlay"></div>
@@ -3851,7 +4045,7 @@
 <!-- ============ FAQ ============ -->
 <section id="faq" class="faq-section">
   <div class="faq-container">
-    <div class="section-header-center reveal">
+    <div class="section-header-center reveal-blur">
       <div class="section-kicker">PREGUNTAS FRECUENTES</div>
       <h2 class="section-title">LO QUE QUIERES <em>SABER</em></h2>
       <p class="section-desc">
@@ -3859,7 +4053,7 @@
       </p>
     </div>
 
-    <div class="faq-list reveal">
+    <div class="faq-list reveal-stagger">
       <details class="faq-item">
         <summary class="faq-q">¿Quién es El DoQmentalista?</summary>
         <div class="faq-a">
@@ -3928,7 +4122,7 @@
       </p>
     </div>
 
-    <div class="contacto-card-mega reveal">
+    <div class="contacto-card-mega reveal-scale">
       <div class="contacto-mega-tag">CANAL OFICIAL</div>
       <a href="mailto:el.doq.mentalista@gmail.com?subject=Contacto%20desde%20el%20sitio" class="contacto-mega-email">
         el.doq.mentalista@gmail.com
@@ -4590,7 +4784,11 @@
     if (e.key === 'Escape' && drawer.classList.contains('active')) closeDrawer();
   });
 
-  // Reveal on scroll
+  // ============================================================
+  // MOTION GRAPHICS — Sistema de reveal cinematográfico
+  // Activa todas las variantes (.reveal, .reveal-left, .reveal-right,
+  // .reveal-scale, .reveal-blur, .reveal-3d) y stagger en grids
+  // ============================================================
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
@@ -4598,8 +4796,77 @@
         observer.unobserve(entry.target);
       }
     });
-  }, { threshold: 0.1 });
-  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  }, { threshold: 0.12, rootMargin: '0px 0px -50px 0px' });
+
+  // Selector que cubre todas las variantes
+  const revealSelector = '.reveal, .reveal-left, .reveal-right, .reveal-scale, .reveal-blur, .reveal-3d, .reveal-stagger, [data-stagger]';
+  document.querySelectorAll(revealSelector).forEach(el => observer.observe(el));
+
+  // ============================================================
+  // TILT 3D — Cards reaccionan al cursor con perspectiva
+  // Solo se activa en dispositivos con cursor (desktop)
+  // ============================================================
+  (function initTilt() {
+    // Detectar si tiene cursor real (no touch)
+    const hasFinePointer = window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+    if (!hasFinePointer) return;
+
+    // Respetar preferencia de reduced-motion
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    const tiltCards = document.querySelectorAll('.tilt-card');
+    tiltCards.forEach(card => {
+      card.addEventListener('mousemove', function(e) {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const cx = rect.width / 2;
+        const cy = rect.height / 2;
+        const rotX = ((y - cy) / cy) * -6; // máx 6° de inclinación
+        const rotY = ((x - cx) / cx) * 6;
+        card.style.transform = 'perspective(900px) rotateX(' + rotX.toFixed(2) + 'deg) rotateY(' + rotY.toFixed(2) + 'deg) translateY(-4px) scale(1.015)';
+        card.classList.add('tilt-active');
+      });
+      card.addEventListener('mouseleave', function() {
+        card.style.transform = '';
+        card.classList.remove('tilt-active');
+      });
+    });
+  })();
+
+  // ============================================================
+  // PARALLAX SUTIL — elementos se mueven a velocidad distinta al scroll
+  // Usa requestAnimationFrame para mantener 60fps
+  // ============================================================
+  (function initParallax() {
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    const parallaxEls = document.querySelectorAll('[data-parallax]');
+    if (parallaxEls.length === 0) return;
+
+    let ticking = false;
+    function updateParallax() {
+      const scrollY = window.pageYOffset || window.scrollY;
+      parallaxEls.forEach(el => {
+        const speed = parseFloat(el.getAttribute('data-parallax')) || 0.3;
+        const rect = el.getBoundingClientRect();
+        const elTop = rect.top + scrollY;
+        const offset = (scrollY - elTop) * speed;
+        // Solo aplicar si está cerca del viewport (optimización)
+        if (rect.bottom > -200 && rect.top < window.innerHeight + 200) {
+          el.style.transform = 'translate3d(0, ' + offset.toFixed(1) + 'px, 0)';
+        }
+      });
+      ticking = false;
+    }
+    window.addEventListener('scroll', function() {
+      if (!ticking) {
+        window.requestAnimationFrame(updateParallax);
+        ticking = true;
+      }
+    }, { passive: true });
+    updateParallax();
+  })();
 
   /* ============================================================
      YOUTUBE API — Scroll infinito + caché de 30 min

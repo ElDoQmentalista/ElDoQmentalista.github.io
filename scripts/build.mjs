@@ -228,6 +228,7 @@ ${prev ? `<link rel="prev" href="${esc(prev)}">` : ''}${next ? `<link rel="next"
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Inter:wght@400;500;600&display=swap">
 <link rel="stylesheet" href="/assets/styles.css">
+<link rel="stylesheet" href="/assets/motion.css">
 ${oraculos ? '<link rel="stylesheet" href="/assets/oraculos.css">' : ''}
 <link rel="alternate" type="application/rss+xml" title="${esc(S.name)}" href="/feed.xml">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
@@ -246,7 +247,10 @@ const header = (activo = '') => `
       <span class="brand-mark" aria-hidden="true"></span>
       <span class="brand-text">${esc(S.name)}</span>
     </a>
-    <nav aria-label="Principal">
+    <button class="menu-btn" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="menu">
+      <span aria-hidden="true"></span><span aria-hidden="true"></span>
+    </button>
+    <nav id="menu" aria-label="Principal">
       <a href="/videos/"${activo === 'videos' ? ' aria-current="page"' : ''}>Videos</a>
       ${sagas.length ? `<a href="/sagas/"${activo === 'sagas' ? ' aria-current="page"' : ''}>Sagas</a>` : ''}
       ${temasTodos.length ? `<a href="/temas/"${activo === 'temas' ? ' aria-current="page"' : ''}>Temas</a>` : ''}
@@ -274,6 +278,7 @@ const footer = ({ oraculos = false } = {}) => `
   </div>
 </footer>
 <script src="/assets/app.js" defer></script>
+<script src="/assets/motion.js" defer></script>
 ${oraculos ? '<script src="/assets/oraculos.js" defer></script>' : ''}
 </body>
 </html>`;
@@ -333,6 +338,7 @@ function buildHome() {
     + header('home') + `
 <main id="main">
   <section class="hero">
+    <div class="hero-fondo" aria-hidden="true"></div>
     <div class="wrap">
       <h1>${esc(S.name)}</h1>
       <p class="lead">${esc(S.tagline)}</p>
@@ -346,7 +352,7 @@ function buildHome() {
   </section>
 
   ${destacado ? `<section class="wrap featured">
-    <h2 class="section-title">Ultimo documental</h2>
+    <h2 class="section-title aparece">Ultimo documental</h2>
     <a class="featured-card" href="/v/${destacado.slug}/">
       <span class="thumb">
         <img src="${thumb(destacado.id)}" alt="Miniatura: ${esc(destacado.title)}" width="1280" height="720" fetchpriority="high" decoding="async">
@@ -361,23 +367,23 @@ function buildHome() {
   </section>` : ''}
 
   ${temasTodos.length ? `<section class="wrap tagbar">
-    <h2 class="section-title">Explora por tema</h2>
+    <h2 class="section-title aparece">Explora por tema</h2>
     <ul class="chips">${temasTodos.slice(0, 14).map((t) => `<li><a href="/tema/${t.slug}/">${esc(t.name)} <span>${t.videos.length}</span></a></li>`).join('')}</ul>
   </section>` : ''}
 
   <section class="wrap">
-    <h2 class="section-title">Lo mas visto</h2>
+    <h2 class="section-title aparece">Lo mas visto</h2>
     <div class="grid">${masVistos.map((v, i) => card(v, { eager: i < 3 })).join('')}</div>
   </section>
 
   <section class="wrap">
-    <h2 class="section-title">Lo mas reciente</h2>
+    <h2 class="section-title aparece">Lo mas reciente</h2>
     <div class="grid">${recientes.map((v) => card(v)).join('')}</div>
     <p class="actions"><a class="btn" href="/videos/">Ver el archivo completo (${videos.length.toLocaleString('es-ES')} videos)</a></p>
   </section>
 
   ${sagas.length ? `<section class="wrap">
-    <h2 class="section-title">Sumergete en las sagas</h2>
+    <h2 class="section-title aparece">Sumergete en las sagas</h2>
     <p class="lead-sub">Series completas, ordenadas, listas para maratonear. Cada saga es un viaje.</p>
     <div class="grid sagas-grid">
       ${sagas.map((s) => {
@@ -494,7 +500,7 @@ function buildVideo(v) {
     <button type="button" class="play play-lg" aria-label="Reproducir ${esc(v.title)}"></button>
   </div>
 
-  <div class="prose">
+  <div class="prose aparece">
     <h2>Sobre este ${v.kind === 'short' ? 'video' : 'documental'}</h2>
     ${parrafos.length
       ? parrafos.map((p) => `<p>${esc(p).replace(/(https?:\/\/[^\s<]+)/g, '<a href="$1" rel="nofollow noopener" target="_blank">$1</a>')}</p>`).join('')
@@ -509,7 +515,7 @@ function buildVideo(v) {
   </p>
 
   ${related.length ? `<section class="related">
-    <h2 class="section-title">Tambien te puede interesar</h2>
+    <h2 class="section-title aparece">Tambien te puede interesar</h2>
     <div class="grid">${related.map((r) => card(r)).join('')}</div>
   </section>` : ''}
 </main>` + footer();
@@ -653,14 +659,14 @@ ${MODALES}` + footer({ oraculos: true }));
     <button type="button" class="btn" onclick="${o.abre}">Consultar al oráculo →</button>
   </div>
 
-  <div class="prose">
+  <div class="prose aparece">
     ${o.intro.map((p) => `<p>${esc(p)}</p>`).join('')}
   </div>
 
   <p class="actions"><button type="button" class="btn" onclick="${o.abre}">Consultar al oráculo →</button></p>
 
   <section class="related">
-    <h2 class="section-title">Los otros oráculos</h2>
+    <h2 class="section-title aparece">Los otros oráculos</h2>
     <ul class="lista-simple">
       ${otros.map((x) => `<li><a href="/herramientas/${x.slug}/"><strong>${esc(x.nombre)}</strong></a> — ${esc(x.resumen)}</li>`).join('')}
     </ul>

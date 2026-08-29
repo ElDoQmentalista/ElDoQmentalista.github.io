@@ -12,6 +12,8 @@
     "serve": "node scripts/serve.mjs",
     "test": "node scripts/check.mjs",
     "import:csv": "node scripts/import-csv.mjs",
-    "import:sagas": "node scripts/import-sagas.mjs"
+    "import:sagas": "node scripts/import-sagas.mjs",
+    "lista": "node scripts/lista-para-editar.mjs",
+    "aplicar": "node scripts/aplicar-ediciones.mjs"
   }
 }

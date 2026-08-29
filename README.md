@@ -93,6 +93,48 @@ Si prefieres indexarlo todo desde ya, pon `"indexarSinTextoPropio": true` en
 
 ---
 
+## Movimiento y comportamiento
+
+Todo el movimiento del sitio es **CSS puro: cero librerias**. Es una decision, no una
+limitacion — la mayoria de tu trafico es movil, y ahi una libreria de scroll suave (Lenis,
+Locomotive) o un 3D con Three.js se nota en forma de tirones y bateria. Las animaciones
+ligadas al scroll usan , que corre en el compositor del navegador: se
+mueven suaves en un movil de gama media.
+
+| Que hace | Como |
+|---|---|
+| Transicion entre paginas, sin recarga visible |  (3 lineas de CSS) |
+| La miniatura que pulsas se convierte en el reproductor |  puesto al vuelo |
+| La foto del narrador se aleja y se disuelve al bajar |  |
+| Las tarjetas aparecen siguiendo tu dedo, escalonadas |  |
+| Las miniaturas se revelan como una cortina |  animado con el scroll |
+| Barra de progreso al leer un documental |  |
+| Cabecera que se aparta al bajar y vuelve al subir | 20 lineas de JS |
+| Menu de pantalla completa en movil | CSS + 25 lineas de JS |
+| Tarjetas que se inclinan hacia el cursor, halo dorado | Solo con raton () |
+
+**Nada de esto se activa con el dedo.** La inclinacion y el halo estan detras de
+: en movil no existen, ni siquiera se calculan.
+
+**Degrada solo.** Si el navegador no soporta , entra un
+IntersectionObserver. Si tampoco, el contenido se ve normal desde el principio — nunca
+queda nada invisible esperando un script que no llego.
+
+** desactiva todo**, incluidas las transiciones de pagina. No es un
+detalle: hay gente a la que este tipo de animacion le provoca mareo de verdad.
+
+### De donde salio cada idea
+
+-  — el objeto que se mueve con el scroll. Ellos usan Three.js + Lenis
+  (~400 KB de JavaScript). Aqui la misma sensacion con una imagen y : 0 KB.
+-  — no usa **ninguna** libreria de animacion. Su elegancia viene de la
+  contencion: aire, tipografia fina, poco cromo. De ahi salio el menu movil a pantalla completa.
+- ,  — el halo que sigue al cursor. Deliberadamente
+  no se sustituye el cursor del sistema: estorba mas de lo que aporta.
+-  — la calma. Se traduce en curvas de animacion lentas y sin rebotes.
+
+---
+
 ## Publicar en GitHub Pages
 
 El repositorio de destino es `eldoqmentalista/eldoqmentalista.github.io`. Se publica el

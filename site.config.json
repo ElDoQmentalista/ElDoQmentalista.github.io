@@ -1,0 +1,25 @@
+{
+  "site": {
+    "domain": "https://eldoqmentalista.github.io",
+    "name": "El DoQmentalista",
+    "tagline": "Documentales de misterio, ocultismo y lo que nadie te contó de la Biblia",
+    "description": "Archivo completo de los documentales de El DoQmentalista: misterios de la Biblia, secretos del Vaticano, profecías, extraterrestres, ocultismo y fenómenos paranormales.",
+    "lang": "es",
+    "locale": "es_ES",
+    "author": "El DoQmentalista",
+    "twitter": "",
+    "themeColor": "#0b0b0d",
+    "seoTitle": "El DoQmentalista — todos sus documentales de misterio"
+  },
+  "channel": {
+    "handle": "@eldoqmentalista",
+    "id": "UCA0AXvVu2kZ4nauMgXs_Naw",
+    "url": "https://www.youtube.com/@eldoqmentalista"
+  },
+  "build": {
+    "videosPerPage": 0,
+    "generateTagPages": true,
+    "cname": false,
+    "indexarSinTextoPropio": false
+  }
+}

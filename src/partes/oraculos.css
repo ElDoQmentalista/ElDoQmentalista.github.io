@@ -1,0 +1,890 @@
+  /* ============================================================
+     ORACLE MODAL — versión MOBILE-FIRST PURA
+     ============================================================ */
+  .oracle-modal,
+  .oracle-modal *,
+  .oracle-modal *::before,
+  .oracle-modal *::after {
+    box-sizing: border-box;
+  }
+  .oracle-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100vw;
+    height: 100vh;
+    height: 100svh; /* small viewport height — estable, no salta con la URL bar */
+    z-index: 99999;
+    background: #0a0505;
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain; /* evita que el scroll se propague al body */
+  }
+  .oracle-modal.is-open {
+    display: block;
+  }
+
+  /* ============================================================
+     BLOQUEO DE SCROLL ROBUSTO PARA CUANDO HAY UN MODAL ABIERTO
+     Aplica a <html> y <body> mediante la clase .modal-open
+     Funciona correctamente en Chrome Android, Safari iOS y desktop
+     ============================================================ */
+  html.modal-open,
+  body.modal-open {
+    overflow: hidden !important;
+    position: fixed !important;
+    width: 100% !important;
+    height: 100% !important;
+    top: 0 !important;
+    left: 0 !important;
+  }
+  .oracle-modal-inner {
+    position: relative;
+    width: 100%;
+    max-width: 100%;
+    min-height: 100%;
+    margin: 0;
+    background: #0a0505;
+    padding: 56px 18px 32px;
+    overflow-x: hidden;
+  }
+  /* Esquinas decorativas — más sutiles en móvil */
+  .oracle-modal-inner::before {
+    content: '';
+    position: absolute;
+    top: 8px; left: 8px;
+    width: 36px; height: 36px;
+    border-top: 2px solid #c9a227;
+    border-left: 2px solid #c9a227;
+    pointer-events: none;
+  }
+  .oracle-modal-inner::after {
+    content: '';
+    position: absolute;
+    bottom: 8px; right: 8px;
+    width: 36px; height: 36px;
+    border-bottom: 2px solid #c9a227;
+    border-right: 2px solid #c9a227;
+    pointer-events: none;
+  }
+
+  /* Botón cerrar */
+  .oracle-close {
+    position: absolute;
+    top: 10px; right: 10px;
+    width: 38px; height: 38px;
+    border: 1px solid #2a2a2a;
+    background: #000;
+    color: #fff;
+    font-size: 22px;
+    line-height: 1;
+    cursor: pointer;
+    z-index: 10;
+    padding: 0;
+    border-radius: 0;
+    font-family: sans-serif;
+  }
+  .oracle-close:active { background: #c9a227; }
+
+  /* Progress dots */
+  .oracle-progress {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  .oracle-progress .dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #2a2a2a;
+    display: inline-block;
+    transition: all 0.3s ease;
+  }
+  .oracle-progress .dot-active {
+    background: #c9a227;
+    transform: scale(1.4);
+  }
+  .oracle-progress .dot-done {
+    background: #6b0a1f;
+  }
+
+  /* PANES */
+  .oracle-pane {
+    display: none !important;
+    width: 100%;
+  }
+  .oracle-pane-active {
+    display: block !important;
+    animation: oracleFadeIn 0.4s ease;
+  }
+  .oracle-pane.oracle-loading.oracle-pane-active,
+  .oracle-pane.oracle-result.oracle-pane-active {
+    display: block !important;
+  }
+  @keyframes oracleFadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Textos comunes */
+  .oracle-kicker {
+    font-family: 'Archivo Narrow', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    color: #c9a227;
+    text-transform: uppercase;
+    text-align: center;
+    margin: 0 0 12px;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+  .oracle-h2 {
+    font-family: 'Fraunces', serif;
+    font-weight: 800;
+    font-size: 24px;
+    color: #fff;
+    line-height: 1.1;
+    margin: 0 0 10px;
+    text-align: center;
+    padding: 0 4px;
+  }
+  .oracle-h2 em {
+    color: #c9a227;
+    font-style: italic;
+  }
+  .oracle-sub {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 13px;
+    color: #b8b3a5;
+    text-align: center;
+    margin: 0 0 22px;
+    line-height: 1.4;
+    padding: 0 4px;
+  }
+
+  /* Fecha */
+  .oracle-date {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr 1fr;
+    gap: 8px;
+    margin-bottom: 22px;
+    width: 100%;
+  }
+  .oracle-date > div {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    min-width: 0;
+  }
+  .oracle-date label {
+    font-family: 'Archivo Narrow', sans-serif;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    color: #888;
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+  .oracle-date input,
+  .oracle-date select {
+    padding: 12px 10px;
+    background: #111;
+    border: 1px solid #2a2a2a;
+    color: #fff;
+    font-size: 15px;
+    font-family: inherit;
+    border-radius: 0;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 100%;
+    min-width: 0;
+  }
+  .oracle-date input:focus,
+  .oracle-date select:focus {
+    outline: none;
+    border-color: #c9a227;
+  }
+  .oracle-date select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath fill='%23c8102e' d='M5 6L0 0h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 8px center;
+    padding-right: 24px;
+  }
+
+  /* Botones */
+  .oracle-btn-primary {
+    display: block;
+    width: 100%;
+    padding: 14px 16px;
+    background: #c9a227;
+    color: #fff;
+    border: 1px solid #c9a227;
+    font-family: 'Archivo', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-radius: 0;
+    margin: 0;
+    line-height: 1.2;
+  }
+  .oracle-btn-primary:disabled {
+    background: #1a1a1a;
+    border-color: #2a2a2a;
+    color: #555;
+    cursor: not-allowed;
+  }
+  .oracle-btn-primary:active:not(:disabled) {
+    transform: scale(0.98);
+  }
+  .oracle-btn-back {
+    display: block;
+    width: 100%;
+    padding: 12px 16px;
+    background: transparent;
+    color: #b8b3a5;
+    border: 1px solid #2a2a2a;
+    font-family: 'Archivo', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-radius: 0;
+    line-height: 1.2;
+  }
+  .oracle-btn-invoke {
+    background: linear-gradient(135deg, #c9a227, #6b0a1f);
+    font-size: 13px;
+    letter-spacing: 0.2em;
+  }
+  .oracle-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+  }
+
+  /* Colores — 2 columnas en celular para que se vean grandes */
+  .oracle-colors {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+    margin-bottom: 22px;
+  }
+  .oracle-color {
+    background: transparent;
+    border: 1px solid #2a2a2a;
+    padding: 12px 6px;
+    cursor: pointer;
+    border-radius: 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+    min-height: 50px;
+  }
+  .oracle-color span {
+    flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--c);
+    box-shadow: 0 0 12px var(--g);
+    border: 1px solid rgba(255,255,255,0.1);
+    display: block;
+  }
+  .oracle-color b {
+    font-family: 'Archivo Narrow', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    color: #b8b3a5;
+    text-transform: uppercase;
+    font-weight: 600;
+    text-align: left;
+    line-height: 1.15;
+    font-style: normal;
+  }
+  .oracle-color.picked {
+    border-color: #c9a227;
+    background: rgba(200,16,46,0.1);
+  }
+  .oracle-color.picked b {
+    color: #fff;
+  }
+
+  /* Elementos — 2 columnas */
+  .oracle-elements {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+    margin-bottom: 22px;
+  }
+  .oracle-el {
+    background: #111;
+    border: 1px solid #2a2a2a;
+    padding: 16px 10px;
+    cursor: pointer;
+    border-radius: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    text-align: center;
+  }
+  .oracle-el i {
+    font-size: 26px;
+    color: #c9a227;
+    font-style: normal;
+    line-height: 1;
+  }
+  .oracle-el b {
+    font-family: 'Fraunces', serif;
+    font-size: 14px;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    font-weight: 800;
+  }
+  .oracle-el em {
+    font-family: 'Archivo', sans-serif;
+    font-size: 9px;
+    color: #888;
+    font-style: normal;
+    letter-spacing: 0.04em;
+    line-height: 1.3;
+  }
+  .oracle-el.picked {
+    border-color: #c9a227;
+    background: rgba(200,16,46,0.1);
+  }
+
+  /* Géneros — 3 columnas (cabe bien) */
+  .oracle-genders {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+    margin-bottom: 22px;
+  }
+  .oracle-gen {
+    background: #111;
+    border: 1px solid #2a2a2a;
+    padding: 14px 4px;
+    cursor: pointer;
+    border-radius: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+  }
+  .oracle-gen i {
+    font-size: 22px;
+    color: #c9a227;
+    font-style: normal;
+    line-height: 1;
+  }
+  .oracle-gen b {
+    font-family: 'Archivo Narrow', sans-serif;
+    font-size: 9px;
+    color: #fff;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+  .oracle-gen.picked {
+    border-color: #c9a227;
+    background: rgba(200,16,46,0.1);
+  }
+
+  /* Loading */
+  .oracle-loading {
+    text-align: center;
+    padding: 50px 16px;
+  }
+  .oracle-spinner {
+    width: 56px;
+    height: 56px;
+    border: 2px solid #2a2a2a;
+    border-top-color: #c9a227;
+    border-right-color: #c9a227;
+    border-radius: 50%;
+    margin: 0 auto 20px;
+    animation: oracleSpin 1.4s linear infinite;
+    box-shadow: 0 0 24px rgba(200,16,46,0.3);
+  }
+  @keyframes oracleSpin {
+    to { transform: rotate(360deg); }
+  }
+  .oracle-loading-text {
+    font-family: 'Archivo Narrow', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    color: #c9a227;
+    margin-bottom: 14px;
+    font-weight: 700;
+    line-height: 1.3;
+  }
+  .oracle-mantra {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 13px;
+    color: #b8b3a5;
+    min-height: 1.5em;
+    transition: opacity 0.4s;
+    line-height: 1.4;
+    padding: 0 10px;
+  }
+
+  /* Result */
+  .oracle-result {
+    text-align: center;
+    padding: 0 2px;
+  }
+  .oracle-result-tag {
+    display: inline-block;
+    font-family: 'Archivo Narrow', sans-serif;
+    font-size: 9px;
+    letter-spacing: 0.35em;
+    color: #c9a227;
+    border-top: 1px solid #c9a227;
+    border-bottom: 1px solid #c9a227;
+    padding: 4px 12px;
+    margin-bottom: 16px;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+  .oracle-result-name {
+    font-family: 'Fraunces', serif;
+    font-weight: 900;
+    font-size: 38px;
+    color: #fff;
+    line-height: 1;
+    margin-bottom: 10px;
+    text-shadow: 0 0 30px rgba(200,16,46,0.3);
+    background: linear-gradient(180deg, #fff 0%, #e8e2d5 65%, #c9a227 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    word-break: break-word;
+    padding: 0 4px;
+  }
+  .oracle-result-epi {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 15px;
+    color: #c9a227;
+    margin-bottom: 4px;
+    line-height: 1.3;
+    padding: 0 8px;
+  }
+  .oracle-result-sep {
+    color: #c9a55c;
+    font-size: 16px;
+    margin: 18px 0;
+    opacity: 0.6;
+  }
+  .oracle-result-block {
+    margin-bottom: 18px;
+    padding: 0 2px;
+  }
+  .oracle-result-lbl {
+    font-family: 'Archivo Narrow', sans-serif;
+    font-size: 9px;
+    letter-spacing: 0.25em;
+    color: #c9a227;
+    font-weight: 700;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 6px;
+  }
+  .oracle-result-block p {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 14px;
+    color: #e8e2d5;
+    line-height: 1.5;
+    margin: 0;
+    padding: 0 4px;
+  }
+  .oracle-result-block blockquote {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 14px;
+    color: #fff;
+    line-height: 1.5;
+    padding: 12px 14px;
+    background: rgba(200,16,46,0.08);
+    border-left: 3px solid #c9a227;
+    text-align: left;
+    margin: 0;
+  }
+  .oracle-result-meta {
+    font-family: 'Archivo Narrow', sans-serif;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    color: #888;
+    margin: 16px 0;
+    font-weight: 600;
+    text-transform: uppercase;
+    line-height: 1.4;
+  }
+  .oracle-actions-result {
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 16px;
+    gap: 8px;
+  }
+  .oracle-result-foot {
+    font-family: 'Archivo', sans-serif;
+    font-size: 11px;
+    color: #888;
+    font-style: italic;
+    margin-top: 14px;
+    line-height: 1.5;
+    padding: 0 4px;
+  }
+  .oracle-result-foot a {
+    color: #c9a227;
+    text-decoration: underline;
+  }
+
+  /* Tablet/Desktop: cuando hay espacio, el modal se centra y luce mejor */
+  @media (min-width: 600px) {
+    .oracle-modal-inner {
+      max-width: 560px;
+      margin: 20px auto;
+      min-height: calc(100vh - 40px);
+      padding: 60px 32px 40px;
+      border: 1px solid #2a2a2a;
+    }
+    .oracle-h2 { font-size: 32px; }
+    .oracle-sub { font-size: 15px; }
+    .oracle-colors { grid-template-columns: repeat(4, 1fr); }
+    .oracle-color { flex-direction: column; min-height: 90px; padding: 14px 6px; }
+    .oracle-color b { text-align: center; font-size: 10px; }
+    .oracle-result-name { font-size: 56px; }
+    .oracle-result-epi { font-size: 20px; }
+    .oracle-actions-result { flex-direction: row; }
+    .oracle-actions-result button { flex: 1; }
+  }
+
+
+  /* ============================================================
+     TOAST CINEMATOGRÁFICO — reemplaza alert() del browser
+     ============================================================ */
+  .doq-toast {
+    position: fixed;
+    top: 24px;
+    left: 50%;
+    transform: translateX(-50%) translateY(-100px);
+    z-index: 100000;
+    background: rgba(20, 20, 20, 0.96);
+    border: 1px solid #2a2a2a;
+    border-left: 3px solid #c9a227;
+    color: #e8e2d5;
+    padding: 14px 22px;
+    font-family: 'Archivo', sans-serif;
+    font-size: 14px;
+    line-height: 1.4;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+    max-width: 90vw;
+    width: max-content;
+    text-align: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+  .doq-toast.is-visible {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+    pointer-events: auto;
+  }
+  .doq-toast.toast-success {
+    border-left-color: #4caf50;
+  }
+  .doq-toast.toast-info {
+    border-left-color: #2196f3;
+  }
+  @media (max-width: 600px) {
+    .doq-toast {
+      top: 16px;
+      font-size: 13px;
+      padding: 12px 18px;
+      max-width: calc(100vw - 32px);
+    }
+  }
+
+
+  /* ============================================================
+     TOTEM ANIMAL — estilos específicos
+     ============================================================ */
+  .totem-country-select {
+    width: 100%;
+    font-size: 16px;
+  }
+  .oracle-gender-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+    margin-top: 20px;
+  }
+  .oracle-gender-card,
+  .oracle-element-card {
+    display: flex !important;
+    align-items: center !important;
+    gap: 14px !important;
+    width: 100%;
+    padding: 16px 18px;
+    background: #111;
+    border: 1px solid #2a2a2a;
+    color: #e8e2d5;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    text-align: left;
+  }
+  .oracle-gender-card:active,
+  .oracle-element-card:active {
+    transform: scale(0.99);
+    border-color: #c9a227;
+    background: rgba(200,16,46,0.06);
+  }
+  .oracle-gender-symbol,
+  .oracle-element-symbol {
+    font-size: 24px;
+    color: #c9a227;
+    width: 32px;
+    text-align: center;
+    flex-shrink: 0;
+  }
+  .oracle-gender-label,
+  .oracle-element-label {
+    font-family: 'Archivo Narrow', sans-serif;
+    font-size: 13px;
+    letter-spacing: 0.18em;
+    font-weight: 600;
+    color: #e8e2d5;
+  }
+  .oracle-element-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 20px;
+  }
+  .oracle-element-card {
+    flex-direction: column !important;
+    text-align: center !important;
+    padding: 20px 8px !important;
+    gap: 8px !important;
+  }
+  .oracle-element-symbol {
+    font-size: 32px !important;
+    width: auto !important;
+  }
+  .totem-animal-display {
+    text-align: center;
+    margin-bottom: 16px;
+  }
+  .totem-emoji {
+    font-size: 72px;
+    line-height: 1;
+    margin-bottom: 14px;
+    display: inline-block;
+    filter: drop-shadow(0 4px 16px rgba(200,16,46,0.3));
+  }
+
+  @media (min-width: 600px) {
+    .oracle-gender-grid {
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+    .totem-emoji {
+      font-size: 96px;
+    }
+  }
+
+  /* ============================================================
+     ÁNGEL CABALÍSTICO — estilos específicos del resultado
+     ============================================================ */
+  .angel-display {
+    text-align: center;
+    margin-bottom: 18px;
+  }
+  .angel-numero {
+    display: inline-block;
+    font-family: 'Fraunces', serif;
+    font-size: 13px;
+    letter-spacing: 0.25em;
+    color: #c9a227;
+    margin-bottom: 8px;
+    opacity: 0.9;
+  }
+  .angel-hebreo {
+    font-size: 56px;
+    line-height: 1;
+    color: #e8e2d5;
+    margin: 12px 0 6px;
+    font-weight: 400;
+    direction: rtl;
+    letter-spacing: 0.05em;
+    text-shadow: 0 2px 16px rgba(200,16,46,0.25);
+  }
+  .angel-significado {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 14px;
+    color: rgba(232,226,213,0.7);
+    margin-bottom: 14px;
+    line-height: 1.5;
+  }
+  .angel-coro-badge {
+    display: inline-block;
+    padding: 5px 12px;
+    border: 1px solid rgba(200,16,46,0.4);
+    background: rgba(200,16,46,0.08);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: #c9a227;
+    border-radius: 2px;
+    margin-top: 4px;
+  }
+  .angel-salmo-block {
+    background: rgba(200,16,46,0.04);
+    border-left: 2px solid #c9a227;
+    padding: 14px 16px;
+    margin: 18px 0;
+    border-radius: 0 4px 4px 0;
+  }
+  .angel-salmo-lbl {
+    display: block;
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    color: #c9a227;
+    margin-bottom: 8px;
+  }
+  .angel-salmo-block p {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 14px;
+    line-height: 1.55;
+    color: #e8e2d5;
+    margin: 0;
+  }
+  .angel-oracion-block {
+    background: linear-gradient(180deg, rgba(200,16,46,0.06), rgba(200,16,46,0.02));
+    border: 1px solid rgba(200,16,46,0.2);
+    padding: 18px 18px;
+    margin: 18px 0 14px;
+    border-radius: 4px;
+    text-align: center;
+  }
+  .angel-oracion-lbl {
+    display: block;
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    color: #c9a227;
+    margin-bottom: 10px;
+  }
+  .angel-oracion-block p {
+    font-family: 'Fraunces', serif;
+    font-size: 15px;
+    line-height: 1.6;
+    color: #e8e2d5;
+    margin: 0;
+    font-style: italic;
+  }
+  @media (min-width: 600px) {
+    .angel-hebreo { font-size: 72px; }
+    .angel-significado { font-size: 15px; }
+    .angel-salmo-block p { font-size: 15px; }
+    .angel-oracion-block p { font-size: 16px; }
+  }
+
+
+
+  /* ============================================================
+     ÁNGEL CABALÍSTICO — estilos de los campos del formulario.
+     En el sitio anterior estas clases nunca tuvieron CSS y los
+     campos salian sin estilo. Se igualan a los otros dos oraculos.
+     ============================================================ */
+  .oracle-step-kicker {
+    font-size: 10px;
+    letter-spacing: 0.24em;
+    color: var(--rojo, #c9a227);
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: 14px;
+  }
+  .oracle-step-title {
+    font-family: var(--font-display, Georgia, serif);
+    font-size: clamp(1.35rem, 5vw, 1.8rem);
+    line-height: 1.25;
+    text-align: center;
+    margin: 0 0 12px;
+    color: #fff;
+  }
+  .oracle-step-title em { font-style: italic; color: var(--rojo-vivo, #e0c264); }
+  .oracle-step-sub {
+    font-size: 14px;
+    color: #9a958c;
+    text-align: center;
+    margin: 0 0 24px;
+    line-height: 1.5;
+  }
+  .oracle-date-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr 1fr;
+    gap: 8px;
+    margin-bottom: 22px;
+    width: 100%;
+  }
+  .oracle-field-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    min-width: 0;
+  }
+  .oracle-field-label {
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    color: #888;
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+  .oracle-input,
+  .oracle-select {
+    padding: 12px 10px;
+    background: #111;
+    border: 1px solid #2a2a2a;
+    color: #fff;
+    font-size: 15px;
+    font-family: inherit;
+    border-radius: 0;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 100%;
+    min-width: 0;
+  }
+  .oracle-input:focus,
+  .oracle-select:focus { outline: none; border-color: #c9a227; }
+  .oracle-select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath fill='%23c9a227' d='M5 6L0 0h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 8px center;
+    padding-right: 24px;
+  }
+  .oracle-progress { display: flex; gap: 7px; justify-content: center; margin-bottom: 26px; }
+  .oracle-dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: #2a2a2a; display: inline-block; transition: background .3s, transform .3s;
+  }
+  .oracle-dot.is-active { background: var(--rojo, #c9a227); transform: scale(1.25); }

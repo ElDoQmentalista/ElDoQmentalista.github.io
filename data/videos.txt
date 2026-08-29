@@ -1,0 +1,7 @@
+# Pega aqui los enlaces de tus videos, UNO POR LINEA.
+# Sirve cualquier formato:
+#   https://www.youtube.com/watch?v=dQw4w9WgXcQ
+#   https://youtu.be/dQw4w9WgXcQ
+#   dQw4w9WgXcQ
+# Las lineas que empiezan con # se ignoran.
+# Despues corre:   npm run import   y luego   npm run build

@@ -1,0 +1,222 @@
+  /* ============================================================
+     CARDS DE HERRAMIENTAS — versión nueva, sin conflictos
+     Mobile-first, todos los tamaños hardcoded con !important
+     ============================================================ */
+  .witch-tool-card {
+    position: relative;
+    background: #111;
+    border: 1px solid #2a2a2a;
+    padding: 24px 20px;
+    overflow: hidden;
+    cursor: default;
+    transition: border-color 0.3s ease, transform 0.3s ease;
+  }
+  .witch-tool-active {
+    cursor: pointer;
+  }
+  .witch-tool-active:active {
+    transform: scale(0.99);
+  }
+  .witch-tool-card::before,
+  .witch-tool-card::after {
+    content: '';
+    position: absolute;
+    width: 28px;
+    height: 28px;
+  }
+  .witch-tool-card::before {
+    top: 0; left: 0;
+    border-top: 2px solid #c9a227;
+    border-left: 2px solid #c9a227;
+  }
+  .witch-tool-card::after {
+    bottom: 0; right: 0;
+    border-bottom: 2px solid #c9a227;
+    border-right: 2px solid #c9a227;
+  }
+
+  /* ============================================================
+     CARDS DE HERRAMIENTAS CON IMAGEN DE FONDO CINEMATOGRÁFICA
+     ============================================================ */
+  .witch-tool-bruja,
+  .witch-tool-animal,
+  .witch-tool-angel {
+    min-height: 380px;
+    padding: 0;
+    background: #0a0a0a;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+  .witch-tool-bruja .witch-tool-bg,
+  .witch-tool-animal .witch-tool-bg,
+  .witch-tool-angel .witch-tool-bg {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center top;
+    background-repeat: no-repeat;
+    z-index: 1;
+    transition: transform 0.6s ease, filter 0.6s ease;
+    filter: saturate(1.1) contrast(1.05);
+  }
+  .witch-tool-bruja .witch-tool-bg {
+    background-image: url('/assets/img/doq-brujos.jpg');
+  }
+  .witch-tool-animal .witch-tool-bg {
+    background-image: url('/assets/img/doq-animal.jpg');
+  }
+  .witch-tool-angel .witch-tool-bg {
+    background-image: url('/assets/img/doq-angel.jpg');
+    /* Fallback gradiente DoQ si la imagen no carga */
+    background-color: #0a0a0a;
+  }
+  .witch-tool-angel .witch-tool-bg::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 50% 30%, rgba(200, 16, 46, 0.15) 0%, transparent 60%);
+    z-index: 0;
+  }
+  .witch-tool-bruja .witch-tool-overlay,
+  .witch-tool-animal .witch-tool-overlay,
+  .witch-tool-angel .witch-tool-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    background:
+      linear-gradient(to top,
+        rgba(10,10,10,0.96) 0%,
+        rgba(10,10,10,0.85) 25%,
+        rgba(10,10,10,0.45) 55%,
+        rgba(10,10,10,0.15) 85%,
+        rgba(10,10,10,0.05) 100%);
+    pointer-events: none;
+  }
+  .witch-tool-bruja .witch-tool-content,
+  .witch-tool-animal .witch-tool-content,
+  .witch-tool-angel .witch-tool-content {
+    position: relative;
+    z-index: 3;
+    padding: 24px 20px;
+    width: 100%;
+  }
+  .witch-tool-bruja:hover .witch-tool-bg,
+  .witch-tool-animal:hover .witch-tool-bg,
+  .witch-tool-angel:hover .witch-tool-bg {
+    transform: scale(1.04);
+    filter: saturate(1.2) contrast(1.1);
+  }
+  .witch-tool-bruja .witch-tool-title,
+  .witch-tool-animal .witch-tool-title,
+  .witch-tool-angel .witch-tool-title {
+    text-shadow: 0 2px 8px rgba(0,0,0,0.8);
+  }
+  .witch-tool-bruja .witch-tool-text,
+  .witch-tool-animal .witch-tool-text,
+  .witch-tool-angel .witch-tool-text {
+    text-shadow: 0 1px 4px rgba(0,0,0,0.9);
+  }
+  .witch-tool-bruja .witch-tool-icon,
+  .witch-tool-animal .witch-tool-icon,
+  .witch-tool-angel .witch-tool-icon {
+    text-shadow: 0 2px 8px rgba(0,0,0,0.7);
+  }
+  /* Tablet/Desktop: dar más altura a las cards con imagen */
+  @media (min-width: 768px) {
+    .witch-tool-bruja,
+    .witch-tool-animal,
+    .witch-tool-angel {
+      min-height: 460px;
+    }
+  }
+
+  .witch-tool-icon {
+    font-size: 32px;
+    line-height: 1;
+    color: #c9a227;
+    margin-bottom: 12px;
+    filter: drop-shadow(0 0 12px rgba(200,16,46,0.4));
+  }
+  .witch-tool-badge {
+    display: inline-block;
+    font-family: 'Archivo Narrow', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    color: #c9a227;
+    border: 1px solid #c9a227;
+    padding: 4px 10px;
+    margin-bottom: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    animation: witchBadgePulse 2.5s ease-in-out infinite;
+  }
+  .witch-tool-badge-soon {
+    color: #888;
+    border-color: #2a2a2a;
+    animation: none;
+  }
+  @keyframes witchBadgePulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(200,16,46,0.3); }
+    50% { box-shadow: 0 0 10px 1px rgba(200,16,46,0.2); }
+  }
+  .witch-tool-title {
+    font-family: 'Fraunces', serif;
+    font-size: 19px;
+    font-weight: 800;
+    color: #fff;
+    line-height: 1.15;
+    margin: 0 0 10px;
+    letter-spacing: 0;
+    text-transform: uppercase;
+  }
+  .witch-tool-text {
+    font-family: 'Archivo', sans-serif;
+    font-size: 13px;
+    line-height: 1.5;
+    color: #b8b3a5;
+    margin: 0 0 16px;
+  }
+  .witch-tool-cta {
+    display: block;
+    width: 100%;
+    padding: 12px 16px;
+    background: transparent;
+    color: #c9a227;
+    border: 1px solid #c9a227;
+    font-family: 'Archivo', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+    border-radius: 0;
+  }
+  .witch-tool-cta:hover {
+    background: #c9a227;
+    color: #fff;
+  }
+  .witch-tool-cta-disabled {
+    color: #555;
+    border-color: #2a2a2a;
+    cursor: not-allowed;
+  }
+  .witch-tool-cta-disabled:hover {
+    background: transparent;
+    color: #555;
+  }
+
+  /* Desktop: cards un poco más generosas */
+  @media (min-width: 769px) {
+    .witch-tool-card { padding: 36px 28px; }
+    .witch-tool-card::before, .witch-tool-card::after { width: 40px; height: 40px; }
+    .witch-tool-icon { font-size: 48px; margin-bottom: 18px; }
+    .witch-tool-badge { font-size: 11px; padding: 5px 12px; margin-bottom: 16px; }
+    .witch-tool-title { font-size: 26px; margin-bottom: 14px; }
+    .witch-tool-text { font-size: 15px; margin-bottom: 24px; }
+    .witch-tool-cta { padding: 14px 20px; font-size: 12px; }
+  }
+
+</style>

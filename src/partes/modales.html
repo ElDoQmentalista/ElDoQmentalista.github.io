@@ -1,0 +1,514 @@
+<div id="oracleModal" class="oracle-modal">
+  <div class="oracle-modal-inner">
+
+    <button class="oracle-close" type="button" onclick="oracleClose()">&times;</button>
+
+    <!-- Dots de progreso -->
+    <div class="oracle-progress" id="oracleProgress">
+      <i class="dot dot-active"></i>
+      <i class="dot"></i>
+      <i class="dot"></i>
+      <i class="dot"></i>
+    </div>
+
+    <!-- PASO 1: FECHA -->
+    <div class="oracle-pane oracle-pane-active" id="pane1">
+      <div class="oracle-kicker">PASO 01 · LA SEÑAL DEL CIELO</div>
+      <h2 class="oracle-h2">¿Cuándo llegaste<br><em>a este mundo?</em></h2>
+      <p class="oracle-sub">Tu fecha de nacimiento contiene la primera vibración de tu nombre.</p>
+
+      <div class="oracle-date">
+        <div>
+          <label>DÍA</label>
+          <input type="number" id="oDay" min="1" max="31" placeholder="01" inputmode="numeric">
+        </div>
+        <div>
+          <label>MES</label>
+          <select id="oMonth">
+            <option value="">Mes</option>
+            <option value="1">Enero</option><option value="2">Febrero</option><option value="3">Marzo</option>
+            <option value="4">Abril</option><option value="5">Mayo</option><option value="6">Junio</option>
+            <option value="7">Julio</option><option value="8">Agosto</option><option value="9">Septiembre</option>
+            <option value="10">Octubre</option><option value="11">Noviembre</option><option value="12">Diciembre</option>
+          </select>
+        </div>
+        <div>
+          <label>AÑO</label>
+          <input type="number" id="oYear" min="1900" max="2026" placeholder="1990" inputmode="numeric">
+        </div>
+      </div>
+
+      <button class="oracle-btn-primary" type="button" onclick="oracleStep1Next()">Continuar →</button>
+    </div>
+
+    <!-- PASO 2: COLOR -->
+    <div class="oracle-pane" id="pane2">
+      <div class="oracle-kicker">PASO 02 · TU COLOR INTERIOR</div>
+      <h2 class="oracle-h2">¿Qué color<br><em>te llama hoy?</em></h2>
+      <p class="oracle-sub">El que vibra contigo en este instante.</p>
+
+      <div class="oracle-colors">
+        <button type="button" class="oracle-color" data-color="negro" onclick="oraclePickColor(this)" style="--c:#0a0a0a; --g:rgba(255,255,255,0.15)">
+          <span></span><b>Negro</b>
+        </button>
+        <button type="button" class="oracle-color" data-color="rojo" onclick="oraclePickColor(this)" style="--c:#8b0a1f; --g:rgba(200,16,46,0.5)">
+          <span></span><b>Rojo sangre</b>
+        </button>
+        <button type="button" class="oracle-color" data-color="purpura" onclick="oraclePickColor(this)" style="--c:#4a1a5e; --g:rgba(120,60,160,0.5)">
+          <span></span><b>Púrpura</b>
+        </button>
+        <button type="button" class="oracle-color" data-color="verde" onclick="oraclePickColor(this)" style="--c:#1a4a2e; --g:rgba(60,160,90,0.5)">
+          <span></span><b>Verde</b>
+        </button>
+        <button type="button" class="oracle-color" data-color="azul" onclick="oraclePickColor(this)" style="--c:#0a2848; --g:rgba(60,120,200,0.5)">
+          <span></span><b>Azul</b>
+        </button>
+        <button type="button" class="oracle-color" data-color="dorado" onclick="oraclePickColor(this)" style="--c:#8b6914; --g:rgba(201,165,92,0.6)">
+          <span></span><b>Dorado</b>
+        </button>
+        <button type="button" class="oracle-color" data-color="blanco" onclick="oraclePickColor(this)" style="--c:#e8e2d5; --g:rgba(255,255,255,0.4)">
+          <span></span><b>Blanco</b>
+        </button>
+      </div>
+
+      <div class="oracle-actions">
+        <button class="oracle-btn-back" type="button" onclick="oracleGoto(1)">← Volver</button>
+        <button class="oracle-btn-primary" type="button" id="oBtn2" disabled onclick="oracleGoto(3)">Continuar →</button>
+      </div>
+    </div>
+
+    <!-- PASO 3: ELEMENTO -->
+    <div class="oracle-pane" id="pane3">
+      <div class="oracle-kicker">PASO 03 · TU FUERZA PRIMORDIAL</div>
+      <h2 class="oracle-h2">¿Cuál es<br><em>tu elemento?</em></h2>
+      <p class="oracle-sub">El que sientes correr por tus venas al cerrar los ojos.</p>
+
+      <div class="oracle-elements">
+        <button type="button" class="oracle-el" data-element="tierra" onclick="oraclePickElement(this)">
+          <i>⛰</i><b>Tierra</b><em>Raíz · Sabiduría</em>
+        </button>
+        <button type="button" class="oracle-el" data-element="aire" onclick="oraclePickElement(this)">
+          <i>☁</i><b>Aire</b><em>Voz · Libertad</em>
+        </button>
+        <button type="button" class="oracle-el" data-element="fuego" onclick="oraclePickElement(this)">
+          <i>🜂</i><b>Fuego</b><em>Pasión · Poder</em>
+        </button>
+        <button type="button" class="oracle-el" data-element="agua" onclick="oraclePickElement(this)">
+          <i>🜄</i><b>Agua</b><em>Intuición · Memoria</em>
+        </button>
+      </div>
+
+      <div class="oracle-actions">
+        <button class="oracle-btn-back" type="button" onclick="oracleGoto(2)">← Volver</button>
+        <button class="oracle-btn-primary" type="button" id="oBtn3" disabled onclick="oracleGoto(4)">Continuar →</button>
+      </div>
+    </div>
+
+    <!-- PASO 4: GÉNERO -->
+    <div class="oracle-pane" id="pane4">
+      <div class="oracle-kicker">PASO 04 · LA FORMA DEL NOMBRE</div>
+      <h2 class="oracle-h2">¿Cómo debe<br><em>sonar tu nombre?</em></h2>
+      <p class="oracle-sub">El círculo respeta todas las formas.</p>
+
+      <div class="oracle-genders">
+        <button type="button" class="oracle-gen" data-gender="femenino" onclick="oraclePickGender(this)">
+          <i>♀</i><b>Femenino</b>
+        </button>
+        <button type="button" class="oracle-gen" data-gender="masculino" onclick="oraclePickGender(this)">
+          <i>♂</i><b>Masculino</b>
+        </button>
+        <button type="button" class="oracle-gen" data-gender="neutro" onclick="oraclePickGender(this)">
+          <i>⚥</i><b>Neutro</b>
+        </button>
+      </div>
+
+      <div class="oracle-actions">
+        <button class="oracle-btn-back" type="button" onclick="oracleGoto(3)">← Volver</button>
+        <button class="oracle-btn-primary oracle-btn-invoke" type="button" id="oBtnInvoke" disabled onclick="oracleInvoke()">Invocar el nombre 🜍</button>
+      </div>
+    </div>
+
+    <!-- LOADING -->
+    <div class="oracle-pane oracle-loading" id="paneLoading">
+      <div class="oracle-spinner"></div>
+      <div class="oracle-loading-text">CONSULTANDO EL ARCHIVO PROHIBIDO</div>
+      <div class="oracle-mantra" id="oMantra">El círculo escucha tu fecha...</div>
+    </div>
+
+    <!-- RESULTADO -->
+    <div class="oracle-pane oracle-result" id="paneResult">
+      <div class="oracle-result-tag">EL ORÁCULO HA HABLADO</div>
+      <div class="oracle-result-name" id="oName">—</div>
+      <div class="oracle-result-epi" id="oEpi">—</div>
+      <div class="oracle-result-sep">✦</div>
+
+      <div class="oracle-result-block">
+        <span class="oracle-result-lbl">QUIÉN ERES</span>
+        <p id="oMeaning">—</p>
+      </div>
+
+      <div class="oracle-result-block">
+        <span class="oracle-result-lbl">TU FRASE</span>
+        <blockquote id="oRitual">—</blockquote>
+      </div>
+
+      <div class="oracle-result-meta" id="oMeta">—</div>
+
+      <div class="oracle-actions oracle-actions-result">
+        <button class="oracle-btn-back" type="button" onclick="oracleReset()">↻ Invocar de nuevo</button>
+        <button class="oracle-btn-primary" type="button" onclick="oracleShare()">Compartir →</button>
+      </div>
+
+      <p class="oracle-result-foot">Comparte tu nombre con <a href="https://www.youtube.com/@eldoqmentalista" target="_blank">El DoQmentalista</a></p>
+    </div>
+
+  </div>
+</div>
+
+<!-- ============ TOTEM ANIMAL MODAL ============ -->
+<div id="totemModal" class="oracle-modal">
+  <div class="oracle-modal-inner">
+    <div class="oracle-corner-tl"></div>
+    <button class="oracle-close" type="button" onclick="totemClose()">&times;</button>
+
+    <div class="oracle-progress">
+      <span class="oracle-dot" data-step="1"></span>
+      <span class="oracle-dot" data-step="2"></span>
+      <span class="oracle-dot" data-step="3"></span>
+      <span class="oracle-dot" data-step="4"></span>
+      <span class="oracle-dot" data-step="5"></span>
+    </div>
+
+    <!-- PASO 1: PAÍS -->
+    <div class="oracle-pane" id="tpane1">
+      <span class="oracle-step-kicker">PASO 01 · TU TIERRA</span>
+      <h2 class="oracle-step-title">¿Dónde llegaste <em>al mundo?</em></h2>
+      <p class="oracle-step-sub">El lugar de tu nacimiento marca tu primer pacto con el espíritu animal.</p>
+
+      <div class="oracle-field-group">
+        <label class="oracle-field-label">PAÍS</label>
+        <select id="totemCountry" class="oracle-select totem-country-select">
+          <option value="">— Selecciona tu país —</option>
+        </select>
+      </div>
+
+      <button class="oracle-btn-primary" type="button" onclick="totemNext(1)">Continuar →</button>
+    </div>
+
+    <!-- PASO 2: CIUDAD -->
+    <div class="oracle-pane" id="tpane2">
+      <span class="oracle-step-kicker">PASO 02 · TU LUGAR</span>
+      <h2 class="oracle-step-title">¿En qué ciudad <em>o estado?</em></h2>
+      <p class="oracle-step-sub">Para honrar el suelo exacto que recibió tu primer aliento.</p>
+
+      <div class="oracle-field-group">
+        <label class="oracle-field-label">CIUDAD O ESTADO</label>
+        <input type="text" id="totemCity" class="oracle-input" placeholder="Ej. Ciudad de México, Buenos Aires..." autocomplete="off">
+      </div>
+
+      <button class="oracle-btn-primary" type="button" onclick="totemNext(2)">Continuar →</button>
+    </div>
+
+    <!-- PASO 3: FECHA -->
+    <div class="oracle-pane" id="tpane3">
+      <span class="oracle-step-kicker">PASO 03 · LA SEÑAL DEL CIELO</span>
+      <h2 class="oracle-step-title">¿Cuándo llegaste <em>a este mundo?</em></h2>
+      <p class="oracle-step-sub">Tu fecha de nacimiento conecta con el animal que vibra contigo.</p>
+
+      <div class="oracle-date-grid">
+        <div class="oracle-field-group">
+          <label class="oracle-field-label">DÍA</label>
+          <input type="number" id="totemDay" class="oracle-input" min="1" max="31" placeholder="08" autocomplete="off">
+        </div>
+        <div class="oracle-field-group">
+          <label class="oracle-field-label">MES</label>
+          <select id="totemMonth" class="oracle-select">
+            <option value="">Mes</option>
+            <option value="1">Enero</option><option value="2">Febrero</option>
+            <option value="3">Marzo</option><option value="4">Abril</option>
+            <option value="5">Mayo</option><option value="6">Junio</option>
+            <option value="7">Julio</option><option value="8">Agosto</option>
+            <option value="9">Septiembre</option><option value="10">Octubre</option>
+            <option value="11">Noviembre</option><option value="12">Diciembre</option>
+          </select>
+        </div>
+        <div class="oracle-field-group">
+          <label class="oracle-field-label">AÑO</label>
+          <input type="number" id="totemYear" class="oracle-input" min="1900" max="2025" placeholder="1990" autocomplete="off">
+        </div>
+      </div>
+
+      <button class="oracle-btn-primary" type="button" onclick="totemNext(3)">Continuar →</button>
+    </div>
+
+    <!-- PASO 4: GÉNERO -->
+    <div class="oracle-pane" id="tpane4">
+      <span class="oracle-step-kicker">PASO 04 · TU IDENTIDAD</span>
+      <h2 class="oracle-step-title">¿Con qué <em>energía vibras?</em></h2>
+      <p class="oracle-step-sub">Esto afina la conexión con tu espíritu animal.</p>
+
+      <div class="oracle-gender-grid">
+        <button type="button" class="oracle-gender-card" data-gender="femenino" onclick="totemSelectGender('femenino')">
+          <span class="oracle-gender-symbol">♀</span>
+          <span class="oracle-gender-label">FEMENINO</span>
+        </button>
+        <button type="button" class="oracle-gender-card" data-gender="masculino" onclick="totemSelectGender('masculino')">
+          <span class="oracle-gender-symbol">♂</span>
+          <span class="oracle-gender-label">MASCULINO</span>
+        </button>
+        <button type="button" class="oracle-gender-card" data-gender="neutro" onclick="totemSelectGender('neutro')">
+          <span class="oracle-gender-symbol">☉</span>
+          <span class="oracle-gender-label">NEUTRO</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- PASO 5: ELEMENTO -->
+    <div class="oracle-pane" id="tpane5">
+      <span class="oracle-step-kicker">PASO 05 · TU ELEMENTO</span>
+      <h2 class="oracle-step-title">¿Cuál es tu <em>elemento dominante?</em></h2>
+      <p class="oracle-step-sub">El elemento determina la naturaleza del animal que te acompaña.</p>
+
+      <div class="oracle-element-grid">
+        <button type="button" class="oracle-element-card" data-element="tierra" onclick="totemSelectElement('tierra')">
+          <span class="oracle-element-symbol">⛰</span>
+          <span class="oracle-element-label">TIERRA</span>
+        </button>
+        <button type="button" class="oracle-element-card" data-element="aire" onclick="totemSelectElement('aire')">
+          <span class="oracle-element-symbol">☁</span>
+          <span class="oracle-element-label">AIRE</span>
+        </button>
+        <button type="button" class="oracle-element-card" data-element="fuego" onclick="totemSelectElement('fuego')">
+          <span class="oracle-element-symbol">🔥</span>
+          <span class="oracle-element-label">FUEGO</span>
+        </button>
+        <button type="button" class="oracle-element-card" data-element="agua" onclick="totemSelectElement('agua')">
+          <span class="oracle-element-symbol">💧</span>
+          <span class="oracle-element-label">AGUA</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- LOADING -->
+    <div class="oracle-pane oracle-loading" id="tpaneLoading">
+      <div class="oracle-loading-inner">
+        <div class="oracle-spinner"></div>
+        <p class="oracle-loading-text" id="totemLoadingText">Buscando tu espíritu animal...</p>
+      </div>
+    </div>
+
+    <!-- RESULT -->
+    <div class="oracle-pane oracle-result" id="tpaneResult">
+      <span class="oracle-result-kicker">EL ESPÍRITU HA HABLADO</span>
+
+      <div class="totem-animal-display">
+        <div class="totem-emoji" id="totemEmoji">🐆</div>
+        <h2 class="oracle-result-name" id="totemName">—</h2>
+        <p class="oracle-result-epiteto" id="totemEpithet">—</p>
+      </div>
+
+      <div class="oracle-result-divider">◆</div>
+
+      <div class="oracle-result-block">
+        <span class="oracle-result-lbl">QUIÉN ERES</span>
+        <p id="totemIdentity">—</p>
+      </div>
+
+      <div class="oracle-result-block">
+        <span class="oracle-result-lbl">TU FORTALEZA</span>
+        <p id="totemStrength">—</p>
+      </div>
+
+      <div class="oracle-result-block">
+        <span class="oracle-result-lbl">MENSAJE DEL TÓTEM</span>
+        <blockquote id="totemMessage">—</blockquote>
+      </div>
+
+      <p class="oracle-result-meta" id="totemMeta">—</p>
+
+      <div class="oracle-result-actions">
+        <button class="oracle-btn-back" type="button" onclick="totemReset()">↻ Consultar de nuevo</button>
+        <button class="oracle-btn-primary" type="button" onclick="totemShare()">Compartir →</button>
+      </div>
+
+      <p class="oracle-result-foot">Comparte tu animal con <a href="https://www.youtube.com/@eldoqmentalista" target="_blank">El DoQmentalista</a></p>
+    </div>
+
+  </div>
+</div>
+
+<!-- ============ MODAL ÁNGEL CABALÍSTICO ============ -->
+<div id="angelModal" class="oracle-modal">
+  <div class="oracle-modal-inner">
+    <div class="oracle-corner-tl"></div>
+    <button class="oracle-close" type="button" onclick="angelClose()">&times;</button>
+
+    <div class="oracle-progress">
+      <span class="oracle-dot" data-step="1"></span>
+      <span class="oracle-dot" data-step="2"></span>
+    </div>
+
+    <!-- PASO 1: FECHA -->
+    <div class="oracle-pane" id="apane1">
+      <span class="oracle-step-kicker">PASO 01 · LA FECHA SAGRADA</span>
+      <h2 class="oracle-step-title">¿Cuándo llegaste <em>a este mundo?</em></h2>
+      <p class="oracle-step-sub">En la Kabbalah, cada periodo de cinco días tiene un ángel guardián. Tu fecha de nacimiento revela cuál es el tuyo.</p>
+
+      <div class="oracle-date-grid">
+        <div class="oracle-field-group">
+          <label class="oracle-field-label">DÍA</label>
+          <input type="number" id="angelDay" class="oracle-input" min="1" max="31" placeholder="08" autocomplete="off">
+        </div>
+        <div class="oracle-field-group">
+          <label class="oracle-field-label">MES</label>
+          <select id="angelMonth" class="oracle-select">
+            <option value="">Mes</option>
+            <option value="1">Enero</option><option value="2">Febrero</option>
+            <option value="3">Marzo</option><option value="4">Abril</option>
+            <option value="5">Mayo</option><option value="6">Junio</option>
+            <option value="7">Julio</option><option value="8">Agosto</option>
+            <option value="9">Septiembre</option><option value="10">Octubre</option>
+            <option value="11">Noviembre</option><option value="12">Diciembre</option>
+          </select>
+        </div>
+        <div class="oracle-field-group">
+          <label class="oracle-field-label">AÑO</label>
+          <input type="number" id="angelYear" class="oracle-input" min="1900" max="2025" placeholder="1990" autocomplete="off">
+        </div>
+      </div>
+
+      <button class="oracle-btn-primary" type="button" onclick="angelNext(1)">Continuar →</button>
+    </div>
+
+    <!-- PASO 2: NOMBRE -->
+    <div class="oracle-pane" id="apane2">
+      <span class="oracle-step-kicker">PASO 02 · TU NOMBRE</span>
+      <h2 class="oracle-step-title">¿Cómo te <em>nombran?</em></h2>
+      <p class="oracle-step-sub">Para que la revelación lleve tu nombre. Solo el primero, el que más usas.</p>
+
+      <div class="oracle-field-group">
+        <label class="oracle-field-label">NOMBRE</label>
+        <input type="text" id="angelName" class="oracle-input" placeholder="Ej. Inri, María, Alejandro..." autocomplete="off" maxlength="40">
+      </div>
+
+      <button class="oracle-btn-primary" type="button" onclick="angelNext(2)">Revelar mi ángel →</button>
+    </div>
+
+    <!-- LOADING -->
+    <div class="oracle-pane oracle-loading" id="apaneLoading">
+      <div class="oracle-loading-inner">
+        <div class="oracle-spinner"></div>
+        <p class="oracle-loading-text" id="angelLoadingText">Consultando el Shem HaMephorash...</p>
+      </div>
+    </div>
+
+    <!-- RESULT -->
+    <div class="oracle-pane oracle-result" id="apaneResult">
+      <span class="oracle-result-kicker">EL ÁNGEL HA SIDO REVELADO</span>
+
+      <div class="angel-display">
+        <div class="angel-numero" id="angelNum">ÁNGEL · 00</div>
+        <div class="angel-hebreo" id="angelHebreo">—</div>
+        <h2 class="oracle-result-name" id="angelNombre">—</h2>
+        <p class="angel-significado" id="angelSignificado">—</p>
+        <span class="angel-coro-badge" id="angelCoro">—</span>
+      </div>
+
+      <div class="oracle-result-divider">◆</div>
+
+      <div class="oracle-result-block">
+        <span class="oracle-result-lbl">SU DON PARA TI</span>
+        <p id="angelDon">—</p>
+      </div>
+
+      <div class="oracle-result-block">
+        <span class="oracle-result-lbl">TUS VIRTUDES</span>
+        <p id="angelVirtudes">—</p>
+      </div>
+
+      <div class="oracle-result-block">
+        <span class="oracle-result-lbl">SOMBRAS A VENCER</span>
+        <p id="angelSombras">—</p>
+      </div>
+
+      <div class="angel-salmo-block">
+        <span class="angel-salmo-lbl">◆ SALMO QUE LO INVOCA</span>
+        <p id="angelSalmo">—</p>
+      </div>
+
+      <div class="angel-oracion-block">
+        <span class="angel-oracion-lbl">◆ ORACIÓN AL ÁNGEL ◆</span>
+        <p id="angelOracion">—</p>
+      </div>
+
+      <p class="oracle-result-meta" id="angelMeta">—</p>
+
+      <div class="oracle-result-actions">
+        <button class="oracle-btn-back" type="button" onclick="angelReset()">↻ Consultar otra fecha</button>
+        <button class="oracle-btn-primary" type="button" onclick="angelShare()">Compartir →</button>
+      </div>
+
+      <p class="oracle-result-foot">Comparte tu ángel con <a href="https://www.youtube.com/@eldoqmentalista" target="_blank">El DoQmentalista</a></p>
+    </div>
+
+  </div>
+</div>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <img width="640" height="360" src="/assets/img/doq-logo.png" alt="El DoQmentalista" class="footer-logo-img">
+      <p class="footer-text">
+        Documentales del misterio. Investigaciones sobre lo oculto, lo prohibido y lo sagrado.
+      </p>
+    </div>
+    <div class="footer-col">
+      <h4>NAVEGACIÓN</h4>
+      <ul>
+        <li><a href="#hero">Inicio</a></li>
+        <li><a href="#expedientes">Documentales</a></li>
+        <li><a href="#herramientas">Herramientas</a></li>
+        <li><a href="#canales">Canales</a></li>
+        <li><a href="#faq">Preguntas Frecuentes</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>SOBRE EL DOQ</h4>
+      <ul>
+        <li><a href="#sobre">Quién es El DoQ</a></li>
+        <li><a href="#contacto">Prensa</a></li>
+        <li><a href="#contacto">Colaboraciones</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>SÍGUENOS</h4>
+      <div class="footer-socials">
+        <a href="https://www.youtube.com/@eldoqmentalista" target="_blank" rel="noopener" class="footer-social" aria-label="YouTube">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2c-.3-1-1-1.8-2-2C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.5.7c-1 .2-1.7 1-2 2C0 8.2 0 12 0 12s0 3.8.5 5.8c.3 1 1 1.8 2 2 2 .7 9.5.7 9.5.7s7.5 0 9.5-.7c1-.2 1.7-1 2-2 .5-2 .5-5.8.5-5.8s0-3.8-.5-5.8zM9.6 15.6V8.4l6.2 3.6-6.2 3.6z"/></svg>
+        </a>
+        <a href="https://www.instagram.com/eldoqmentalistaoficial" target="_blank" rel="noopener" class="footer-social" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.4a4 4 0 1 1-8.4 1.8 4 4 0 0 1 8.4-1.8z"/><line x1="17.5" y1="6.5" x2="17.5" y2="6.5"/></svg>
+        </a>
+        <a href="https://www.tiktok.com/@eldoqmentalista" target="_blank" rel="noopener" class="footer-social" aria-label="TikTok">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 6.5a4.8 4.8 0 0 1-3.8-2H13v12a2.3 2.3 0 1 1-2.3-2.3v-3a5.3 5.3 0 1 0 5.3 5.3V9.5a7.7 7.7 0 0 0 3.6 1z"/></svg>
+        </a>
+        <a href="https://x.com/DQMentalista" target="_blank" rel="noopener" class="footer-social" aria-label="X (Twitter)">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </a>
+        <a href="https://www.facebook.com/ElDoQmentalistaOficial" target="_blank" rel="noopener" class="footer-social" aria-label="Facebook">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c5.05-.5 9-4.76 9-9.95z"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p class="footer-copy">© 2026 EL DOQMENTALISTA · TODOS LOS DERECHOS RESERVADOS</p>
+    <p class="footer-copy">EL DOQMENTALISTA · MÉXICO</p>
+  </div>
+</footer>
+
+<!-- Toast cinematográfico (reemplaza alerts del browser) -->
+<div id="doqToast" class="doq-toast" role="status" aria-live="polite"></div>
+

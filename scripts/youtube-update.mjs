@@ -105,6 +105,13 @@ const porId = new Map(videosLocal.map((v) => [v.id, v]));
     // mandamos tags/description se BORRAN. Se lee primero y se mezcla.
     const rl = await fetch(`https://www.googleapis.com/youtube/v3/videos?part=snippet&id=${t.id}`, { headers: h });
     const jl = await rl.json();
+    if (jl.error) {
+      const razonL = jl.error.errors?.[0]?.reason || rl.status;
+      console.log(`  x ${t.id}: lectura fallo (${razonL})`);
+      fallo++;
+      if (razonL === 'quotaExceeded') { console.log('\n  Cuota diaria agotada en lectura. Continua manana.'); break; }
+      continue;
+    }
     const actual = jl.items?.[0]?.snippet;
     if (!actual) { console.log(`  x ${t.id}: no existe o no es tuyo`); fallo++; continue; }
 
@@ -117,6 +124,8 @@ const porId = new Map(videosLocal.map((v) => [v.id, v]));
       defaultAudioLanguage: actual.defaultAudioLanguage,
     };
 
+    const alDia = snippet.title === actual.title && snippet.description === actual.description && JSON.stringify(snippet.tags) === JSON.stringify(actual.tags || []);
+    if (alDia) { console.log(`  = ${t.id} ya estaba al dia`); ok++; continue; }
     if (DRY) {
       console.log(`  ~ ${t.id}  "${snippet.title.slice(0, 55)}"  [${snippet.tags.length} keywords, desc ${snippet.description.length} car.]`);
       ok++; continue;

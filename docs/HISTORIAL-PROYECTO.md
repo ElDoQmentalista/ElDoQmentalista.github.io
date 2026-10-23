@@ -181,6 +181,16 @@ conectado. Pasos para traerlo a GitHub Pages están en el README (registros A/CN
 
 ---
 
+10. **Web 10/10** (guía en `docs/guia-web-10de10.md`): scorecard v1 = 4.9/10 en
+    `docs/scorecard-v1.md`. Hecho el 23 oct: AEO (`llms.txt`, `llms-full.txt`, `index.md` por
+    documental indexable, `npm test` lo verifica), acentos en títulos de sección, footer viejo
+    con anclas rotas (#sobre, #contacto…) apuntando a páginas reales y chequeo de anclas en
+    `npm test`. Siguiente pasada propuesta en el scorecard: prueba social (4 M suscriptores,
+    642 M vistas, desde 2015, en `site.config.json` → channel), hero con el DoQ y lema, CTA de
+    suscripción en móvil, página "Quién es".
+11. **yt-dlp**: el Python 3.9 por defecto ya no recibe versiones nuevas. Bajar subtítulos con
+    `YT_DLP_PYTHON=".../Python311/python.exe" node scripts/transcripciones.mjs ...`.
+
 ## 4. Memoria del proyecto en claude.ai (copiada tal cual, con fecha de mayo)
 
 Estas notas describen el sitio v1. Lo que ya no aplica está marcado.

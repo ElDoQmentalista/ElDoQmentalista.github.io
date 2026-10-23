@@ -245,7 +245,7 @@ const temasTodos = (() => {
   return [...map.values()].filter((t) => t.videos.length >= 3).sort((a, b) => b.videos.length - a.videos.length);
 })();
 
-function head({ title, description, url, image, extraJsonLd = [], noindex = false, prev = '', next = '', oraculos = false }) {
+function head({ title, description, url, image, extraJsonLd = [], noindex = false, prev = '', next = '', oraculos = false, markdown = '' }) {
   const ld = extraJsonLd.map((o) => `<script type="application/ld+json">${JSON.stringify(o)}</script>`).join('\n');
   return `<!doctype html>
 <html lang="${S.lang}">
@@ -257,6 +257,7 @@ function head({ title, description, url, image, extraJsonLd = [], noindex = fals
 <link rel="canonical" href="${esc(url)}">
 ${noindex ? '<meta name="robots" content="noindex,follow">' : '<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">'}
 ${prev ? `<link rel="prev" href="${esc(prev)}">` : ''}${next ? `<link rel="next" href="${esc(next)}">` : ''}
+${markdown ? `<link rel="alternate" type="text/markdown" href="${esc(markdown)}">` : ''}
 <meta name="theme-color" content="${S.themeColor}">
 <meta property="og:type" content="${/\/v\//.test(url) ? 'video.other' : 'website'}">
 <meta property="og:site_name" content="${esc(S.name)}">
@@ -397,7 +398,7 @@ function buildHome() {
   </section>
 
   ${destacado ? `<section class="wrap featured">
-    <h2 class="section-title aparece">Ultimo documental</h2>
+    <h2 class="section-title aparece">Último documental</h2>
     <a class="featured-card" href="/v/${destacado.slug}/">
       <span class="thumb">
         <img src="${thumb(destacado.id)}" alt="Miniatura: ${esc(destacado.title)}" width="1280" height="720" fetchpriority="high" decoding="async">
@@ -417,18 +418,18 @@ function buildHome() {
   </section>` : ''}
 
   <section class="wrap">
-    <h2 class="section-title aparece">Lo mas visto</h2>
+    <h2 class="section-title aparece">Lo más visto</h2>
     <div class="grid">${masVistos.map((v, i) => card(v, { eager: i < 3 })).join('')}</div>
   </section>
 
   <section class="wrap">
-    <h2 class="section-title aparece">Lo mas reciente</h2>
+    <h2 class="section-title aparece">Lo más reciente</h2>
     <div class="grid">${recientes.map((v) => card(v)).join('')}</div>
     <p class="actions"><a class="btn" href="/videos/">Ver el archivo completo (${videos.length.toLocaleString('es-ES')} videos)</a></p>
   </section>
 
   ${sagas.length ? `<section class="wrap">
-    <h2 class="section-title aparece">Sumergete en las sagas</h2>
+    <h2 class="section-title aparece">Sumérgete en las sagas</h2>
     <p class="lead-sub">Series completas, ordenadas, listas para maratonear. Cada saga es un viaje.</p>
     <div class="grid sagas-grid">
       ${sagas.map((s) => {
@@ -464,10 +465,10 @@ function buildArchivo() {
     const url = n === 1 ? `${BASE}/videos/` : `${BASE}/videos/${n}/`;
     const titulo = n === 1
       ? `Todos los videos de ${S.name} — archivo completo`
-      : `Todos los videos de ${S.name} — pagina ${n}`;
+      : `Todos los videos de ${S.name} — página ${n}`;
     const descripcion = n === 1
       ? `El archivo completo de ${S.name}: ${videos.length.toLocaleString('es-ES')} documentales sobre misterio, ocultismo, la Biblia, el Vaticano, profecias y lo paranormal.`
-      : `Pagina ${n} del archivo de ${S.name}. Videos publicados entre ${fechaES(lote[lote.length - 1].published)} y ${fechaES(lote[0].published)}.`;
+      : `Página ${n} del archivo de ${S.name}. Videos publicados entre ${fechaES(lote[lote.length - 1].published)} y ${fechaES(lote[0].published)}.`;
 
     const ld = {
       '@context': 'https://schema.org', '@type': 'CollectionPage',
@@ -481,9 +482,9 @@ function buildArchivo() {
       next: n < paginas.length ? `${BASE}/videos/${n + 1}/` : '',
     }) + header('videos') + `
 <main id="main" class="wrap">
-  <nav class="breadcrumb" aria-label="Migas de pan"><a href="/">Inicio</a> <span>/</span> <span aria-current="page">Videos${n > 1 ? ` — pagina ${n}` : ''}</span></nav>
+  <nav class="breadcrumb" aria-label="Migas de pan"><a href="/">Inicio</a> <span>/</span> <span aria-current="page">Videos${n > 1 ? ` — página ${n}` : ''}</span></nav>
   <h1 class="titulo-archivo">Archivo completo <span class="count">${videos.length.toLocaleString('es-ES')} videos</span></h1>
-  ${n === 1 ? `<p class="lead-sub">Todo lo que se ha publicado en el canal, del mas reciente al mas antiguo. ¿Buscas algo concreto? <a href="/buscar/">Usa el buscador</a>.</p>` : `<p class="lead-sub">Pagina ${n} de ${paginas.length}.</p>`}
+  ${n === 1 ? `<p class="lead-sub">Todo lo que se ha publicado en el canal, del más reciente al más antiguo. ¿Buscas algo concreto? <a href="/buscar/">Usa el buscador</a>.</p>` : `<p class="lead-sub">Página ${n} de ${paginas.length}.</p>`}
   <div class="grid">${lote.map((v, j) => card(v, { eager: j < 3 })).join('')}</div>
   ${paginador('/videos/', n, paginas.length)}
 </main>` + footer();
@@ -530,7 +531,8 @@ function buildVideo(v) {
 
   const parrafos = (v.description || '').split(/\n{2,}/).map((p) => p.trim()).filter(Boolean);
 
-  const html = head({ title: `${v._tituloPagina || v.title} | ${S.name}`, description: desc, url, image: thumb(v.id), extraJsonLd: [vo, bc], noindex: !v._indexable })
+  if (v._indexable) writeFile(`dist/v/${v.slug}/index.md`, markdownDeVideo(v));
+  const html = head({ title: `${v._tituloPagina || v.title} | ${S.name}`, description: desc, url, image: thumb(v.id), extraJsonLd: [vo, bc], noindex: !v._indexable, markdown: v._indexable ? `${url}index.md` : '' })
     + header() + `
 <main id="main" class="wrap article">
   <nav class="breadcrumb" aria-label="Migas de pan">
@@ -570,7 +572,7 @@ function buildVideo(v) {
   </p>
 
   ${related.length ? `<section class="related">
-    <h2 class="section-title aparece">Tambien te puede interesar</h2>
+    <h2 class="section-title aparece">También te puede interesar</h2>
     <div class="grid">${related.map((r) => card(r)).join('')}</div>
   </section>` : ''}
 </main>` + footer();
@@ -589,9 +591,9 @@ function buildTemas() {
     paginas.forEach((lote, i) => {
       const n = i + 1;
       const url = n === 1 ? `${BASE}/tema/${t.slug}/` : `${BASE}/tema/${t.slug}/${n}/`;
-      const titulo = n === 1 ? `${t.name} — ${lista.length} documentales de ${S.name}` : `${t.name} — pagina ${n} | ${S.name}`;
+      const titulo = n === 1 ? `${t.name} — ${lista.length} documentales de ${S.name}` : `${t.name} — página ${n} | ${S.name}`;
       const descripcion = n === 1
-        ? `${lista.length} documentales de ${S.name} sobre ${t.name.toLowerCase()}. Archivo completo, ordenado del mas reciente al mas antiguo.`
+        ? `${lista.length} documentales de ${S.name} sobre ${t.name.toLowerCase()}. Archivo completo, ordenado del más reciente al más antiguo.`
         : `${t.name}: página ${n} de ${paginas.length}. Documentales ${(n - 1) * POR_PAGINA + 1} a ${(n - 1) * POR_PAGINA + lote.length} de ${lista.length}.`;
       const ld = {
         '@context': 'https://schema.org', '@type': 'CollectionPage',
@@ -634,14 +636,14 @@ function buildBuscador() {
   writeFile('dist/assets/search.json', JSON.stringify(indice));
 
   const url = `${BASE}/buscar/`;
-  const html = head({ title: `Buscar en el archivo — ${S.name}`, description: `Busca entre los ${videos.length.toLocaleString('es-ES')} videos de ${S.name} por titulo o tema.`, url, image: videos[0] ? thumb(videos[0].id) : '', noindex: true })
+  const html = head({ title: `Buscar en el archivo — ${S.name}`, description: `Busca entre los ${videos.length.toLocaleString('es-ES')} videos de ${S.name} por título o tema.`, url, image: videos[0] ? thumb(videos[0].id) : '', noindex: true })
     + header('buscar') + `
 <main id="main" class="wrap article buscador">
   <nav class="breadcrumb" aria-label="Migas de pan"><a href="/">Inicio</a> <span>/</span> <span aria-current="page">Buscar</span></nav>
   <h1>Buscar</h1>
   <form class="hero-buscar" role="search" onsubmit="return false">
     <label class="sr-only" for="q">Buscar video</label>
-    <input id="q" name="q" type="search" placeholder="Escribe un tema, un nombre, un titulo…" autocomplete="off" autofocus>
+    <input id="q" name="q" type="search" placeholder="Escribe un tema, un nombre, un título…" autocomplete="off" autofocus>
   </form>
   <p id="estado" class="lead-sub">Cargando el indice de ${videos.length.toLocaleString('es-ES')} videos…</p>
   <div class="grid" id="resultados"></div>
@@ -920,6 +922,7 @@ ${mapas.map((m) => `  <sitemap><loc>${BASE}/${m}</loc><lastmod>${hoy}</lastmod><
 Allow: /
 Disallow: /buscar/
 
+# Guia para asistentes de IA: ${BASE}/llms.txt
 Sitemap: ${BASE}/sitemap.xml
 `);
 
@@ -943,11 +946,11 @@ ${items}
 }
 
 function build404() {
-  const html = head({ title: `Pagina no encontrada — ${S.name}`, description: 'Esta pagina no existe.', url: BASE + '/404.html', image: videos[0] ? thumb(videos[0].id) : '', noindex: true })
+  const html = head({ title: `Página no encontrada — ${S.name}`, description: 'Esta página no existe.', url: BASE + '/404.html', image: videos[0] ? thumb(videos[0].id) : '', noindex: true })
     + header() + `
 <main id="main" class="wrap article center">
   <h1>404</h1>
-  <p class="lead">Esa pagina no existe o cambio de sitio.</p>
+  <p class="lead">Esa página no existe o cambió de sitio.</p>
   <p class="actions"><a class="btn" href="/videos/">Ver el archivo completo</a> <a class="btn ghost" href="/buscar/">Buscar</a></p>
 </main>` + footer();
   writeFile('dist/404.html', html);
@@ -990,6 +993,73 @@ function copyAssets() {
 `);
 }
 
+// ---------- AEO: lo que leen ChatGPT, Claude, Perplexity ----------
+// llms.txt (indice para asistentes de IA), llms-full.txt (todos los documentales indexables)
+// y un index.md limpio junto a cada pagina de video indexable. Solo datos reales del archivo.
+const mdLimpio = (t = '') => String(t).replace(/[\p{Extended_Pictographic}‍️]/gu, '').replace(/\s+/g, ' ').replace(/\[/g, '(').replace(/\]/g, ')').replace(/\s+([-–—|])\s*$/, '').trim();
+const mdUrl = (v) => `${videoUrl(v)}index.md`;
+
+function markdownDeVideo(v) {
+  const meta = [
+    v.published ? fechaES(v.published) : '',
+    v.duration ? humanDuration(v.duration) : '',
+    v.views ? `${v.views.toLocaleString('es-ES')} reproducciones en YouTube` : '',
+  ].filter(Boolean).join(' · ');
+  const s = sagaDe.get(v.id);
+  const partes = [
+    `# ${mdLimpio(v.title)}`,
+    `> ${v.kind === 'short' ? 'Video corto' : 'Documental'} de ${S.name}${meta ? ` · ${meta}` : ''}`,
+    `- Ver en YouTube: ${watchUrl(v)}\n- Página: ${videoUrl(v)}`,
+    `## Sobre este ${v.kind === 'short' ? 'video' : 'documental'}`,
+    (v._parrafos.length ? v._parrafos : [v._ficha]).map(mdLimpio).join('\n\n'),
+  ];
+  const datos = [];
+  if ((v.tags || []).length) datos.push(`- Temas: ${v.tags.join(', ')}`);
+  if (s) datos.push(`- Saga: ${s.name}`);
+  if (datos.length) partes.push(datos.join('\n'));
+  if (v._transcripcion.length) {
+    partes.push('## Transcripción', '_A partir de los subtítulos automáticos de YouTube._', v._transcripcion.join('\n\n'));
+  }
+  return partes.join('\n\n') + '\n';
+}
+
+function buildAEO() {
+  const C = cfg.channel;
+  const cifras = [C.suscriptores ? `${C.suscriptores} de suscriptores` : '', C.vistas ? `más de ${C.vistas} de vistas` : '', C.desde ? `en YouTube desde ${C.desde}` : ''].filter(Boolean).join(', ');
+  const porVistas = [...indexables].sort((a, b) => (b.views || 0) - (a.views || 0));
+  const linea = (v) => `- [${mdLimpio(v.title)}](${mdUrl(v)}): ${[v.published ? fechaES(v.published) : '', v.duration ? humanDuration(v.duration) : '', (v.tags || []).slice(0, 3).join(', ')].filter(Boolean).join(' · ')}`;
+
+  writeFile('dist/llms.txt', `# ${S.name}
+
+> ${S.name} es el canal de documentales en español de David Hernández Ríos: misterios de la Biblia, secretos del Vaticano, Kabbalah, México prehispánico, profecías, esoterismo, leyendas y fenómenos paranormales.${cifras ? ` ${cifras.charAt(0).toUpperCase() + cifras.slice(1)}.` : ''} Su lema: «Trabajo desde las sombras, para servir a la luz.»
+
+Cada documental abre un expediente y lo recorre con el espectador como cómplice: presenta la tradición, el texto antiguo o el testimonio, y deja que cada quien saque sus propias conclusiones. Este sitio es el archivo completo del canal (${videos.length.toLocaleString('es-ES')} videos); cada documental indexable tiene una versión en Markdown con su resumen y, cuando existe, su transcripción.
+
+## Secciones
+- [Archivo completo](${BASE}/videos/): todos los videos, del más reciente al más antiguo
+- [Sagas](${BASE}/sagas/): ${sagas.map((s) => s.name).join(', ')}
+- [Temas](${BASE}/temas/): ${temasTodos.slice(0, 8).map((t) => t.name).join(', ')}
+- [Oráculos](${BASE}/herramientas/): Nombre de Bruja o Brujo, Animal Espiritual y Ángel de Nacimiento (72 ángeles del Shem HaMephorash)
+- [Universo DoQ](${BASE}/canales/): El DoQmentalista, El Oráculo (sueños y simbolismo), AterradorMente (terror) y Soy De Dios (reflexiones y fábulas con mensaje)
+- [Preguntas frecuentes](${BASE}/preguntas-frecuentes/)
+- [Canal de YouTube](${channelUrl})
+
+## Documentales más vistos
+${porVistas.slice(0, 60).map(linea).join('\n')}
+
+## Optional
+- [Índice de todos los documentales](${BASE}/llms-full.txt): ${indexables.length.toLocaleString('es-ES')} documentales con su versión en Markdown
+- Contacto para prensa y colaboraciones: el.doq.mentalista@gmail.com
+`);
+
+  writeFile('dist/llms-full.txt', `# ${S.name} — índice completo de documentales
+
+> ${indexables.length.toLocaleString('es-ES')} documentales del archivo de ${S.name}, ordenados por reproducciones. Cada enlace lleva a una versión en Markdown con resumen, datos y, cuando existe, la transcripción.
+
+${porVistas.map(linea).join('\n')}
+`);
+}
+
 // ---------- run ----------
 console.time('build');
 fs.rmSync(path.join(ROOT, 'dist'), { recursive: true, force: true });
@@ -1003,6 +1073,7 @@ buildCanales();
 buildFAQ();
 buildBuscador();
 const numMapas = buildSitemaps(numPaginasArchivo);
+buildAEO();
 build404();
 copyAssets();
 console.timeEnd('build');
@@ -1012,5 +1083,5 @@ console.log(`   ${videos.length.toLocaleString('es-ES')} paginas de video  (${in
 console.log(`   ${numPaginasArchivo} paginas de archivo  ·  ${numTemas} paginas de tema (${temasTodos.length} temas)`);
 console.log(`   ${numSagas} paginas de saga (${sagas.length} sagas)  ·  ${numHerr} paginas de oraculos`);
 console.log(`   canales + preguntas frecuentes + buscador`);
-console.log(`   ${numMapas} sitemaps + robots.txt + feed.xml`);
+console.log(`   ${numMapas} sitemaps + robots.txt + feed.xml + llms.txt + ${indexables.length.toLocaleString("es-ES")} index.md`);
 if (/TU-DOMINIO/.test(BASE)) console.log(`\n!  Falta poner tu dominio real en site.config.json (campo site.domain)\n`);

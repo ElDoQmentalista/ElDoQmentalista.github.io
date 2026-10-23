@@ -94,6 +94,13 @@ for (const p of htmls) {
   }
 
   for (const m of html.matchAll(/href="(\/[^"#?]*)"/g)) enlacesInternos.set(m[1], r);
+
+  // Anclas dentro de la misma pagina (#algo): el id tiene que existir. Asi se colo el footer
+  // viejo con #sobre y #contacto que no llevaban a ningun lado.
+  const ids = new Set([...html.matchAll(/\bid="([^"]+)"/g)].map((m) => m[1]));
+  for (const m of html.matchAll(/href="#([^"]+)"/g)) {
+    if (!ids.has(m[1])) fallo(`${r}: ancla rota #${m[1]}`);
+  }
 }
 
 // ---------- enlaces internos rotos ----------
@@ -129,6 +136,38 @@ else {
 }
 
 if (!fs.existsSync(path.join(DIST, 'robots.txt'))) fallo('Falta dist/robots.txt');
+
+// ---------- AEO (llms.txt y Markdown por documental) ----------
+console.log('> AEO');
+{
+  const llms = path.join(DIST, 'llms.txt');
+  if (!fs.existsSync(llms)) fallo('Falta dist/llms.txt');
+  else {
+    let enlaces = 0;
+    for (const f of ['llms.txt', 'llms-full.txt']) {
+      const p = path.join(DIST, f);
+      if (!fs.existsSync(p)) { fallo(`Falta dist/${f}`); continue; }
+      for (const m of fs.readFileSync(p, 'utf8').matchAll(/\]\((https?:\/\/[^)]+)\)/g)) {
+        if (!m[1].startsWith(BASE)) continue; // YouTube y externos
+        enlaces++;
+        const ruta = m[1].slice(BASE.length) || '/';
+        if (!fs.existsSync(path.join(DIST, ruta)) && !existe(ruta)) fallo(`${f} apunta a ${ruta}, que no existe`);
+      }
+    }
+    // Cada pagina de video indexable tiene su index.md, y ninguna en noindex lo tiene
+    let mds = 0;
+    for (const v of videos) {
+      const dir = path.join(DIST, 'v', v.slug || '');
+      if (!v.slug || !fs.existsSync(path.join(dir, 'index.html'))) continue;
+      const tieneMd = fs.existsSync(path.join(dir, 'index.md'));
+      const enNoindex = noindex.has(`/v/${v.slug}/`);
+      if (!enNoindex && !tieneMd) fallo(`/v/${v.slug}/: indexable pero sin index.md`);
+      if (enNoindex && tieneMd) fallo(`/v/${v.slug}/: tiene index.md pero esta en noindex`);
+      if (tieneMd) mds++;
+    }
+    console.log(`  llms.txt + llms-full.txt (${enlaces} enlaces internos) · ${mds} documentales en Markdown`);
+  }
+}
 
 // ---------- transcripciones ----------
 // Cada transcripcion bajada tiene que verse en la pagina de su video, sin etiquetas

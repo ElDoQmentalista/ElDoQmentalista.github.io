@@ -3,3 +3,8 @@ dist/
 .env
 .DS_Store
 Thumbs.db
+
+# Material privado de voz e identidad de Inri: NUNCA se publica
+Información Importante sobre El DoQmentalista/
+LEEME-MIGRACION.md
+handoff-claude-code.zip

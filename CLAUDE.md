@@ -74,6 +74,11 @@ node scripts/youtube-update.mjs data/lote-N.csv [--dry]   # publica títulos/des
 
 ## Voz, copy y marca
 
+- **Títulos de YouTube = hooks.** Todo título nuevo (lotes de re-empaque, videos nuevos) sigue
+  `docs/tutorial-hooks.md`: afirmativo, herético contra la creencia establecida de ese tema,
+  discordante, sin preguntas ni "podría/según/lo que nadie te contó", y cubre el video completo
+  (regla de Inri, 23 oct 2026).
+
 - Español de México, prosa cinematográfica, tono editorial solemne. Nada de "muertos",
   "abismo", "Hereje", "círculo invoca" ni referencias mórbidas en el copy del sitio.
 - Oráculos sin lenguaje de género: "Eres alguien con…" en vez de "Portadora/Hijo".

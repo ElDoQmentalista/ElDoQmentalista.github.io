@@ -60,7 +60,9 @@ for (const id of ids) {
   const destino = path.join(DIR, id + '.txt');
   if (fs.existsSync(destino) && fs.statSync(destino).size > 200) { cache++; continue; }
   try {
-    execFileSync('python', ['-m', 'yt_dlp', '--skip-download',
+    // YT_DLP_PYTHON permite usar otro Python: yt-dlp ya no se actualiza en Python 3.9 y una
+    // version vieja deja de funcionar en cuanto YouTube cambia ("The page needs to be reloaded")
+    execFileSync(process.env.YT_DLP_PYTHON || 'python', ['-m', 'yt_dlp', '--skip-download',
       '--write-auto-subs', '--write-subs', '--sub-langs', 'es,es-419',
       '--sub-format', 'vtt', '-o', path.join(DIR, id + '.%(ext)s'),
       `https://www.youtube.com/watch?v=${id}`],

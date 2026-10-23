@@ -149,10 +149,17 @@ conectado. Pasos para traerlo a GitHub Pages están en el README (registros A/CN
    descripción (con hasta 3 hashtags dentro) y keywords (tags ≤500 caracteres) → CSV con
    columnas `ID, NUEVO TITULO, NUEVA DESCRIPCION, KEYWORDS` → `--dry` → publicar →
    `npm run aplicar`/`import` → build → test → push.
-5. **Soy De Dios**: cambiar "Inspiración cristiana" en `src/partes/seccion-canales.html`
+5. ~~**Soy De Dios**~~ (hecho el 23 oct 2026: ahora dice "Reflexiones y fábulas con mensaje"): cambiar "Inspiración cristiana" en `src/partes/seccion-canales.html`
    (línea ~43) y en el FAQ de `scripts/build.mjs` (línea ~775) por algo como
    "Reflexiones y fábulas con mensaje" — Inri corrigió que el canal no es cristiano.
-6. **Dominio propio**: conectar www.eldoqmentalista.com (ver README).
+6. **Dominio propio**: conectar www.eldoqmentalista.com (ver README). Estado al 23 oct:
+   pagado en Wix hasta el 18 abr 2028 (factura #1230718585, 19 mar 2026, 1,281.50 MXN,
+   cobrada en la cuenta de el.doq.mentalista@gmail.com), pero el dominio vive en OTRA
+   cuenta de Wix y no aparece en Dominios. Soporte de Wix (chat con Sarita) lo escaló al
+   equipo de acceso de cuentas: **caso 3000341571**; responden por
+   correo a el.doq.mentalista@gmail.com. Cuando aparezca: registros A de `@` →
+   185.199.108.153 / .109.153 / .110.153 / .111.153, CNAME `www` → eldoqmentalista.github.io,
+   luego `site.config.json` y Settings → Pages en GitHub. No pagar Premium para esto.
 7. **Bing Webmaster Tools**: importar desde Search Console.
 8. **Transcripciones como contenido**: hay 419 bajadas; usarlas como texto real de las
    páginas `/v/<slug>/` es la vía de mayor impacto SEO (cola larga). No construido aún.

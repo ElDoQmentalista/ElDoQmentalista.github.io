@@ -13,7 +13,7 @@ en `docs/HISTORIAL-PROYECTO.md`: léelo al empezar cualquier sesión.**
 - Cuatro canales del "Universo DoQ": El DoQmentalista, El Oráculo (sueños y simbolismo),
   AterradorMente (terror), Soy De Dios. **Soy De Dios NO es cristiano**: son reflexiones y
   fábulas con mensaje, "con el sello de Dios" pero sin religión (corrección de Inri del
-  26 sep 2026). El sitio todavía dice "Inspiración cristiana" — hay que corregirlo.
+  26 sep 2026). En el sitio se describe como "Reflexiones y fábulas con mensaje" (corregido el 23 oct 2026).
 - Contacto: el.doq.mentalista@gmail.com. Redes: @eldoqmentalista (YouTube/TikTok),
   eldoqmentalistaoficial (Instagram), DQMentalista (X), ElDoQmentalistaOficial (Facebook).
 - Tagline oficial: "Trabajo desde las sombras, para servir a la luz."

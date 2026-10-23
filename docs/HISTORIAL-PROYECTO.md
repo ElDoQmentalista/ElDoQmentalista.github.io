@@ -144,7 +144,10 @@ conectado. Pasos para traerlo a GitHub Pages están en el README (registros A/CN
    antes de retirar nada; los 3 retirados el 30 ago (9CvlOizSWhU, sOilOsK0tbc, 9EPA4RZZAG8)
    se dieron por confirmados, pero el 31 ago se descubrió que los fallos eran cuota, no
    borrado — conviene re-verificar también esos 3.
-4. **Lote 6 en adelante**: ~2,058 videos pendientes en `data/para-editar.csv` menos los ya
+4. **Lote 6 publicado el 23 oct 2026** (98 videos, títulos-hook, 98/98 verificado; detalle en
+   `data/cola-publicacion.md`). Método: lista por vistas sin shorts ni líneas rojas → bajar
+   transcripciones → 4 redactores en paralelo con `docs/tutorial-hooks.md` y la guía de voz →
+   validación automática → `--dry` → aprobación de Inri → publicar → verificar. **Lote 7 en adelante**: ~2,058 videos pendientes en `data/para-editar.csv` menos los ya
    publicados. Pipeline: `npm run lista` → elegir lote por vistas → generar título,
    descripción (con hasta 3 hashtags dentro) y keywords (tags ≤500 caracteres) → CSV con
    columnas `ID, NUEVO TITULO, NUEVA DESCRIPCION, KEYWORDS` → `--dry` → publicar →

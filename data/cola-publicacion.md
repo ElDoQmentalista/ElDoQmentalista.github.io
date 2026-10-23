@@ -14,6 +14,12 @@ Reglas para el publicador (sesión nocturna o manual):
 - [x] data/lote-4.csv  (100 videos) — publicado 2026-08-31 madrugada, 100/100
 - [x] data/lote-3.csv  (100 videos) — 87 el 2026-08-30; los 13 restantes (fallos de cuota) el 2026-10-23. 100/100 verificado
 - [x] data/lote-5.csv  (100 videos) — 96 el 2026-08-31; los 4 restantes el 2026-10-23. 100/100 verificado
+- [x] data/lote-6.csv  (98 videos) — publicado 2026-10-23, 98/98 verificado. Primer lote con
+      títulos-hook (docs/tutorial-hooks.md). Ojo: un videos.list justo después de publicar puede
+      devolver los tags viejos (caché de YouTube); se resuelve solo en segundos. Fuera:
+      -kuDeBAvVmE (borrado de YouTube, verificado con videos.list), ZT6rLYuRnLw (Osowiec 1915,
+      Primera Guerra Mundial = línea roja), A5YeT2n5dKs (5.8 M vistas, no se toca),
+      is2AZW8DgI0 (Himmler/nazi = línea roja)
 
 ## Después de la cola
 

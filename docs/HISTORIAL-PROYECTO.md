@@ -140,7 +140,7 @@ conectado. Pasos para traerlo a GitHub Pages están en el README (registros A/CN
    los que ya están al día) y marcarlo `[x]` en `data/cola-publicacion.md`.
 2. **DU0YWfvohU4**: ponerle el título "Los 4 Jinetes del Apocalipsis: la advertencia que ya
    se cumple" cuando termine su Test & Compare en YouTube.
-3. **Verificar videos "muertos"** del lote 3 con `videos.list` (lotes de 50, ~4 unidades)
+3. ~~**Verificar videos "muertos"**~~ Hecho el 23 oct 2026: los 100 IDs del lote 3 existen; los 3 retirados volvieron a la web. Falta re-correr `node scripts/youtube-update.mjs data/lote-3.csv` para los 13 que no se publicaron por cuota. Texto original: del lote 3 con `videos.list` (lotes de 50, ~4 unidades)
    antes de retirar nada; los 3 retirados el 30 ago (9CvlOizSWhU, sOilOsK0tbc, 9EPA4RZZAG8)
    se dieron por confirmados, pero el 31 ago se descubrió que los fallos eran cuota, no
    borrado — conviene re-verificar también esos 3.
@@ -160,11 +160,13 @@ conectado. Pasos para traerlo a GitHub Pages están en el README (registros A/CN
    correo a el.doq.mentalista@gmail.com. Cuando aparezca: registros A de `@` →
    185.199.108.153 / .109.153 / .110.153 / .111.153, CNAME `www` → eldoqmentalista.github.io,
    luego `site.config.json` y Settings → Pages en GitHub. No pagar Premium para esto.
-7. **Bing Webmaster Tools**: importar desde Search Console.
+7. ~~**Bing Webmaster Tools**: importar desde Search Console.~~ Hecho el 23 oct 2026
+   (importado desde GSC con su sitemap).
 8. **Transcripciones como contenido**: hay 419 bajadas; usarlas como texto real de las
    páginas `/v/<slug>/` es la vía de mayor impacto SEO (cola larga). No construido aún.
-9. **Cuota de la API key**: ponerle límite diario en Google Cloud Console (recomendado en
-   el README, no confirmado hecho).
+9. **API key**: el límite diario no protege (la API es gratis). En su lugar, el 23 oct 2026 se creó
+   la key `scripts-sitio-2026` (en la cuenta de Google aparte, solo YouTube Data API v3) en `.env`;
+   falta borrar la vieja "Clave Claude 17" (…5tDrNw), que quedó en el historial público de git.
 
 ---
 

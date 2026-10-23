@@ -1,3 +1,3 @@
 PENDIENTE: DU0YWfvohU4 -> titulo 'Los 4 Jinetes del Apocalipsis: la advertencia que ya se cumple' cuando termine su Test & Compare
 
-LOTE 3: 13 IDs fallaron con "no existe" (borrados tras el export). 3 confirmados y retirados de la web: 9CvlOizSWhU sOilOsK0tbc 9EPA4RZZAG8. Verificar los otros 10 con la cuota de manana y retirar los muertos.
+LOTE 3 (resuelto 23 oct 2026): los 13 fallos fueron cuota, no borrado. Verificado con videos.list: los 100 IDs del lote existen y son publicos. Los 3 retirados (9CvlOizSWhU sOilOsK0tbc 9EPA4RZZAG8) se restauraron en videos.json. Falta re-correr youtube-update con data/lote-3.csv para publicar el re-empaque de esos 13.

@@ -162,7 +162,13 @@ conectado. Pasos para traerlo a GitHub Pages están en el README (registros A/CN
    luego `site.config.json` y Settings → Pages en GitHub. No pagar Premium para esto.
 7. ~~**Bing Webmaster Tools**: importar desde Search Console.~~ Hecho el 23 oct 2026
    (importado desde GSC con su sitemap).
-8. **Transcripciones como contenido**: hay 419 bajadas; usarlas como texto real de las
+8. **Transcripciones como contenido** — CONSTRUIDO el 23 oct 2026 (commit local, pendiente de
+   que Inri lo apruebe y se publique): sección "Transcripción" en las 419 páginas `/v/` que
+   tienen archivo (2 párrafos visibles + desplegable), `[Música]` y similares limpiados,
+   300+ palabras cuentan como texto propio (indexables 1,057 → 1,080). `npm test` verifica que
+   las 419 se vean. Se apaga con `build.transcripciones: false`. Ojo: son subtítulos
+   automáticos (errores tipo "super jisus") y contienen palabras vetadas del copy
+   ("muertos" en 91, "abismo" en 27, "hereje" en 6) porque es la narración real. Texto original: hay 419 bajadas; usarlas como texto real de las
    páginas `/v/<slug>/` es la vía de mayor impacto SEO (cola larga). No construido aún.
 9. **API key**: el límite diario no protege (la API es gratis). En su lugar, el 23 oct 2026 se creó
    la key `scripts-sitio-2026` (en la cuenta de Google aparte, solo YouTube Data API v3) en `.env`;

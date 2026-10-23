@@ -151,8 +151,53 @@ videos.forEach((v) => {
   v._ficha = partes.join(' ');
 });
 
+// Transcripciones (data/transcripciones/<id>.txt, de scripts/transcripciones.mjs): lo que
+// el DoQ dice en el video, palabra por palabra. Es el texto propio mas valioso del sitio.
+// Los subtitulos automaticos no traen puntuacion, asi que se parten en parrafos de unas
+// 80 palabras, cortando donde la siguiente palabra empieza con mayuscula (suele ser
+// inicio de frase). Se apaga con build.transcripciones: false.
+const DIR_TRANSCRIPCIONES = path.join(ROOT, 'data/transcripciones');
+const MOSTRAR_TRANSCRIPCIONES = cfg.build.transcripciones !== false;
+
+function parrafosDeTranscripcion(texto) {
+  const palabras = texto
+    .replace(/\[[^\]]*\]/g, ' ') // [Música], [Aplausos], [ __ ]
+    .replace(/\s+/g, ' ')
+    .trim()
+    .split(' ')
+    .filter(Boolean);
+  const parrafos = [];
+  let actual = [];
+  for (let i = 0; i < palabras.length; i++) {
+    actual.push(palabras[i]);
+    const sig = palabras[i + 1] || '';
+    if ((actual.length >= 70 && /^[A-ZÁÉÍÓÚÑ¿¡]/.test(sig)) || actual.length >= 120) {
+      parrafos.push(actual.join(' '));
+      actual = [];
+    }
+  }
+  if (actual.length) {
+    // Una cola muy corta se pega al parrafo anterior
+    if (actual.length < 25 && parrafos.length) parrafos[parrafos.length - 1] += ' ' + actual.join(' ');
+    else parrafos.push(actual.join(' '));
+  }
+  return parrafos.map((p) => p.charAt(0).toUpperCase() + p.slice(1));
+}
+
+videos.forEach((v) => {
+  v._transcripcion = [];
+  v._palabrasTranscripcion = 0;
+  if (!MOSTRAR_TRANSCRIPCIONES) return;
+  const p = path.join(DIR_TRANSCRIPCIONES, `${v.id}.txt`);
+  if (!fs.existsSync(p)) return;
+  v._transcripcion = parrafosDeTranscripcion(fs.readFileSync(p, 'utf8'));
+  v._palabrasTranscripcion = v._transcripcion.join(' ').split(' ').length;
+});
+
 // Una pagina solo se manda a Google si tiene contenido propio que ofrecer.
+// Una transcripcion de 300+ palabras cuenta como contenido propio.
 function esDelgado(v) {
+  if (v._palabrasTranscripcion >= 300) return false;
   const t = v._texto;
   if (t.length < 250) return true;
   return (t.match(/[.!?]/g) || []).length < 3;
@@ -506,6 +551,16 @@ function buildVideo(v) {
       ? parrafos.map((p) => `<p>${esc(p).replace(/(https?:\/\/[^\s<]+)/g, '<a href="$1" rel="nofollow noopener" target="_blank">$1</a>')}</p>`).join('')
       : `<p>${esc(v._ficha)}</p>`}
   </div>
+
+  ${v._transcripcion.length ? `<section class="transcripcion prose" aria-labelledby="t-${v.id}">
+    <h2 id="t-${v.id}" class="aparece">Transcripción</h2>
+    <p class="nota-transcripcion">Lo que se narra en el ${v.kind === 'short' ? 'video' : 'documental'}, a partir de los subtítulos automáticos de YouTube (${v._palabrasTranscripcion.toLocaleString('es-ES')} palabras).</p>
+    ${v._transcripcion.slice(0, 2).map((p) => `<p>${esc(p)}</p>`).join('')}
+    ${v._transcripcion.length > 2 ? `<details>
+      <summary>Leer la transcripción completa</summary>
+      ${v._transcripcion.slice(2).map((p) => `<p>${esc(p)}</p>`).join('')}
+    </details>` : ''}
+  </section>` : ''}
 
   ${(v.tags || []).length ? `<ul class="chips small-chips">${(v.tags || []).map((t) => `<li><a href="/tema/${slugify(t)}/">${esc(t)}</a></li>`).join('')}</ul>` : ''}
 

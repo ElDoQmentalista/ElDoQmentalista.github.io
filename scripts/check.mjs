@@ -130,6 +130,30 @@ else {
 
 if (!fs.existsSync(path.join(DIST, 'robots.txt'))) fallo('Falta dist/robots.txt');
 
+// ---------- transcripciones ----------
+// Cada transcripcion bajada tiene que verse en la pagina de su video, sin etiquetas
+// de subtitulos ([Música]) y sin texto sin escapar.
+if (cfg.build.transcripciones !== false) {
+  console.log('> Transcripciones');
+  const dirT = path.join(ROOT, 'data/transcripciones');
+  const conT = fs.existsSync(dirT) ? fs.readdirSync(dirT).filter((f) => f.endsWith('.txt')).map((f) => f.slice(0, -4)) : [];
+  const porId = new Map(videos.map((v) => [v.id, v]));
+  let vistas = 0;
+  for (const id of conT) {
+    const v = porId.get(id);
+    if (!v) { aviso(`Transcripcion sin video en videos.json: ${id}`); continue; }
+    const p = path.join(DIST, 'v', v.slug, 'index.html');
+    if (!fs.existsSync(p)) continue; // ya lo reporta el chequeo de paginas
+    const html = fs.readFileSync(p, 'utf8');
+    const m = html.match(/<section class="transcripcion[\s\S]*?<\/section>/);
+    if (!m) { fallo(`/v/${v.slug}/: tiene transcripcion pero la pagina no la muestra`); continue; }
+    if (/\[(Música|Aplausos|Risas| __ )\]/.test(m[0])) fallo(`/v/${v.slug}/: la transcripcion trae etiquetas de subtitulos`);
+    if (/<(?!\/?(p|h2|details|summary|section)\b)[a-z]/i.test(m[0])) fallo(`/v/${v.slug}/: la transcripcion trae HTML sin escapar`);
+    vistas++;
+  }
+  console.log(`  ${vistas} de ${conT.length} transcripciones visibles en su pagina`);
+}
+
 // ---------- resultado ----------
 const mostrar = (lista, etiqueta, limite = 15) => {
   if (!lista.length) return;

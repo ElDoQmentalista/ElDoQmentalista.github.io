@@ -124,7 +124,11 @@ const porId = new Map(videosLocal.map((v) => [v.id, v]));
       defaultAudioLanguage: actual.defaultAudioLanguage,
     };
 
-    const alDia = snippet.title === actual.title && snippet.description === actual.description && JSON.stringify(snippet.tags) === JSON.stringify(actual.tags || []);
+    // YouTube guarda la descripcion con otros espacios/saltos y reordena los tags, asi que
+    // una comparacion exacta daba "distinto" en videos ya publicados y los volvia a mandar.
+    const normDesc = (s) => String(s || '').replace(/\r/g, '').replace(/[ \t]+\n/g, '\n').trim();
+    const normTags = (a) => [...(a || [])].map((x) => x.toLowerCase()).sort().join('|');
+    const alDia = snippet.title === actual.title && normDesc(snippet.description) === normDesc(actual.description) && normTags(snippet.tags) === normTags(actual.tags);
     if (alDia) { console.log(`  = ${t.id} ya estaba al dia`); ok++; continue; }
     if (DRY) {
       console.log(`  ~ ${t.id}  "${snippet.title.slice(0, 55)}"  [${snippet.tags.length} keywords, desc ${snippet.description.length} car.]`);

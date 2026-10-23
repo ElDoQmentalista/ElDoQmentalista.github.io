@@ -136,11 +136,11 @@ conectado. Pasos para traerlo a GitHub Pages están en el README (registros A/CN
 
 ## 3. Pendientes (a 23 oct 2026)
 
-1. **Lote 5**: reintentar `node scripts/youtube-update.mjs data/lote-5.csv` (el script salta
+1. ~~**Lote 5**~~ Hecho el 23 oct 2026 (los 4 restantes; y los 13 del lote 3; ambos 100/100): reintentar `node scripts/youtube-update.mjs data/lote-5.csv` (el script salta
    los que ya están al día) y marcarlo `[x]` en `data/cola-publicacion.md`.
 2. **DU0YWfvohU4**: ponerle el título "Los 4 Jinetes del Apocalipsis: la advertencia que ya
    se cumple" cuando termine su Test & Compare en YouTube.
-3. ~~**Verificar videos "muertos"**~~ Hecho el 23 oct 2026: los 100 IDs del lote 3 existen; los 3 retirados volvieron a la web. Falta re-correr `node scripts/youtube-update.mjs data/lote-3.csv` para los 13 que no se publicaron por cuota. Texto original: del lote 3 con `videos.list` (lotes de 50, ~4 unidades)
+3. ~~**Verificar videos "muertos"**~~ Hecho el 23 oct 2026: los 100 IDs del lote 3 existen; los 3 retirados volvieron a la web. Los 13 que no se publicaron por cuota se publicaron el 23 oct 2026. Texto original: del lote 3 con `videos.list` (lotes de 50, ~4 unidades)
    antes de retirar nada; los 3 retirados el 30 ago (9CvlOizSWhU, sOilOsK0tbc, 9EPA4RZZAG8)
    se dieron por confirmados, pero el 31 ago se descubrió que los fallos eran cuota, no
    borrado — conviene re-verificar también esos 3.
@@ -160,6 +160,11 @@ conectado. Pasos para traerlo a GitHub Pages están en el README (registros A/CN
    correo a el.doq.mentalista@gmail.com. Cuando aparezca: registros A de `@` →
    185.199.108.153 / .109.153 / .110.153 / .111.153, CNAME `www` → eldoqmentalista.github.io,
    luego `site.config.json` y Settings → Pages en GitHub. No pagar Premium para esto.
+   Respuesta de Wix (23 oct, ref 096000251): el sitio tiene como PROPIETARIA a la agencia
+   **Cropical** (Inri es copropietario desde el 10 abr 2023) y el dominio vive en la cuenta de
+   Cropical aunque las facturas salen en la de Inri. Siguiente paso: pedir a Cropical que
+   transfiera el dominio a la cuenta de el.doq.mentalista@gmail.com (o que lo deje a Inri
+   como propietario). Si no responden, volver a escribir a Wix para escalar.
 7. ~~**Bing Webmaster Tools**: importar desde Search Console.~~ Hecho el 23 oct 2026
    (importado desde GSC con su sitemap).
 8. **Transcripciones como contenido** — CONSTRUIDO el 23 oct 2026 (commit local, pendiente de

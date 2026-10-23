@@ -70,5 +70,6 @@ const server = http.createServer(async (req, res) => {
 server.listen(PUERTO, () => {
   console.log('\nAbriendo el navegador para autorizar el canal...');
   console.log('Si no se abre solo, entra a:\n\n' + authUrl + '\n');
-  try { execSync(`start "" "${authUrl.replace(/&/g, '^&')}"`, { shell: 'cmd.exe' }); } catch (e) {}
+  // Entre comillas, cmd no necesita escapar los &; un ^ ahi se cuela en la URL y Google da 400
+  try { execSync(`start "" "${authUrl}"`, { shell: 'cmd.exe' }); } catch (e) {}
 });
